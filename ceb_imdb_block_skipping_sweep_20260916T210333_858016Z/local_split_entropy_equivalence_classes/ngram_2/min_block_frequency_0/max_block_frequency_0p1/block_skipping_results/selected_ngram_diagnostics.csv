@@ -1,0 +1,403 @@
+metadata_version,metadata_file,fingerprint_width,feature_selection_method,hamming_cluster_count,ngram_size,min_block_frequency,max_block_frequency,table_name,column_name,bit_index,ngram,ngrams,alias_count,block_presence_count,total_block_count,block_frequency
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+0,block_infix_fingerprint_v000.json,8,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,8,#@,"[""#@""]",1,14,155,0.09032258064516129
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,9,6b,"[""6b""]",1,14,155,0.09032258064516129
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,10,n@,"[""n@""]",1,12,155,0.07741935483870968
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,11,4m,"[""4m""]",1,11,155,0.07096774193548387
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,12,m6,"[""m6""]",1,7,155,0.04516129032258064
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,13,&c,"[""&c""]",1,8,155,0.05161290322580645
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,14,8r,"[""8r""]",1,5,155,0.03225806451612903
+1,block_infix_fingerprint_v001.json,16,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,15,b0,"[""b0""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,8,#@,"[""#@""]",1,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,9,6b,"[""6b""]",1,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,10,n@,"[""n@""]",1,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,11,4m,"[""4m""]",1,11,155,0.07096774193548387
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,12,m6,"[""m6""]",1,7,155,0.04516129032258064
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,13,&c,"[""&c""]",1,8,155,0.05161290322580645
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,14,8r,"[""8r""]",1,5,155,0.03225806451612903
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,15,b0,"[""b0""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,16,!t,"[""!t""]",1,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,17,k4,"[""k4""]",1,11,155,0.07096774193548387
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,18,bx,"[""bx""]",1,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,19,&t,"[""&t""]",1,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,20,s(,"[""s(""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,21,m&,"[""m&""]",1,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,22,h3,"[""h3""]",1,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,23,(q,"[""(q""]",1,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,24,0p,"[""0p""]",1,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,25,!i,"[""!i""]",1,6,155,0.03870967741935484
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,26,$a,"[""$a""]",1,7,155,0.04516129032258064
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,27,*n,"[""*n""]",1,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,28,)',"["")'""]",1,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,29,_e,"[""_e""]",1,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,30, <,"["" <""]",1,6,155,0.03870967741935484
+2,block_infix_fingerprint_v002.json,32,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,31,0b,"[""0b""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,8,#@,"[""#@""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,9,6b,"[""6b""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,10,n@,"[""n@""]",1,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,11,4m,"[""4m""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,12,m6,"[""m6""]",1,7,155,0.04516129032258064
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,13,&c,"[""&c""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,14,8r,"[""8r""]",1,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,15,b0,"[""b0""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,16,!t,"[""!t""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,17,k4,"[""k4""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,18,bx,"[""bx""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,19,&t,"[""&t""]",1,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,20,s(,"[""s(""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,21,m&,"[""m&""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,22,h3,"[""h3""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,23,(q,"[""(q""]",1,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,24,0p,"[""0p""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,25,!i,"[""!i""]",1,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,26,$a,"[""$a""]",1,7,155,0.04516129032258064
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,27,*n,"[""*n""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,28,)',"["")'""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,29,_e,"[""_e""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,30, <,"["" <""]",1,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,31,0b,"[""0b""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,32,0h,"[""0h""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,33,@k,"[""@k""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,34,"n""","[""n\""""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,35,"""n","[""\""n""]",1,7,155,0.04516129032258064
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,36,*2,"[""*2""]",1,7,155,0.04516129032258064
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,37,2?,"[""2?""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,38,c6,"[""c6""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,39,g1,"[""g1""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,40,"""a","[""\""a""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,41,"""p","[""\""p""]",1,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,42,#!,"[""#!""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,43, %,"["" %""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,44, _,"["" _""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,45,!d,"[""!d""]",1,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,46,"""m","[""\""m""]",1,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,47,$9,"[""$9""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,48,(',"[""('""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,49,8h,"[""8h""]",1,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,50,#p,"[""#p""]",1,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,51,$8,"[""$8""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,52,&2,"[""&2"", ""1&""]",2,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,53,&e,"[""&e""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,54,&r,"[""&r""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,55,&w,"[""&w""]",1,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,56,(.,"[""(.""]",1,5,155,0.03225806451612903
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,57,1o,"[""1o""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,58,1x,"[""1x""]",1,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,59,5b,"[""5b""]",1,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,60,5d,"[""5d""]",1,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,61,"?,","[""?,""]",1,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,62,b1,"[""b1""]",1,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,63,g2,"[""g2""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,8,#@,"[""#@""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,9,6b,"[""6b""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,10,n@,"[""n@""]",1,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,11,4m,"[""4m""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,12,m6,"[""m6""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,13,&c,"[""&c""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,14,8r,"[""8r""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,15,b0,"[""b0""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,16,!t,"[""!t""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,17,k4,"[""k4""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,18,bx,"[""bx""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,19,&t,"[""&t""]",1,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,20,s(,"[""s(""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,21,m&,"[""m&""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,22,h3,"[""h3""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,23,(q,"[""(q""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,24,0p,"[""0p""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,25,!i,"[""!i""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,26,$a,"[""$a""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,27,*n,"[""*n""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,28,)',"["")'""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,29,_e,"[""_e""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,30, <,"["" <""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,31,0b,"[""0b""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,32,0h,"[""0h""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,33,@k,"[""@k""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,34,"n""","[""n\""""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,35,"""n","[""\""n""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,36,*2,"[""*2""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,37,2?,"[""2?""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,38,c6,"[""c6""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,39,g1,"[""g1""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,40,"""a","[""\""a""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,41,"""p","[""\""p""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,42,#!,"[""#!""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,43, %,"["" %""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,44, _,"["" _""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,45,!d,"[""!d""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,46,"""m","[""\""m""]",1,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,47,$9,"[""$9""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,48,(',"[""('""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,49,8h,"[""8h""]",1,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,50,#p,"[""#p""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,51,$8,"[""$8""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,52,&2,"[""&2"", ""1&""]",2,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,53,&e,"[""&e""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,54,&r,"[""&r""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,55,&w,"[""&w""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,56,(.,"[""(.""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,57,1o,"[""1o""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,58,1x,"[""1x""]",1,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,59,5b,"[""5b""]",1,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,60,5d,"[""5d""]",1,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,61,"?,","[""?,""]",1,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,62,b1,"[""b1""]",1,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,63,g2,"[""g2""]",1,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,64,  ,"[""  ""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,65, !,"["" !""]",1,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,66, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,67, /,"["" /""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,68, ;,"["" ;""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,69, `,"["" `""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,70, {,"["" {""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,71,"!""","[""!\""""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,72,!*,"[""!*""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,73,!+,"[""!+""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,74,"!,","[""!,""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,75,!l,"[""!l""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,76,!n,"[""!n""]",1,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,77,!o,"[""!o""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,78,""".","[""\"".""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,79,"""2","[""\""2"", ""(\"""", ""4\"""", ""i_""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,80,"""b","[""\""b""]",1,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,81,"""d","[""\""d""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,82,"""f","[""\""f""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,83,"""h","[""\""h""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,84,"""i","[""\""i""]",1,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,85,"""k","[""\""k""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,86,#*,"[""#*""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,87,#b,"[""#b""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,88,#k,"[""#k""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,89, >,"["" >""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,90, ],"["" ]"", ""[ "", ""[i"", ""[k"", ""p]""]",5,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,91,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,92,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,93,!-,"[""!-"", ""~e""]",2,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,94,!1,"[""!1""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,95,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,96,!3,"[""!3""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,97,!a,"[""!a""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,98,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,99,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,100,!g,"[""!g""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,101,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,102,!m,"[""!m""]",1,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,103,!p,"[""!p""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,104,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,105,!s,"[""!s""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,106,!v,"[""!v""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,107,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,108,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,109,""":","[""\"":""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,110,"""?","[""\""?""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,111,"""c","[""\""c""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,112,"""e","[""\""e""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,113,"""j","[""\""j"", ""$."", ""%'"", "".$"", ""5z""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,114,"""l","[""\""l""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,115,"""o","[""\""o""]",1,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,116,"""r","[""\""r""]",1,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,117,"""w","[""\""w""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,118,"""x","[""\""x"", ""#u"", ""x\""""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,119,"""y","[""\""y"", "".("", ""o#""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,120,#$,"[""#$""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,121,#%,"[""#%""]",1,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,122,#&,"[""#&""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,123,#.,"[""#."", ""%@"", ""))"", ""0d"", ""6g"", "":v"", ""<-"", ""@u"", ""_9""]",9,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,124,#?,"[""#?""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,125,#c,"[""#c""]",1,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,126,#d,"[""#d""]",1,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,127,#i,"[""#i""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,0, *,"["" *""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,1,q/,"[""q/""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,2,s4,"[""s4""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,3,'),"[""')""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,4,k9,"[""k9""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,5,0?,"[""0?""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,6,*e,"[""*e""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,7,1%,"[""1%""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,8,#@,"[""#@""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,9,6b,"[""6b""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,10,n@,"[""n@""]",1,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,11,4m,"[""4m""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,12,m6,"[""m6""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,13,&c,"[""&c""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,14,8r,"[""8r""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,15,b0,"[""b0""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,16,!t,"[""!t""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,17,k4,"[""k4""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,18,bx,"[""bx""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,19,&t,"[""&t""]",1,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,20,s(,"[""s(""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,21,m&,"[""m&""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,22,h3,"[""h3""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,23,(q,"[""(q""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,24,0p,"[""0p""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,25,!i,"[""!i""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,26,$a,"[""$a""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,27,*n,"[""*n""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,28,)',"["")'""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,29,_e,"[""_e""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,30, <,"["" <""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,31,0b,"[""0b""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,32,0h,"[""0h""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,33,@k,"[""@k""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,34,"n""","[""n\""""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,35,"""n","[""\""n""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,36,*2,"[""*2""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,37,2?,"[""2?""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,38,c6,"[""c6""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,39,g1,"[""g1""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,40,"""a","[""\""a""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,41,"""p","[""\""p""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,42,#!,"[""#!""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,43, %,"["" %""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,44, _,"["" _""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,45,!d,"[""!d""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,46,"""m","[""\""m""]",1,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,47,$9,"[""$9""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,48,(',"[""('""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,49,8h,"[""8h""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,50,#p,"[""#p""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,51,$8,"[""$8""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,52,&2,"[""&2"", ""1&""]",2,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,53,&e,"[""&e""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,54,&r,"[""&r""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,55,&w,"[""&w""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,56,(.,"[""(.""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,57,1o,"[""1o""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,58,1x,"[""1x""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,59,5b,"[""5b""]",1,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,60,5d,"[""5d""]",1,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,61,"?,","[""?,""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,62,b1,"[""b1""]",1,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,63,g2,"[""g2""]",1,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,64,  ,"[""  ""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,65, !,"["" !""]",1,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,66, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,67, /,"["" /""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,68, ;,"["" ;""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,69, `,"["" `""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,70, {,"["" {""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,71,"!""","[""!\""""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,72,!*,"[""!*""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,73,!+,"[""!+""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,74,"!,","[""!,""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,75,!l,"[""!l""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,76,!n,"[""!n""]",1,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,77,!o,"[""!o""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,78,""".","[""\"".""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,79,"""2","[""\""2"", ""(\"""", ""4\"""", ""i_""]",4,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,80,"""b","[""\""b""]",1,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,81,"""d","[""\""d""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,82,"""f","[""\""f""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,83,"""h","[""\""h""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,84,"""i","[""\""i""]",1,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,85,"""k","[""\""k""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,86,#*,"[""#*""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,87,#b,"[""#b""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,88,#k,"[""#k""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,89, >,"["" >""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,90, ],"["" ]"", ""[ "", ""[i"", ""[k"", ""p]""]",5,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,91,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,92,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,93,!-,"[""!-"", ""~e""]",2,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,94,!1,"[""!1""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,95,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,96,!3,"[""!3""]",1,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,97,!a,"[""!a""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,98,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,99,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,100,!g,"[""!g""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,101,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,102,!m,"[""!m""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,103,!p,"[""!p""]",1,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,104,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,105,!s,"[""!s""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,106,!v,"[""!v""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,107,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,108,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,109,""":","[""\"":""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,110,"""?","[""\""?""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,111,"""c","[""\""c""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,112,"""e","[""\""e""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,113,"""j","[""\""j"", ""$."", ""%'"", "".$"", ""5z""]",5,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,114,"""l","[""\""l""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,115,"""o","[""\""o""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,116,"""r","[""\""r""]",1,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,117,"""w","[""\""w""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,118,"""x","[""\""x"", ""#u"", ""x\""""]",3,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,119,"""y","[""\""y"", "".("", ""o#""]",3,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,120,#$,"[""#$""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,121,#%,"[""#%""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,122,#&,"[""#&""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,123,#.,"[""#."", ""%@"", ""))"", ""0d"", ""6g"", "":v"", ""<-"", ""@u"", ""_9""]",9,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,124,#?,"[""#?""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,125,#c,"[""#c""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,126,#d,"[""#d""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,127,#i,"[""#i""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,128,#n,"[""#n""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,129,#r,"[""#r""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,130,#t,"[""#t""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,131,#w,"[""#w""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,132,$#,"[""$#""]",1,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,133,$%,"[""$%""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,134,$&,"[""$&""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,135,$0,"[""$0""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,136,$=,"[""$="", ""q+""]",2,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,137,$e,"[""$e""]",1,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,138,$o,"[""$o""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,139,$p,"[""$p""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,140,$t,"[""$t""]",1,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,141,$u,"[""$u""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,142,%*,"[""%*""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,143,%:,"[""%:""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,144,%^,"[""%^""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,145,%t,"[""%t""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,146,&1,"[""&1""]",1,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,147,&@,"[""&@""]",1,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,148,&j,"[""&j""]",1,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,149,&o,"[""&o""]",1,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,150,(9,"[""(9""]",1,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,151,)?,"["")?""]",1,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,152,)b,"["")b""]",1,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy_equivalence_classes,154,2,0.0,0.1,title,title,153,*o,"[""*o""]",1,11,155,0.07096774193548387
