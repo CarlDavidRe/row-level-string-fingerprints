@@ -1,0 +1,403 @@
+metadata_version,metadata_file,fingerprint_width,feature_selection_method,ngram_size,min_block_frequency,max_block_frequency,table_name,column_name,bit_index,ngram,block_presence_count,total_block_count,block_frequency
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+0,block_infix_fingerprint_v000.json,8,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,8,wgl,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,9,*tc,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,10,'12,14,155,0.09032258064516129
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,11, l-,15,155,0.0967741935483871
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,12,'kn,14,155,0.09032258064516129
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,13,!/g,12,155,0.07741935483870968
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,14,(vo,13,155,0.08387096774193549
+1,block_infix_fingerprint_v001.json,16,local_split_entropy,3,0.0,0.1,title,title,15,b&b,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,8,wgl,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,9,*tc,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,10,'12,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,11, l-,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,12,'kn,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,13,!/g,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,14,(vo,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,15,b&b,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,16,-2:,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,17,bsl,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,18,'05,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,19,46-,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,20,47-,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,21,"dd,",15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,22, bn,14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,23,(1a,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,24,#1-,10,155,0.06451612903225806
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,25,", -",14,155,0.09032258064516129
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,26,/ep,15,155,0.0967741935483871
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,27,0-a,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,28,?/i,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,29, (q,13,155,0.08387096774193549
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,30, -1,12,155,0.07741935483870968
+2,block_infix_fingerprint_v002.json,32,local_split_entropy,3,0.0,0.1,title,title,31, bp,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,8,wgl,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,9,*tc,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,10,'12,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,11, l-,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,12,'kn,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,13,!/g,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,14,(vo,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,15,b&b,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,16,-2:,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,17,bsl,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,18,'05,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,19,46-,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,20,47-,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,21,"dd,",15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,22, bn,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,23,(1a,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,24,#1-,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,25,", -",14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,26,/ep,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,27,0-a,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,28,?/i,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,29, (q,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,30, -1,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,31, bp,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,32, cx,9,155,0.05806451612903226
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,33, wg,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,34,/07,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,35, $3,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,36, 2x,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,37, 3',14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,38, kc,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,39, nz,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,40," ""i",9,155,0.05806451612903226
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,41," ""m",11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,42, $6,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,43, (5,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,44, (7,7,155,0.04516129032258064
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,45, 4x,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,46, 9',9,155,0.05806451612903226
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,47," ""b",8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,48," ""k",4,155,0.025806451612903226
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,49, $7,8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,50, -d,6,155,0.03870967741935484
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,51, -s,11,155,0.07096774193548387
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,52, -t,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,53," 0,",8,155,0.05161290322580645
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,54, 0.,13,155,0.08387096774193549
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,55, 3e,9,155,0.05806451612903226
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,56, 4),10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,57, 8s,3,155,0.01935483870967742
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,58, a/,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,59, bs,12,155,0.07741935483870968
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,60, e3,14,155,0.09032258064516129
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,61, hn,10,155,0.06451612903225806
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,62, nm,15,155,0.0967741935483871
+3,block_infix_fingerprint_v003.json,64,local_split_entropy,3,0.0,0.1,title,title,63, r+,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,8,wgl,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,9,*tc,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,10,'12,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,11, l-,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,12,'kn,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,13,!/g,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,14,(vo,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,15,b&b,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,16,-2:,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,17,bsl,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,18,'05,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,19,46-,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,20,47-,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,21,"dd,",15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,22, bn,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,23,(1a,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,24,#1-,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,25,", -",14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,26,/ep,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,27,0-a,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,28,?/i,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,29, (q,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,30, -1,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,31, bp,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,32, cx,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,33, wg,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,34,/07,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,35, $3,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,36, 2x,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,37, 3',14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,38, kc,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,39, nz,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,40," ""i",9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,41," ""m",11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,42, $6,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,43, (5,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,44, (7,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,45, 4x,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,46, 9',9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,47," ""b",8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,48," ""k",4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,49, $7,8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,50, -d,6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,51, -s,11,155,0.07096774193548387
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,52, -t,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,53," 0,",8,155,0.05161290322580645
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,54, 0.,13,155,0.08387096774193549
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,55, 3e,9,155,0.05806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,56, 4),10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,57, 8s,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,58, a/,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,59, bs,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,60, e3,14,155,0.09032258064516129
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,61, hn,10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,62, nm,15,155,0.0967741935483871
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,63, r+,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,64, u',7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,65,  s,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,66, ! ,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,67, !!,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,68, !@,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,69," ""a",7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,70," ""c",6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,71," ""d",7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,72," ""f",3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,73," ""g",2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,74," ""h",3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,75," ""l",4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,76," ""n",6,155,0.03870967741935484
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,77," ""o",5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,78," ""p",5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,79, #@,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,80, #o,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,81, $#,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,82, $8,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,83, $a,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,84, $i,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,85, &a,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,86, (',10,155,0.06451612903225806
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,87, (x,12,155,0.07741935483870968
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,88,  b,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,89, !/,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,90," "" ",1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,91," "".",1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,92," ""@",1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,93," ""e",5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,94," ""j",1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,95," ""r",7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,96," ""w",5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,97," ""x",1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,98, #$,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,99, #&,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,100, #*,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,101, #?,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,102, $ ,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,103, $$,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,104, $0,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,105, $9,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,106, $c,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,107, $e,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,108, $h,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,109, $l,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,110, $p,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,111, $t,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,112, $u,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,113, $w,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,114, % ,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,115, %*,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,116, %@,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,117, &.,7,155,0.04516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,118, &1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,119, &b,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,120, &t,4,155,0.025806451612903226
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,121, ' ,5,155,0.03225806451612903
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,122, '?,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,123, ( ,2,155,0.012903225806451613
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,124, (&,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,125, (*,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,126, (+,3,155,0.01935483870967742
+4,block_infix_fingerprint_v004.json,128,local_split_entropy,3,0.0,0.1,title,title,127, (.,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,0, -a,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,1, 3!,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,2,#53,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,3,&b ,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,4,co2,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,5,csh,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,6,ybb,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,7,'cu,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,8,wgl,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,9,*tc,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,10,'12,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,11, l-,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,12,'kn,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,13,!/g,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,14,(vo,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,15,b&b,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,16,-2:,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,17,bsl,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,18,'05,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,19,46-,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,20,47-,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,21,"dd,",15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,22, bn,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,23,(1a,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,24,#1-,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,25,", -",14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,26,/ep,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,27,0-a,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,28,?/i,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,29, (q,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,30, -1,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,31, bp,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,32, cx,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,33, wg,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,34,/07,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,35, $3,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,36, 2x,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,37, 3',14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,38, kc,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,39, nz,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,40," ""i",9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,41," ""m",11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,42, $6,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,43, (5,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,44, (7,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,45, 4x,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,46, 9',9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,47," ""b",8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,48," ""k",4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,49, $7,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,50, -d,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,51, -s,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,52, -t,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,53," 0,",8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,54, 0.,13,155,0.08387096774193549
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,55, 3e,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,56, 4),10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,57, 8s,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,58, a/,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,59, bs,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,60, e3,14,155,0.09032258064516129
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,61, hn,10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,62, nm,15,155,0.0967741935483871
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,63, r+,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,64, u',7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,65,  s,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,66, ! ,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,67, !!,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,68, !@,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,69," ""a",7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,70," ""c",6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,71," ""d",7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,72," ""f",3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,73," ""g",2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,74," ""h",3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,75," ""l",4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,76," ""n",6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,77," ""o",5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,78," ""p",5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,79, #@,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,80, #o,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,81, $#,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,82, $8,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,83, $a,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,84, $i,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,85, &a,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,86, (',10,155,0.06451612903225806
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,87, (x,12,155,0.07741935483870968
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,88,  b,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,89, !/,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,90," "" ",1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,91," "".",1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,92," ""@",1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,93," ""e",5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,94," ""j",1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,95," ""r",7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,96," ""w",5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,97," ""x",1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,98, #$,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,99, #&,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,100, #*,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,101, #?,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,102, $ ,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,103, $$,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,104, $0,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,105, $9,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,106, $c,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,107, $e,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,108, $h,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,109, $l,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,110, $p,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,111, $t,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,112, $u,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,113, $w,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,114, % ,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,115, %*,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,116, %@,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,117, &.,7,155,0.04516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,118, &1,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,119, &b,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,120, &t,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,121, ' ,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,122, '?,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,123, ( ,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,124, (&,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,125, (*,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,126, (+,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,127, (.,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,128, (8,5,155,0.03225806451612903
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,129, (9,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,130, (?,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,131, * ,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,132, *(,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,133, */,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,134, *c,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,135, +4,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,136, +5,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,137, -',2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,138, -2,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,139, -f,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,140, -i,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,141, -k,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,142, -o,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,143, -v,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,144, -w,2,155,0.012903225806451613
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,145, .7,1,155,0.0064516129032258064
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,146, 0-,11,155,0.07096774193548387
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,147, 0:,8,155,0.05161290322580645
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,148, 1b,3,155,0.01935483870967742
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,149, 1r,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,150, 2?,4,155,0.025806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,151, 2t,6,155,0.03870967741935484
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,152, 4s,9,155,0.05806451612903226
+5,block_infix_fingerprint_v005.json,256,local_split_entropy,3,0.0,0.1,title,title,153, 6),4,155,0.025806451612903226

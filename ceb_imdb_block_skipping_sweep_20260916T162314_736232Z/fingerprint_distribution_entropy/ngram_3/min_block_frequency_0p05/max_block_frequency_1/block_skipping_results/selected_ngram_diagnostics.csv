@@ -1,0 +1,19 @@
+metadata_version,metadata_file,fingerprint_width,feature_selection_method,ngram_size,min_block_frequency,max_block_frequency,table_name,column_name,bit_index,ngram,block_presence_count,total_block_count,block_frequency
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,0, 4t,77,155,0.4967741935483871
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,1,'to,77,155,0.4967741935483871
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,2,00:,78,155,0.5032258064516129
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,3,-ju,78,155,0.5032258064516129
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,4,8 s,80,155,0.5161290322580645
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,5,nru,85,155,0.5483870967741935
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,6,lo-,68,155,0.43870967741935485
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy,3,0.05,1.0,title,title,7,gpi,69,155,0.44516129032258067
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,0, 4t,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,1,'to,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,2,00:,78,155,0.5032258064516129
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,3,-ju,78,155,0.5032258064516129
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,4,8 s,80,155,0.5161290322580645
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,5,nru,85,155,0.5483870967741935
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,6,lo-,68,155,0.43870967741935485
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,7,gpi,69,155,0.44516129032258067
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,8,apc,45,155,0.2903225806451613
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy,3,0.05,1.0,title,title,9," ""b",8,155,0.05161290322580645
