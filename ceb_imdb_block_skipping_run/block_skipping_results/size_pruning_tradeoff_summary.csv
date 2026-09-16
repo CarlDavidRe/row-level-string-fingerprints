@@ -1,0 +1,2 @@
+metadata_version,merge_step,metadata_file,metadata_file_size_bytes,metadata_file_size_mib,total_skipped_partitions,total_scanned_partitions,total_ground_truth_partitions,query_count
+0,concatenated_block_infix_16bit,block_infix_fingerprint_v000.json,6270,0.005980,0,29450,29165,190

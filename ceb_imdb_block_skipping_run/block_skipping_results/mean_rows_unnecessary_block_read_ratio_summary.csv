@@ -1,0 +1,2 @@
+metadata_version,merge_step,metadata_file,metadata_file_size_bytes,metadata_file_size_kb,mean_metadata_file_size_kb_per_partition,mean_matrix_rows,partition_count,mean_unnecessary_block_read_ratio,unnecessary_block_read_ratio_increase_from_v000,ratio_query_count,query_count,zero_bit_query_count
+0,concatenated_block_infix_16bit,block_infix_fingerprint_v000.json,6270,6.12304688,0.03950353,1.00000000,155,1.00000000,0.00000000,29,190,190
