@@ -1,0 +1,113 @@
+{
+  "format_version": 1,
+  "points": [
+    {
+      "id": "block-infix-v000",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_infix_fingerprints",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 285,
+        "metadata_size_bytes": 155,
+        "metadata_size_mib": 0.00014781951904296875,
+        "partition_count": 155,
+        "query_count": 190,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 190
+      },
+      "parameters": {
+        "block_size_rows": 16384,
+        "feature_candidates": "frequency_filtered_observed_block_ngrams",
+        "feature_selection_method": "fingerprint_distribution_entropy_equivalence_classes",
+        "fingerprint_width": 8,
+        "max_block_frequency": 0.05,
+        "min_block_frequency": 0.0,
+        "ngram_size": 4
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_skipping_results/results.csv",
+      "technique": "concatenated_block_infix_fingerprint",
+      "title": "concatenated_block_infix_fingerprint_distribution_entropy_equivalence_classes_8bit"
+    },
+    {
+      "id": "block-infix-v001",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_infix_fingerprints",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 285,
+        "metadata_size_bytes": 310,
+        "metadata_size_mib": 0.0002956390380859375,
+        "partition_count": 155,
+        "query_count": 190,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 190
+      },
+      "parameters": {
+        "block_size_rows": 16384,
+        "feature_candidates": "frequency_filtered_observed_block_ngrams",
+        "feature_selection_method": "fingerprint_distribution_entropy_equivalence_classes",
+        "fingerprint_width": 16,
+        "max_block_frequency": 0.05,
+        "min_block_frequency": 0.0,
+        "ngram_size": 4
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_skipping_results/results.csv",
+      "technique": "concatenated_block_infix_fingerprint",
+      "title": "concatenated_block_infix_fingerprint_distribution_entropy_equivalence_classes_16bit"
+    },
+    {
+      "id": "block-infix-v002",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_infix_fingerprints",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 285,
+        "metadata_size_bytes": 620,
+        "metadata_size_mib": 0.000591278076171875,
+        "partition_count": 155,
+        "query_count": 190,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 190
+      },
+      "parameters": {
+        "block_size_rows": 16384,
+        "feature_candidates": "frequency_filtered_observed_block_ngrams",
+        "feature_selection_method": "fingerprint_distribution_entropy_equivalence_classes",
+        "fingerprint_width": 32,
+        "max_block_frequency": 0.05,
+        "min_block_frequency": 0.0,
+        "ngram_size": 4
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_skipping_results/results.csv",
+      "technique": "concatenated_block_infix_fingerprint",
+      "title": "concatenated_block_infix_fingerprint_distribution_entropy_equivalence_classes_32bit"
+    },
+    {
+      "id": "block-infix-v003",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_infix_fingerprints",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 285,
+        "metadata_size_bytes": 1240,
+        "metadata_size_mib": 0.00118255615234375,
+        "partition_count": 155,
+        "query_count": 190,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 190
+      },
+      "parameters": {
+        "block_size_rows": 16384,
+        "feature_candidates": "frequency_filtered_observed_block_ngrams",
+        "feature_selection_method": "fingerprint_distribution_entropy_equivalence_classes",
+        "fingerprint_width": 64,
+        "max_block_frequency": 0.05,
+        "min_block_frequency": 0.0,
+        "ngram_size": 4
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/ceb_imdb_block_skipping_sweep_20260916T210333_858016Z/fingerprint_distribution_entropy_equivalence_classes/ngram_4/min_block_frequency_0/max_block_frequency_0p05/block_skipping_results/results.csv",
+      "technique": "concatenated_block_infix_fingerprint",
+      "title": "concatenated_block_infix_fingerprint_distribution_entropy_equivalence_classes_64bit"
+    }
+  ]
+}

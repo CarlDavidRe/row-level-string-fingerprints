@@ -1,0 +1,241 @@
+metadata_version,metadata_file,fingerprint_width,feature_selection_method,hamming_cluster_count,ngram_size,min_block_frequency,max_block_frequency,table_name,column_name,bit_index,ngram,ngrams,alias_count,block_presence_count,total_block_count,block_frequency
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,0, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,1,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,2,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,3,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,4,!3,"[""!3""]",1,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,5,!@,"[""!@"", ""$'"", ""&*"", ""c["", ""e}"", ""{p""]",6,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,6,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,7,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,0, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,1,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,2,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,3,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,4,!3,"[""!3""]",1,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,5,!@,"[""!@"", ""$'"", ""&*"", ""c["", ""e}"", ""{p""]",6,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,6,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,7,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,8,!f,"[""!f"", ""*8"", ""+z"", ""8j"", "":x"", "">f"", ""`i"", ""j3""]",8,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,9,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,10,!p,"[""!p""]",1,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,11,!q,"[""!q"", ""#g""]",2,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,12,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,13,!u,"[""!u"", "".*"", ""2%""]",3,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,14,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,15,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,0, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,1,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,2,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,3,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,4,!3,"[""!3""]",1,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,5,!@,"[""!@"", ""$'"", ""&*"", ""c["", ""e}"", ""{p""]",6,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,6,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,7,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,8,!f,"[""!f"", ""*8"", ""+z"", ""8j"", "":x"", "">f"", ""`i"", ""j3""]",8,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,9,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,10,!p,"[""!p""]",1,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,11,!q,"[""!q"", ""#g""]",2,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,12,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,13,!u,"[""!u"", "".*"", ""2%""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,14,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,15,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,16,"""2","[""\""2"", ""(\"""", ""4\"""", ""i_""]",4,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,17,"""j","[""\""j"", ""$."", ""%'"", "".$"", ""5z""]",5,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,18,"""q","[""\""q"", "")f"", ""3z""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,19,"""x","[""\""x"", ""#u"", ""x\""""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,20,"""y","[""\""y"", "".("", ""o#""]",3,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,21,#.,"[""#."", ""%@"", ""))"", ""0d"", ""6g"", "":v"", ""<-"", ""@u"", ""_9""]",9,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,22,#m,"[""#m"", ""0~"", ""=r"", ""?n"", ""n#"", ""o="", ""r~"", ""v9""]",8,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,23,#q,"[""#q"", ""#v"", ""$m"", ""4#"", ""6="", "">1"", "">d"", ""?a"", ""?e"", ""]h"", ""_v""]",11,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,24,#y,"[""#y"", ""'="", ""0*"", ""4("", ""4q"", ""5_"", ""8("", ""8q"", ""8u"", ""<a"", "">k"", ""@4"", ""]v"", ""_k"", ""w]""]",15,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,25,$),"[""$)""]",1,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,26,$/,"[""$/"", "">p"", ""d^"", ""s0""]",4,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,27,$=,"[""$="", ""q+""]",2,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,28,$f,"[""$f"", ""&4"", ""7]"", ""8d"", ""<:"", ""><"", ""]a""]",7,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,29,$s,"[""$s"", ""_4"", ""s$"", ""u7""]",4,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,30,"%,","[""%,"", "")2"", ""1u"", ""5;"", ""7="", ""=7"", "">8"", ""t0""]",8,1,155,0.0064516129032258064
+2,block_infix_fingerprint_v002.json,32,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,31,&1,"[""&1""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,0, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,1,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,2,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,3,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,4,!3,"[""!3""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,5,!@,"[""!@"", ""$'"", ""&*"", ""c["", ""e}"", ""{p""]",6,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,6,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,7,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,8,!f,"[""!f"", ""*8"", ""+z"", ""8j"", "":x"", "">f"", ""`i"", ""j3""]",8,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,9,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,10,!p,"[""!p""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,11,!q,"[""!q"", ""#g""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,12,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,13,!u,"[""!u"", "".*"", ""2%""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,14,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,15,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,16,"""2","[""\""2"", ""(\"""", ""4\"""", ""i_""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,17,"""j","[""\""j"", ""$."", ""%'"", "".$"", ""5z""]",5,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,18,"""q","[""\""q"", "")f"", ""3z""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,19,"""x","[""\""x"", ""#u"", ""x\""""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,20,"""y","[""\""y"", "".("", ""o#""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,21,#.,"[""#."", ""%@"", ""))"", ""0d"", ""6g"", "":v"", ""<-"", ""@u"", ""_9""]",9,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,22,#m,"[""#m"", ""0~"", ""=r"", ""?n"", ""n#"", ""o="", ""r~"", ""v9""]",8,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,23,#q,"[""#q"", ""#v"", ""$m"", ""4#"", ""6="", "">1"", "">d"", ""?a"", ""?e"", ""]h"", ""_v""]",11,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,24,#y,"[""#y"", ""'="", ""0*"", ""4("", ""4q"", ""5_"", ""8("", ""8q"", ""8u"", ""<a"", "">k"", ""@4"", ""]v"", ""_k"", ""w]""]",15,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,25,$),"[""$)""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,26,$/,"[""$/"", "">p"", ""d^"", ""s0""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,27,$=,"[""$="", ""q+""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,28,$f,"[""$f"", ""&4"", ""7]"", ""8d"", ""<:"", ""><"", ""]a""]",7,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,29,$s,"[""$s"", ""_4"", ""s$"", ""u7""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,30,"%,","[""%,"", "")2"", ""1u"", ""5;"", ""7="", ""=7"", "">8"", ""t0""]",8,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,31,&1,"[""&1""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,32,&5,"[""&5"", ""4&"", ""z9""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,33,&h,"[""&h"", ""]e"", ""r[""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,34,&q,"[""&q""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,35,&z,"[""&z""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,36,'],"[""']"", ""*."", ""8w"", ""[8"", ""[9"", ""b]"", ""h]"", ""k]"", ""y]""]",9,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,37,'_,"[""'_"", "".>"", ""0_"", ""5u"", ""<m"", ""_'"", ""q;""]",7,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,38,($,"[""($"", ""7c""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,39,(0,"[""(0"", ""-(""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,40,")""","["")\"""", ""vq""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,41,)3,"["")3"", ""5("", ""^$""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,42,);,"["");""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,43,)],"["")]"", ""[("", ""s["", ""v&""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,44,)^,"["")^"", ""9l"", ""\\l"", ""e\\"", ""j7"", ""w$""]",6,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,45,)j,"["")j""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,46,)x,"["")x""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,47,)},"["")}"", ""z("", ""{r""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,48,)~,"["")~""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,49,*(,"[""*("", ""n<"", ""r`"", ""s}"", ""{t""]",5,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,50,*/,"[""*/"", ""/@"", ""?#"", ""@?""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,51,*f,"[""*f"", ""h#""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,52,+/,"[""+/"", ""+e""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,53,+7,"[""+7""]",1,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,54,+k,"[""+k"", ""8g"", ""p$""]",3,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,55,+v,"[""+v"", ""2;"", ""6@"", ""[0"", ""^@"", ""_."", ""s%"", ""u+""]",8,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,56,",c","["",c"", "",g"", "",h"", "",i"", "",n"", "",o"", "",u"", ""_y"", ""j&""]",9,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,57,-/,"[""-/"", ""d~""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,58,.#,"["".#"", ""2_"", ""7f"", "";)"", ""]s"", ""x$""]",6,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,59,.&,"["".&"", ""6j"", "":j"", ""[6""]",4,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,60,/#,"[""/#"", ""?1""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,61,/?,"[""/?"", ""5*"", ""=s"", ""_2"", ""l="", ""qj"", ""y(""]",7,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,62,0$,"[""0$"", ""f~""]",2,1,155,0.0064516129032258064
+3,block_infix_fingerprint_v003.json,64,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,63,0u,"[""0u"", ""_h"", ""_i"", ""e^""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,0, ),"["" )"", ""!c"", ""[z"", ""u=""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,1,!#,"[""!#"", ""#:"", ""*?"", ""1#""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,2,!%,"[""!%"", ""?i""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,3,!2,"[""!2"", ""!;"", ""1z""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,4,!3,"[""!3""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,5,!@,"[""!@"", ""$'"", ""&*"", ""c["", ""e}"", ""{p""]",6,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,6,!b,"[""!b"", ""$c"", ""-$"", ""0;"", ""2@"", ""4;"", ""6*"", ""6w"", "";0"", "";4"", ""_z"", ""w+""]",12,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,7,!e,"[""!e"", ""\""@"", ""*4"", ""4*"", ""@\""""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,8,!f,"[""!f"", ""*8"", ""+z"", ""8j"", "":x"", "">f"", ""`i"", ""j3""]",8,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,9,!j,"[""!j"", ""%#"", ""+("", ""_x"", ""`m""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,10,!p,"[""!p""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,11,!q,"[""!q"", ""#g""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,12,!r,"[""!r"", ""_6""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,13,!u,"[""!u"", "".*"", ""2%""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,14,!w,"[""!w"", ""7y"", ""9k""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,15,"""/","[""\""/""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,16,"""2","[""\""2"", ""(\"""", ""4\"""", ""i_""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,17,"""j","[""\""j"", ""$."", ""%'"", "".$"", ""5z""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,18,"""q","[""\""q"", "")f"", ""3z""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,19,"""x","[""\""x"", ""#u"", ""x\""""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,20,"""y","[""\""y"", "".("", ""o#""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,21,#.,"[""#."", ""%@"", ""))"", ""0d"", ""6g"", "":v"", ""<-"", ""@u"", ""_9""]",9,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,22,#m,"[""#m"", ""0~"", ""=r"", ""?n"", ""n#"", ""o="", ""r~"", ""v9""]",8,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,23,#q,"[""#q"", ""#v"", ""$m"", ""4#"", ""6="", "">1"", "">d"", ""?a"", ""?e"", ""]h"", ""_v""]",11,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,24,#y,"[""#y"", ""'="", ""0*"", ""4("", ""4q"", ""5_"", ""8("", ""8q"", ""8u"", ""<a"", "">k"", ""@4"", ""]v"", ""_k"", ""w]""]",15,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,25,$),"[""$)""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,26,$/,"[""$/"", "">p"", ""d^"", ""s0""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,27,$=,"[""$="", ""q+""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,28,$f,"[""$f"", ""&4"", ""7]"", ""8d"", ""<:"", ""><"", ""]a""]",7,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,29,$s,"[""$s"", ""_4"", ""s$"", ""u7""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,30,"%,","[""%,"", "")2"", ""1u"", ""5;"", ""7="", ""=7"", "">8"", ""t0""]",8,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,31,&1,"[""&1""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,32,&5,"[""&5"", ""4&"", ""z9""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,33,&h,"[""&h"", ""]e"", ""r[""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,34,&q,"[""&q""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,35,&z,"[""&z""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,36,'],"[""']"", ""*."", ""8w"", ""[8"", ""[9"", ""b]"", ""h]"", ""k]"", ""y]""]",9,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,37,'_,"[""'_"", "".>"", ""0_"", ""5u"", ""<m"", ""_'"", ""q;""]",7,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,38,($,"[""($"", ""7c""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,39,(0,"[""(0"", ""-(""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,40,")""","["")\"""", ""vq""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,41,)3,"["")3"", ""5("", ""^$""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,42,);,"["");""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,43,)],"["")]"", ""[("", ""s["", ""v&""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,44,)^,"["")^"", ""9l"", ""\\l"", ""e\\"", ""j7"", ""w$""]",6,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,45,)j,"["")j""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,46,)x,"["")x""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,47,)},"["")}"", ""z("", ""{r""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,48,)~,"["")~""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,49,*(,"[""*("", ""n<"", ""r`"", ""s}"", ""{t""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,50,*/,"[""*/"", ""/@"", ""?#"", ""@?""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,51,*f,"[""*f"", ""h#""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,52,+/,"[""+/"", ""+e""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,53,+7,"[""+7""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,54,+k,"[""+k"", ""8g"", ""p$""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,55,+v,"[""+v"", ""2;"", ""6@"", ""[0"", ""^@"", ""_."", ""s%"", ""u+""]",8,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,56,",c","["",c"", "",g"", "",h"", "",i"", "",n"", "",o"", "",u"", ""_y"", ""j&""]",9,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,57,-/,"[""-/"", ""d~""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,58,.#,"["".#"", ""2_"", ""7f"", "";)"", ""]s"", ""x$""]",6,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,59,.&,"["".&"", ""6j"", "":j"", ""[6""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,60,/#,"[""/#"", ""?1""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,61,/?,"[""/?"", ""5*"", ""=s"", ""_2"", ""l="", ""qj"", ""y(""]",7,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,62,0$,"[""0$"", ""f~""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,63,0u,"[""0u"", ""_h"", ""_i"", ""e^""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,64,1j,"[""1j"", "":y"", ""u1""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,65,2#,"[""2#""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,66,2(,"[""2(""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,67,4j,"[""4j"", ""[y"", ""]3"", ""]p"", ""w_"", ""x&"", ""y3"", ""y=""]",8,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,68,4y,"[""4y"", ""@z""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,69,4z,"[""4z"", ""[3"", ""i7"", ""r="", ""u6""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,70,5},"[""5}"", ""=n"", ""t>"", ""{.""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,71,6>,"[""6>"", "">9"", ""w(""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,72,6l,"[""6l""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,73,6r,"[""6r"", ""``"", ""`g""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,74,6y,"[""6y""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,75,7k,"[""7k"", ""9\"""", ""z2""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,76,7q,"[""7q""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,77,8;,"[""8;"", ""<h"", ""~k""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,78,9&,"[""9&""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,79,9*,"[""9*"", ""`e"", ""s>""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,80,9=,"[""9="", ""=8""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,81,9v,"[""9v""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,82,9y,"[""9y""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,83,:z,"["":z""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,84,;-,"["";-"", "";d"", ""@5"", ""d#"", ""~v""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,85,;a,"["";a""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,86,;n,"["";n"", ""i}""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,87,;y,"["";y"", ""i9"", ""p}""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,88,< ,"[""< ""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,89,<<,"[""<<"", ""<b"", ""`a""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,90,=(,"[""=("", ""@3"", ""_n"", ""c=""]",4,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,91,=b,"[""=b"", ""i@"", ""t=""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,92,=t,"[""=t"", "">s"", ""?b"", ""`y"", ""h7""]",5,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,93,=w,"[""=w""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,94,>n,"["">n"", ""i["", ""y+""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,95,?*,"[""?*"", ""r}"", ""{h""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,96,?],"[""?]"", ""j0""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,97,?c,"[""?c"", ""a#""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,98,?u,"[""?u""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,99,@%,"[""@%"", ""m$""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,100,]o,"[""]o"", ""_3""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,101,`p,"[""`p""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,102,`t,"[""`t""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,103,b#,"[""b#"", ""w&"", ""~i""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,104,b9,"[""b9"", ""q7"", ""s8""]",3,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,105,h=,"[""h=""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,106,i0,"[""i0""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,107,k+,"[""k+""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,108,l~,"[""l~""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,109,m#,"[""m#""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,110,n%,"[""n%""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,111,o&,"[""o&"", ""qh""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,112,p#,"[""p#"", ""~?""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,113,q8,"[""q8""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,114,"v""","[""v\""""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,115,w[,"[""w[""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,116,w~,"[""w~"", ""~l""]",2,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,117,z8,"[""z8""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,118,~n,"[""~n""]",1,1,155,0.0064516129032258064
+4,block_infix_fingerprint_v004.json,128,fingerprint_distribution_entropy_equivalence_classes,154,2,0.0,0.01,title,title,119,~y,"[""~y""]",1,1,155,0.0064516129032258064

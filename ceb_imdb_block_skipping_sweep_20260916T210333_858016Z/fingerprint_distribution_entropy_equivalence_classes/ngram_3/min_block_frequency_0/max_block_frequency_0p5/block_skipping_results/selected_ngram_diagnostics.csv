@@ -1,0 +1,19 @@
+metadata_version,metadata_file,fingerprint_width,feature_selection_method,hamming_cluster_count,ngram_size,min_block_frequency,max_block_frequency,table_name,column_name,bit_index,ngram,ngrams,alias_count,block_presence_count,total_block_count,block_frequency
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,0, 4t,"["" 4t""]",1,77,155,0.4967741935483871
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,1,'to,"[""'to""]",1,77,155,0.4967741935483871
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,2,a.r,"[""a.r""]",1,76,155,0.49032258064516127
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,3,ma?,"[""ma?""]",1,74,155,0.4774193548387097
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,4,d-o,"[""d-o""]",1,75,155,0.4838709677419355
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,5,tss,"[""tss""]",1,77,155,0.4967741935483871
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,6,bsh,"[""bsh""]",1,74,155,0.4774193548387097
+0,block_infix_fingerprint_v000.json,8,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,7,smr,"[""smr""]",1,68,155,0.43870967741935485
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,0, 4t,"["" 4t""]",1,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,1,'to,"[""'to""]",1,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,2,a.r,"[""a.r""]",1,76,155,0.49032258064516127
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,3,ma?,"[""ma?""]",1,74,155,0.4774193548387097
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,4,d-o,"[""d-o""]",1,75,155,0.4838709677419355
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,5,tss,"[""tss""]",1,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,6,bsh,"[""bsh""]",1,74,155,0.4774193548387097
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,7,smr,"[""smr""]",1,68,155,0.43870967741935485
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,8,dox,"[""dox""]",1,77,155,0.4967741935483871
+1,block_infix_fingerprint_v001.json,16,fingerprint_distribution_entropy_equivalence_classes,154,3,0.0,0.5,title,title,9, #0,"["" #0""]",1,40,155,0.25806451612903225
