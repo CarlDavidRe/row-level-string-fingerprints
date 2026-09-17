@@ -1,0 +1,8 @@
+metadata_version,merge_step,metadata_file,metadata_file_size_bytes,metadata_file_size_kb,mean_metadata_file_size_kb_per_partition,mean_matrix_rows,partition_count,mean_unnecessary_block_read_ratio,unnecessary_block_read_ratio_increase_from_v000,ratio_query_count,query_count,zero_bit_query_count
+0,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_32bit,block_infix_fingerprint_v000.json,620,0.60546875,0.00390625,1.00000000,155,1.00000000,0.00000000,29,190,190
+1,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_64bit,block_infix_fingerprint_v001.json,1240,1.21093750,0.00781250,1.00000000,155,1.00000000,0.00000000,29,190,190
+2,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_128bit,block_infix_fingerprint_v002.json,2480,2.42187500,0.01562500,1.00000000,155,1.00000000,0.00000000,29,190,190
+3,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_256bit,block_infix_fingerprint_v003.json,4960,4.84375000,0.03125000,1.00000000,155,0.96215307,-0.03784693,29,190,2
+4,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_512bit,block_infix_fingerprint_v004.json,9920,9.68750000,0.06250000,1.00000000,155,0.95419551,-0.04580449,29,190,2
+5,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_800bit,block_infix_fingerprint_v005.json,15500,15.13671875,0.09765625,1.00000000,155,0.95419551,-0.04580449,29,190,2
+6,concatenated_block_infix_fingerprint_internal_entropy_equivalence_classes_1024bit,block_infix_fingerprint_v006.json,19840,19.37500000,0.12500000,1.00000000,155,0.95419551,-0.04580449,29,190,2

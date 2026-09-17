@@ -1,0 +1,4 @@
+result_file,workload,data_structure,block_size_rows,ngram_size,query_mode,configured_query_count,partition_count,average_metadata_size_in_bytes,mean_unneccesary_block_read_ratio,mean_false_block_reads_factor,mean_absolute_values,included_query_count,skipped_query_count,total_query_count,total_num_skipped_blocks
+block_infix_fingerprint_v000.json,ceb_imdb,fingerprintMatrix,16384,3,query_file,,155,250.0,0.9310344827586207,0.07061271820155195,150845.7931034483,29,161,190,18
+block_infix_fingerprint_v001.json,ceb_imdb,fingerprintMatrix,16384,3,query_file,,155,375.0,0.9310344827586207,0.07061271820155195,150845.7931034483,29,161,190,18
+block_infix_fingerprint_v002.json,ceb_imdb,fingerprintMatrix,16384,3,query_file,,155,500.0,0.896551724137931,0.07038880418453447,150280.8275862069,29,161,190,19

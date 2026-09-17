@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write a per-fingerprint table of zero-bit queries and feature-group sizes."""
+"""Write zero-bit query and selected-alias counts for each fingerprint."""
 
 import argparse
 import csv
@@ -13,26 +13,22 @@ FIELDS = [
     "min_block_frequency",
     "max_block_frequency",
     "fingerprint_width",
-    "average_ngrams_per_selected_bit",
+    "selected_aliases",
     "query_count",
     "zero_bit_query_count",
 ]
 
 
-def average_ngrams_per_selected_bit(manifest_path: Path, fingerprint_width: int) -> float:
-    """Return the mean feature-group size for one configuration and bit width."""
-    diagnostics_path = manifest_path.parent / "block_skipping_results" / "selected_ngram_diagnostics.csv"
-    if not diagnostics_path.exists():
-        return float("nan")
-
-    alias_counts = []
-    with diagnostics_path.open(newline="") as handle:
-        for row in csv.DictReader(handle):
-            if int(row["fingerprint_width"]) == fingerprint_width:
-                alias_counts.append(int(row["alias_count"]))
-    if not alias_counts:
-        return float("nan")
-    return sum(alias_counts) / len(alias_counts)
+def selected_aliases(metadata_path: Path) -> int:
+    """Count the n-gram aliases represented by one fingerprint version."""
+    metadata = json.loads(metadata_path.read_text())
+    return sum(
+        len(group)
+        for target in metadata["targets"].values()
+        for group in target.get(
+            "feature_groups", [[feature] for feature in target.get("features", [])]
+        )
+    )
 
 
 def main() -> None:
@@ -54,14 +50,18 @@ def main() -> None:
             parameters = point["parameters"]
             metrics = point["metrics"]
             fingerprint_width = parameters["fingerprint_width"]
+            metadata_file = (
+                point["id"].replace("block-infix-", "block_infix_fingerprint_")
+                + ".json"
+            )
             rows.append({
                 "configuration": configuration,
                 "ngram_size": parameters["ngram_size"],
                 "min_block_frequency": parameters["min_block_frequency"],
                 "max_block_frequency": parameters["max_block_frequency"],
                 "fingerprint_width": fingerprint_width,
-                "average_ngrams_per_selected_bit": average_ngrams_per_selected_bit(
-                    manifest_path, fingerprint_width
+                "selected_aliases": selected_aliases(
+                    manifest_path.parent / "block_infix_fingerprints" / metadata_file
                 ),
                 "query_count": metrics["query_count"],
                 "zero_bit_query_count": metrics["zero_bit_query_count"],
