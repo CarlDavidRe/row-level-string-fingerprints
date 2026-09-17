@@ -1,6 +1,6 @@
 {
-  "database_path": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_imdb/ceb_imdb.duckdb",
-  "query_source_dir": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_imdb",
+  "database_path": "/home/reese/string-fingerprints-block-skipping/data/workloads/ceb_imdb/ceb_imdb.duckdb",
+  "query_source_dir": "/home/reese/string-fingerprints-block-skipping/data/workloads/ceb_imdb",
   "block_size_rows": 16384,
   "workload_name": "ceb_imdb",
   "targets": ["title.title"],
