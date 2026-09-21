@@ -1,0 +1,43 @@
+{
+  "block_size_rows": 16384,
+  "database_path": "/home/reese/string-fingerprints-block-skipping/data/workloads/ceb_imdb/ceb_imdb.duckdb",
+  "output_dir": "/home/reese/row-level-string-fingerprints/block_level/ceb_imdb_block_skipping_sweep_20260917T125354_412672Z",
+  "partition_database": false,
+  "query_limit": null,
+  "query_source_dir": "/home/reese/string-fingerprints-block-skipping/data/workloads/ceb_imdb",
+  "sweep": {
+    "ascii_only": true,
+    "feature_selection_methods": [
+      "fingerprint_internal_entropy_equivalence_classes"
+    ],
+    "hamming_cluster_counts": [
+      154
+    ],
+    "hamming_cluster_max_iterations": 10,
+    "max_block_frequencies": [
+      1.0
+    ],
+    "min_block_frequencies_by_method": {
+      "fingerprint_internal_entropy_equivalence_classes": [
+        0.0
+      ]
+    },
+    "ngram_sizes": [
+      3
+    ],
+    "widths_by_method": {
+      "fingerprint_internal_entropy_equivalence_classes": [
+        6000,
+        8000,
+        10000
+      ]
+    }
+  },
+  "targets": [
+    [
+      "title",
+      "title"
+    ]
+  ],
+  "workload_name": "ceb_imdb"
+}

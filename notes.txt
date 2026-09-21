@@ -4,4 +4,6 @@ ceb_imdb_block_skipping_sweep_20260917T080759_771969Z
 python3 summarize_zero_bit_queries.py \
 ceb_imdb_block_skipping_sweep_20260917T080759_771969Z
 
-.rowToBlock/bin/python -m block_level block_level/server.json
+python -m block_level block_level/server.json
+
+ rsync -av reese@heimgarten:/home/reese/row-level-string-fingerprints/block_level/ceb_imdb_block_skipping_sweep_20260917T162625_478756Z .
