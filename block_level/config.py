@@ -13,6 +13,7 @@ FEATURE_SELECTION_METHODS = frozenset({
     "fingerprint_distribution_entropy",
     "fingerprint_distribution_entropy_equivalence_classes",
     "fingerprint_internal_entropy_equivalence_classes",
+    "fingerprint_subblock_joint_entropy_equivalence_classes",
     "local_split_entropy_hamming_clusters",
     "fingerprint_distribution_entropy_hamming_clusters",
 })
@@ -34,6 +35,7 @@ class FingerprintConfig:
     ascii_only: bool = True
     hamming_cluster_count: int = 154
     hamming_cluster_max_iterations: int = 10
+    subblock_size_rows: int | None = None
 
     def __post_init__(self) -> None:
         if not self.widths or tuple(sorted(set(self.widths))) != self.widths:
@@ -52,6 +54,20 @@ class FingerprintConfig:
             raise ValueError("hamming_cluster_count must be positive")
         if self.hamming_cluster_max_iterations <= 0:
             raise ValueError("hamming_cluster_max_iterations must be positive")
+        subblock_method = (
+            self.feature_selection_method
+            == "fingerprint_subblock_joint_entropy_equivalence_classes"
+        )
+        if self.subblock_size_rows is not None and self.subblock_size_rows <= 0:
+            raise ValueError("subblock_size_rows must be positive")
+        if subblock_method and self.subblock_size_rows is None:
+            raise ValueError(
+                "subblock_size_rows is required for the sub-block joint-entropy method"
+            )
+        if not subblock_method and self.subblock_size_rows is not None:
+            raise ValueError(
+                "subblock_size_rows is only supported by the sub-block joint-entropy method"
+            )
 
 
 @dataclass(frozen=True)
@@ -64,6 +80,7 @@ class SweepConfig:
     hamming_cluster_counts: tuple[int, ...] = (154,)
     ascii_only: bool = True
     hamming_cluster_max_iterations: int = 10
+    subblock_sizes_rows: tuple[int, ...] = (1,)
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any]) -> SweepConfig:
@@ -97,6 +114,9 @@ class SweepConfig:
             )),
             ascii_only=bool(raw.get("ascii_only", True)),
             hamming_cluster_max_iterations=int(raw.get("hamming_cluster_max_iterations", 10)),
+            subblock_sizes_rows=tuple(int(value) for value in _sequence(
+                raw.get("subblock_sizes_rows", [1]), "sweep.subblock_sizes_rows"
+            )),
         )
 
     def __post_init__(self) -> None:
@@ -118,6 +138,13 @@ class SweepConfig:
             raise ValueError("maximum block frequencies must be in (0, 1]")
         if any(count <= 0 for count in self.hamming_cluster_counts):
             raise ValueError("Hamming cluster counts must be positive")
+        if (
+            tuple(sorted(set(self.subblock_sizes_rows))) != self.subblock_sizes_rows
+            or any(size <= 0 for size in self.subblock_sizes_rows)
+        ):
+            raise ValueError(
+                "sub-block sizes must be positive, unique, and increasing"
+            )
         for method in self.feature_selection_methods:
             widths = self.widths_by_method[method]
             if tuple(sorted(set(widths))) != tuple(widths) or any(value <= 0 for value in widths):
@@ -131,21 +158,28 @@ class SweepConfig:
             cluster_counts = (
                 self.hamming_cluster_counts if method.endswith("_hamming_clusters") else (154,)
             )
+            subblock_sizes: tuple[int | None, ...] = (
+                self.subblock_sizes_rows
+                if method == "fingerprint_subblock_joint_entropy_equivalence_classes"
+                else (None,)
+            )
             for ngram_size in self.ngram_sizes:
                 for minimum in self.min_block_frequencies_by_method[method]:
                     for maximum in maximums:
                         for cluster_count in cluster_counts:
-                            if minimum <= maximum:
-                                yield FingerprintConfig(
-                                    widths=tuple(self.widths_by_method[method]),
-                                    ngram_size=ngram_size,
-                                    feature_selection_method=method,
-                                    min_block_frequency=minimum,
-                                    max_block_frequency=maximum,
-                                    ascii_only=self.ascii_only,
-                                    hamming_cluster_count=cluster_count,
-                                    hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
-                                )
+                            for subblock_size in subblock_sizes:
+                                if minimum <= maximum:
+                                    yield FingerprintConfig(
+                                        widths=tuple(self.widths_by_method[method]),
+                                        ngram_size=ngram_size,
+                                        feature_selection_method=method,
+                                        min_block_frequency=minimum,
+                                        max_block_frequency=maximum,
+                                        ascii_only=self.ascii_only,
+                                        hamming_cluster_count=cluster_count,
+                                        hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
+                                        subblock_size_rows=subblock_size,
+                                    )
 
 
 @dataclass(frozen=True)
@@ -222,6 +256,17 @@ class ExperimentConfig:
             raise ValueError("query_limit must be positive or null")
         if not self.workload_name:
             raise ValueError("workload_name must not be empty")
+        oversized = [
+            size for size in self.sweep.subblock_sizes_rows
+            if size > self.block_size_rows
+        ]
+        if oversized and "fingerprint_subblock_joint_entropy_equivalence_classes" in (
+            self.sweep.feature_selection_methods
+        ):
+            raise ValueError(
+                "sub-block sizes must not exceed block_size_rows; "
+                f"got {oversized} for block_size_rows={self.block_size_rows}"
+            )
 
     def validate_inputs(self) -> None:
         if not self.database_path.is_file():

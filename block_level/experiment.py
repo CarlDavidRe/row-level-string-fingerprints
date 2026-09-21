@@ -34,7 +34,8 @@ METRICS_COLUMNS = [
 ]
 SWEEP_COLUMNS = [
     "feature_selection_method", "ngram_size", "min_block_frequency",
-    "max_block_frequency", "hamming_cluster_count", "fingerprint_width",
+    "max_block_frequency", "hamming_cluster_count", "subblock_size_rows",
+    "fingerprint_width",
     "metadata_size_bytes", "mean_unnecessary_block_read_ratio", "zero_bit_query_count",
     "query_count", "total_candidate_partitions", "total_pruned_partitions",
     "total_ground_truth_partitions", "false_positive_partition_count",
@@ -422,16 +423,25 @@ class ResultExporter:
             manifest_points.append({
                 "id": f"block-infix-v{version_id:03d}",
                 "title": version.merge_step,
-                "technique": "concatenated_block_infix_fingerprint",
+                "technique": (
+                    "subblock_infix_fingerprint_matrix"
+                    if self.fingerprint_config.subblock_size_rows is not None
+                    else "concatenated_block_infix_fingerprint"
+                ),
                 "parent_id": None,
                 "parameters": {
                     "fingerprint_width": next((row["query_fingerprint_width"] for row in rows), 0),
                     "feature_selection_method": self.fingerprint_config.feature_selection_method,
                     "ngram_size": version.ngram_size,
                     "block_size_rows": self.config.block_size_rows,
+                    "subblock_size_rows": self.fingerprint_config.subblock_size_rows,
                     "min_block_frequency": self.fingerprint_config.min_block_frequency,
                     "max_block_frequency": self.fingerprint_config.max_block_frequency,
-                    "feature_candidates": "frequency_filtered_observed_block_ngrams",
+                    "feature_candidates": (
+                        "frequency_filtered_observed_subblock_ngrams"
+                        if self.fingerprint_config.subblock_size_rows is not None
+                        else "frequency_filtered_observed_block_ngrams"
+                    ),
                 },
                 "metadata_dir": str(self.fingerprint_dir.resolve()),
                 "results_path": str((self.output_dir / "results.csv").resolve()),
@@ -541,7 +551,12 @@ class ResultExporter:
             ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
         for ax in list(axes.flat)[len(versions):]:
             ax.set_visible(False)
-        fig.supxlabel("Block presence frequency"); fig.supylabel("Share of selected n-grams")
+        frequency_unit = (
+            "Sub-block" if self.fingerprint_config.subblock_size_rows is not None
+            else "Block"
+        )
+        fig.supxlabel(f"{frequency_unit} presence frequency")
+        fig.supylabel("Share of selected n-grams")
         fig.suptitle(
             "Selected n-gram block-frequency distributions\n"
             f"{self.fingerprint_config.feature_selection_method}; "
@@ -572,6 +587,8 @@ class SweepRunner:
         )
         if fingerprint.feature_selection_method.endswith("_hamming_clusters"):
             path /= f"hamming_cluster_count_{fingerprint.hamming_cluster_count}"
+        if fingerprint.subblock_size_rows is not None:
+            path /= f"subblock_size_rows_{fingerprint.subblock_size_rows}"
         return (
             path
             / f"min_block_frequency_{self._frequency_label(fingerprint.min_block_frequency)}"
@@ -597,7 +614,12 @@ class SweepRunner:
                 f"\n=== [{index}/{len(experiments)}] {fingerprint.feature_selection_method}; "
                 f"n={fingerprint.ngram_size}; frequency="
                 f"[{fingerprint.min_block_frequency:g}, {fingerprint.max_block_frequency:g}]; "
-                f"widths={fingerprint.widths} ==="
+                f"widths={fingerprint.widths}"
+                + (
+                    f"; subblock_size_rows={fingerprint.subblock_size_rows}"
+                    if fingerprint.subblock_size_rows is not None else ""
+                )
+                + " ==="
             )
             evaluator = FingerprintEvaluator(
                 self.config, fingerprint, query_files, run_dir
@@ -621,6 +643,7 @@ class SweepRunner:
                     "min_block_frequency": fingerprint.min_block_frequency,
                     "max_block_frequency": fingerprint.max_block_frequency,
                     "hamming_cluster_count": fingerprint.hamming_cluster_count,
+                    "subblock_size_rows": fingerprint.subblock_size_rows or "",
                     "fingerprint_width": rows[0]["query_fingerprint_width"],
                     "metadata_size_bytes": version.metadata_size_bytes,
                     "mean_unnecessary_block_read_ratio": mean(ratios),
