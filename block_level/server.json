@@ -18,8 +18,8 @@
       "fingerprint_subblock_joint_entropy_equivalence_classes": [0.0]
     },
     "max_block_frequencies": [1.0],
-    "feature_selection_scope": "local",
-    "subblock_sizes_rows": [1, 8, 32, 128, 512, 1024, 2048],
+    "feature_selection_scope": "global",
+    "subblock_sizes_rows": [1, 8, 32, 64, 128, 512, 1024, 2048],
     "hamming_cluster_counts": [154],
     "ascii_only": true,
     "hamming_cluster_max_iterations": 10
