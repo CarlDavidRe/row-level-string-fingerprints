@@ -9,10 +9,110 @@ import duckdb
 
 from block_level.config import ExperimentConfig, FingerprintConfig, SweepConfig
 from block_level.experiment import FingerprintEvaluator
-from block_level.fingerprint import FingerprintBuilder
+from block_level.fingerprint import FeatureSelector, FingerprintBuilder
 
 
 class SubblockFingerprintTest(unittest.TestCase):
+    def test_internal_entropy_rejects_local_scope(self) -> None:
+        with self.assertRaisesRegex(ValueError, "sub-block joint-entropy"):
+            FingerprintConfig(
+                widths=(2,),
+                ngram_size=1,
+                feature_selection_method=(
+                    "fingerprint_internal_entropy_equivalence_classes"
+                ),
+                feature_selection_scope="local",
+            )
+
+    def test_mixed_sweep_keeps_internal_entropy_global(self) -> None:
+        internal = "fingerprint_internal_entropy_equivalence_classes"
+        subblock = "fingerprint_subblock_joint_entropy_equivalence_classes"
+        sweep = SweepConfig(
+            widths_by_method={internal: (2,), subblock: (2,)},
+            feature_selection_methods=(internal, subblock),
+            ngram_sizes=(1,),
+            min_block_frequencies_by_method={internal: (0.0,), subblock: (0.0,)},
+            subblock_sizes_rows=(1,),
+            feature_selection_scope="local",
+        )
+
+        points = list(sweep.experiments())
+        self.assertEqual(
+            [(point.feature_selection_method, point.feature_selection_scope) for point in points],
+            [(internal, "global"), (subblock, "local")],
+        )
+
+    def test_subblock_global_scope_uses_one_shared_mapping(self) -> None:
+        config = FingerprintConfig(
+            widths=(2,),
+            ngram_size=1,
+            feature_selection_method=(
+                "fingerprint_subblock_joint_entropy_equivalence_classes"
+            ),
+            subblock_size_rows=1,
+            feature_selection_scope="global",
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            builder = FingerprintBuilder(config, 2, root / "metadata", root / "results")
+            with duckdb.connect(":memory:") as connection:
+                connection.execute(
+                    "CREATE TABLE items(value VARCHAR, partition_id INTEGER)"
+                )
+                connection.executemany(
+                    "INSERT INTO items VALUES (?, ?)",
+                    [("a", 0), ("b", 0), ("a", 1), ("c", 1)],
+                )
+                version = builder.build(connection, {("items", "value")})[0]
+
+            metadata = json.loads(
+                (root / "metadata" / version.metadata_file).read_text()
+            )
+            target = metadata["targets"]["items.value"]
+            self.assertEqual(target["feature_scope"], "target_shared")
+            self.assertTrue(target["feature_groups"])
+            self.assertTrue(all(
+                "feature_groups" not in block for block in target["blocks"]
+            ))
+
+    def test_one_subblock_global_scope_matches_global_internal_entropy(self) -> None:
+        subblock_config = FingerprintConfig(
+            widths=(3,),
+            ngram_size=1,
+            feature_selection_method=(
+                "fingerprint_subblock_joint_entropy_equivalence_classes"
+            ),
+            subblock_size_rows=4,
+            feature_selection_scope="global",
+        )
+        internal_config = FingerprintConfig(
+            widths=(3,),
+            ngram_size=1,
+            feature_selection_method=(
+                "fingerprint_internal_entropy_equivalence_classes"
+            ),
+            feature_selection_scope="global",
+        )
+        partition_grams = {
+            0: frozenset({"a", "b"}),
+            1: frozenset({"b", "c"}),
+            2: frozenset({"a", "c"}),
+            3: frozenset({"a"}),
+        }
+        partition_subblocks = {
+            partition_id: (grams,)
+            for partition_id, grams in partition_grams.items()
+        }
+
+        subblock_groups = FeatureSelector(
+            subblock_config
+        ).select_global_joint_entropy(partition_subblocks, 3)
+        internal_groups = FeatureSelector(internal_config).select(
+            partition_grams, 3
+        )
+
+        self.assertEqual(subblock_groups, internal_groups)
+
     def test_sweep_expands_each_subblock_size(self) -> None:
         method = "fingerprint_subblock_joint_entropy_equivalence_classes"
         sweep = SweepConfig.from_mapping({
@@ -21,11 +121,16 @@ class SubblockFingerprintTest(unittest.TestCase):
             "ngram_sizes": [3],
             "min_block_frequencies_by_method": {method: [0.0]},
             "subblock_sizes_rows": [1, 256, 16384],
+            "feature_selection_scope": "local",
         })
+        points = list(sweep.experiments())
         self.assertEqual(
-            [point.subblock_size_rows for point in sweep.experiments()],
+            [point.subblock_size_rows for point in points],
             [1, 256, 16384],
         )
+        self.assertTrue(all(
+            point.feature_selection_scope == "local" for point in points
+        ))
 
     def test_legacy_variant_retains_single_mask_representation(self) -> None:
         config = FingerprintConfig(
@@ -68,6 +173,7 @@ class SubblockFingerprintTest(unittest.TestCase):
                 "fingerprint_subblock_joint_entropy_equivalence_classes"
             ),
             subblock_size_rows=1,
+            feature_selection_scope="local",
         )
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -78,7 +184,10 @@ class SubblockFingerprintTest(unittest.TestCase):
                 )
                 connection.executemany(
                     "INSERT INTO items VALUES (?, ?)",
-                    [("aaa", 0), ("bbb", 0), ("ab", 1), ("bbb", 1)],
+                    [
+                        ("a", 0), ("b", 0), (None, 0), (None, 0),
+                        ("ab", 1), (None, 1), (None, 1), (None, 1),
+                    ],
                 )
             query_path = root / "items.value_queries.txt"
             query_path.write_text("a\nab\nbbb\n", encoding="utf-8")
@@ -90,13 +199,14 @@ class SubblockFingerprintTest(unittest.TestCase):
                     fingerprint.feature_selection_method: (0.0,)
                 },
                 subblock_sizes_rows=(1,),
+                feature_selection_scope="local",
             )
             experiment = ExperimentConfig(
                 database_path=database_path,
                 query_source_dir=root,
                 output_dir=root / "output",
                 sweep=sweep,
-                block_size_rows=2,
+                block_size_rows=4,
             )
             evaluation = FingerprintEvaluator(
                 experiment, fingerprint, [query_path], root / "run"
@@ -122,6 +232,7 @@ class SubblockFingerprintTest(unittest.TestCase):
                 "fingerprint_subblock_joint_entropy_equivalence_classes"
             ),
             subblock_size_rows=1,
+            feature_selection_scope="local",
         )
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -132,7 +243,10 @@ class SubblockFingerprintTest(unittest.TestCase):
                 )
                 connection.executemany(
                     "INSERT INTO items VALUES (?, ?)",
-                    [("a", 0), ("ab", 0), ("b", 1), ("b", 1)],
+                    [
+                        ("a", 0), ("ab", 0), (None, 0), (None, 0),
+                        (None, 1), (None, 1), (None, 1), (None, 1),
+                    ],
                 )
                 versions = builder.build(connection, {("items", "value")})
 
@@ -150,8 +264,8 @@ class SubblockFingerprintTest(unittest.TestCase):
                 block["partition_id"]: block["matrix_row_count"]
                 for block in two_bit["targets"]["items.value"]["blocks"]
             }
-            self.assertEqual(one_bit_counts, {0: 1, 1: 1})
-            self.assertEqual(two_bit_counts, {0: 2, 1: 1})
+            self.assertEqual(one_bit_counts, {0: 2, 1: 1})
+            self.assertEqual(two_bit_counts, {0: 3, 1: 1})
 
     def test_matrix_probe_requires_one_row_to_contain_the_query(self) -> None:
         config = FingerprintConfig(
@@ -161,17 +275,21 @@ class SubblockFingerprintTest(unittest.TestCase):
                 "fingerprint_subblock_joint_entropy_equivalence_classes"
             ),
             subblock_size_rows=1,
+            feature_selection_scope="local",
         )
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            builder = FingerprintBuilder(config, 3, root / "metadata", root / "results")
+            builder = FingerprintBuilder(config, 4, root / "metadata", root / "results")
             with duckdb.connect(":memory:") as connection:
                 connection.execute(
                     "CREATE TABLE items(value VARCHAR, partition_id INTEGER)"
                 )
                 connection.executemany(
                     "INSERT INTO items VALUES (?, ?)",
-                    [("aaa", 0), ("aaa", 0), ("bbb", 0), ("ab", 1), ("ab", 1)],
+                    [
+                        ("a", 0), ("b", 0), (None, 0), (None, 0),
+                        ("ab", 1), (None, 1), (None, 1), (None, 1),
+                    ],
                 )
                 versions = builder.build(connection, {("items", "value")})
 
@@ -179,8 +297,8 @@ class SubblockFingerprintTest(unittest.TestCase):
             probe = versions[0].probe
             self.assertEqual(probe("items", "value", "a").candidate_partition_ids, {0, 1})
             self.assertEqual(probe("items", "value", "ab").candidate_partition_ids, {1})
-            self.assertEqual(versions[0].mean_matrix_rows, 1.5)
-            self.assertEqual(versions[0].metadata_size_bytes, 3)
+            self.assertEqual(versions[0].mean_matrix_rows, 2.5)
+            self.assertEqual(versions[0].metadata_size_bytes, 5)
 
             metadata = json.loads(
                 (root / "metadata" / versions[0].metadata_file).read_text()
@@ -192,7 +310,7 @@ class SubblockFingerprintTest(unittest.TestCase):
             blocks = metadata["targets"]["items.value"]["blocks"]
             self.assertEqual(
                 {block["partition_id"]: block["matrix_row_count"] for block in blocks},
-                {0: 2, 1: 1},
+                {0: 3, 1: 2},
             )
 
     def test_subblocks_are_consecutive_and_count_null_rows(self) -> None:
@@ -203,6 +321,7 @@ class SubblockFingerprintTest(unittest.TestCase):
                 "fingerprint_subblock_joint_entropy_equivalence_classes"
             ),
             subblock_size_rows=2,
+            feature_selection_scope="local",
         )
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

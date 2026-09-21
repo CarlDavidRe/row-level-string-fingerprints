@@ -12,7 +12,13 @@ from typing import Iterable
 import duckdb
 
 from .config import ExperimentConfig, FingerprintConfig
-from .fingerprint import FingerprintBuilder, FingerprintVersion, NGramGenerator, quote_identifier
+from .fingerprint import (
+    SCOPE_CONFIGURABLE_METHODS,
+    FingerprintBuilder,
+    FingerprintVersion,
+    NGramGenerator,
+    quote_identifier,
+)
 
 
 RESULT_COLUMNS = [
@@ -33,7 +39,7 @@ METRICS_COLUMNS = [
     "skipped_query_count", "total_query_count", "total_num_skipped_blocks",
 ]
 SWEEP_COLUMNS = [
-    "feature_selection_method", "ngram_size", "min_block_frequency",
+    "feature_selection_method", "feature_selection_scope", "ngram_size", "min_block_frequency",
     "max_block_frequency", "hamming_cluster_count", "subblock_size_rows",
     "fingerprint_width",
     "metadata_size_bytes", "mean_unnecessary_block_read_ratio", "zero_bit_query_count",
@@ -432,6 +438,7 @@ class ResultExporter:
                 "parameters": {
                     "fingerprint_width": next((row["query_fingerprint_width"] for row in rows), 0),
                     "feature_selection_method": self.fingerprint_config.feature_selection_method,
+                    "feature_selection_scope": self.fingerprint_config.feature_selection_scope,
                     "ngram_size": version.ngram_size,
                     "block_size_rows": self.config.block_size_rows,
                     "subblock_size_rows": self.fingerprint_config.subblock_size_rows,
@@ -583,8 +590,10 @@ class SweepRunner:
         path = (
             self.config.output_dir
             / fingerprint.feature_selection_method
-            / f"ngram_{fingerprint.ngram_size}"
         )
+        if fingerprint.feature_selection_method in SCOPE_CONFIGURABLE_METHODS:
+            path /= f"feature_scope_{fingerprint.feature_selection_scope}"
+        path /= f"ngram_{fingerprint.ngram_size}"
         if fingerprint.feature_selection_method.endswith("_hamming_clusters"):
             path /= f"hamming_cluster_count_{fingerprint.hamming_cluster_count}"
         if fingerprint.subblock_size_rows is not None:
@@ -612,6 +621,7 @@ class SweepRunner:
             run_dir = self.run_directory(fingerprint)
             print(
                 f"\n=== [{index}/{len(experiments)}] {fingerprint.feature_selection_method}; "
+                f"scope={fingerprint.feature_selection_scope}; "
                 f"n={fingerprint.ngram_size}; frequency="
                 f"[{fingerprint.min_block_frequency:g}, {fingerprint.max_block_frequency:g}]; "
                 f"widths={fingerprint.widths}"
@@ -639,6 +649,7 @@ class SweepRunner:
                 ]
                 sweep_rows.append({
                     "feature_selection_method": fingerprint.feature_selection_method,
+                    "feature_selection_scope": fingerprint.feature_selection_scope,
                     "ngram_size": fingerprint.ngram_size,
                     "min_block_frequency": fingerprint.min_block_frequency,
                     "max_block_frequency": fingerprint.max_block_frequency,

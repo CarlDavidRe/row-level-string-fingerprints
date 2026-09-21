@@ -17,6 +17,9 @@ FEATURE_SELECTION_METHODS = frozenset({
     "local_split_entropy_hamming_clusters",
     "fingerprint_distribution_entropy_hamming_clusters",
 })
+FEATURE_SELECTION_SCOPE_METHODS = frozenset({
+    "fingerprint_subblock_joint_entropy_equivalence_classes",
+})
 
 
 def _sequence(value: Any, name: str) -> tuple[Any, ...]:
@@ -36,6 +39,7 @@ class FingerprintConfig:
     hamming_cluster_count: int = 154
     hamming_cluster_max_iterations: int = 10
     subblock_size_rows: int | None = None
+    feature_selection_scope: str = "global"
 
     def __post_init__(self) -> None:
         if not self.widths or tuple(sorted(set(self.widths))) != self.widths:
@@ -54,6 +58,16 @@ class FingerprintConfig:
             raise ValueError("hamming_cluster_count must be positive")
         if self.hamming_cluster_max_iterations <= 0:
             raise ValueError("hamming_cluster_max_iterations must be positive")
+        if self.feature_selection_scope not in {"local", "global"}:
+            raise ValueError("feature_selection_scope must be 'local' or 'global'")
+        if (
+            self.feature_selection_scope == "local"
+            and self.feature_selection_method not in FEATURE_SELECTION_SCOPE_METHODS
+        ):
+            raise ValueError(
+                "local feature selection is supported only by the sub-block "
+                "joint-entropy method"
+            )
         subblock_method = (
             self.feature_selection_method
             == "fingerprint_subblock_joint_entropy_equivalence_classes"
@@ -81,6 +95,7 @@ class SweepConfig:
     ascii_only: bool = True
     hamming_cluster_max_iterations: int = 10
     subblock_sizes_rows: tuple[int, ...] = (1,)
+    feature_selection_scope: str = "global"
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any]) -> SweepConfig:
@@ -117,6 +132,9 @@ class SweepConfig:
             subblock_sizes_rows=tuple(int(value) for value in _sequence(
                 raw.get("subblock_sizes_rows", [1]), "sweep.subblock_sizes_rows"
             )),
+            feature_selection_scope=str(
+                raw.get("feature_selection_scope", "global")
+            ),
         )
 
     def __post_init__(self) -> None:
@@ -138,6 +156,8 @@ class SweepConfig:
             raise ValueError("maximum block frequencies must be in (0, 1]")
         if any(count <= 0 for count in self.hamming_cluster_counts):
             raise ValueError("Hamming cluster counts must be positive")
+        if self.feature_selection_scope not in {"local", "global"}:
+            raise ValueError("feature_selection_scope must be 'local' or 'global'")
         if (
             tuple(sorted(set(self.subblock_sizes_rows))) != self.subblock_sizes_rows
             or any(size <= 0 for size in self.subblock_sizes_rows)
@@ -179,6 +199,11 @@ class SweepConfig:
                                         hamming_cluster_count=cluster_count,
                                         hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
                                         subblock_size_rows=subblock_size,
+                                        feature_selection_scope=(
+                                            self.feature_selection_scope
+                                            if method in FEATURE_SELECTION_SCOPE_METHODS
+                                            else "global"
+                                        ),
                                     )
 
 

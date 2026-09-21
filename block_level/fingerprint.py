@@ -17,6 +17,10 @@ BLOCK_VALUE_SEPARATOR = chr(0)
 SUBBLOCK_JOINT_ENTROPY_METHOD = (
     "fingerprint_subblock_joint_entropy_equivalence_classes"
 )
+INTERNAL_ENTROPY_METHOD = "fingerprint_internal_entropy_equivalence_classes"
+SCOPE_CONFIGURABLE_METHODS = frozenset({
+    SUBBLOCK_JOINT_ENTROPY_METHOD,
+})
 
 
 def quote_identifier(identifier: str) -> str:
@@ -233,6 +237,74 @@ class FeatureSelector:
         return selected
 
     @staticmethod
+    def within_block_joint_entropy(
+        block_sizes: tuple[int, ...], candidates: dict[str, int], limit: int
+    ) -> list[str]:
+        """Maximize entropy of feature occurrence vectors across sub-blocks."""
+        selected: list[str] = []
+        block_ranges: list[tuple[int, int]] = []
+        offset = 0
+        for block_size in block_sizes:
+            block_ranges.append((offset, (1 << block_size) - 1))
+            offset += block_size
+        pattern_counts: list[dict[int, int]] = [{} for _ in block_sizes]
+        count_log_count_sums = [0.0] * len(block_sizes)
+
+        while candidates and len(selected) < limit:
+            next_width = len(selected) + 1
+            best_feature = None
+            best_score = -1.0
+            for gram, gram_mask in candidates.items():
+                if not selected:
+                    present_blocks = sum(
+                        bool((gram_mask >> block_offset) & local_mask)
+                        for block_offset, local_mask in block_ranges
+                    )
+                    score = len(block_sizes) * binary_entropy(
+                        present_blocks, len(block_sizes)
+                    )
+                else:
+                    entropies = []
+                    for block_index, (block_offset, local_mask) in enumerate(block_ranges):
+                        pattern = (gram_mask >> block_offset) & local_mask
+                        current_count = pattern_counts[block_index].get(pattern, 0)
+                        next_count = current_count + 1
+                        next_count_log_count_sum = count_log_count_sums[block_index]
+                        if current_count > 1:
+                            next_count_log_count_sum -= (
+                                current_count * math.log2(current_count)
+                            )
+                        if next_count > 1:
+                            next_count_log_count_sum += next_count * math.log2(next_count)
+                        entropies.append(
+                            math.log2(next_width)
+                            - next_count_log_count_sum / next_width
+                        )
+                    score = math.fsum(entropies)
+                if score > best_score or (
+                    score == best_score
+                    and (best_feature is None or gram < best_feature)
+                ):
+                    best_feature = gram
+                    best_score = score
+            if best_feature is None:
+                break
+            selected.append(best_feature)
+            feature_mask = candidates.pop(best_feature)
+            for block_index, (block_offset, local_mask) in enumerate(block_ranges):
+                pattern = (feature_mask >> block_offset) & local_mask
+                current_count = pattern_counts[block_index].get(pattern, 0)
+                next_count = current_count + 1
+                if current_count > 1:
+                    count_log_count_sums[block_index] -= (
+                        current_count * math.log2(current_count)
+                    )
+                if next_count > 1:
+                    count_log_count_sums[block_index] += next_count * math.log2(next_count)
+                pattern_counts[block_index][pattern] = next_count
+        return selected
+
+    @staticmethod
     def collapse_equivalent(
         candidates: dict[str, int],
     ) -> tuple[dict[str, int], dict[str, tuple[str, ...]]]:
@@ -324,13 +396,12 @@ class FeatureSelector:
         if method.endswith("_equivalence_classes"):
             representatives, aliases = self.collapse_equivalent(candidates)
             if method == SUBBLOCK_JOINT_ENTROPY_METHOD:
-                # With one observation per sub-block, distribution_entropy
-                # greedily maximizes H(bit_1, ..., bit_k) of matrix rows.
-                selector = self.distribution_entropy
-            else:
-                selector = self.internal_entropy if method.startswith("fingerprint_internal") else (
-                    self.local_split if method.startswith("local_split") else self.distribution_entropy
+                raise ValueError(
+                    f"{method} requires physical block boundaries"
                 )
+            selector = self.internal_entropy if method.startswith("fingerprint_internal") else (
+                self.local_split if method.startswith("local_split") else self.distribution_entropy
+            )
             selected = selector(block_count, representatives, limit)
             return [aliases[feature] for feature in selected]
         if method.endswith("_hamming_clusters"):
@@ -346,6 +417,61 @@ class FeatureSelector:
             )
             return [aliases[feature] for feature in selected]
         raise ValueError(f"unknown feature-selection method: {method!r}")
+
+    def select_block_local_joint_entropy(
+        self,
+        partition_subblocks: dict[int, tuple[frozenset[str], ...]],
+        limit: int,
+    ) -> dict[int, tuple[tuple[str, ...], ...]]:
+        units = tuple(
+            grams
+            for partition_id in sorted(partition_subblocks)
+            for grams in partition_subblocks[partition_id]
+        )
+        _, global_candidates = self.candidates(units)
+        global_representatives, global_aliases = self.collapse_equivalent(
+            global_candidates
+        )
+        selected_by_block: dict[int, tuple[tuple[str, ...], ...]] = {}
+        offset = 0
+        for partition_id in sorted(partition_subblocks):
+            block_size = len(partition_subblocks[partition_id])
+            local_mask = (1 << block_size) - 1
+            local_candidates = {
+                feature: (presence_mask >> offset) & local_mask
+                for feature, presence_mask in global_representatives.items()
+            }
+            selected = self.within_block_joint_entropy(
+                (block_size,), local_candidates, limit
+            )
+            selected_by_block[partition_id] = tuple(
+                global_aliases[feature] for feature in selected
+            )
+            offset += block_size
+        return selected_by_block
+
+    def select_global_joint_entropy(
+        self,
+        partition_subblocks: dict[int, tuple[frozenset[str], ...]],
+        limit: int,
+    ) -> list[tuple[str, ...]]:
+        units = tuple(
+            grams
+            for partition_id in sorted(partition_subblocks)
+            for grams in partition_subblocks[partition_id]
+        )
+        _, candidates = self.candidates(units)
+        representatives, aliases = self.collapse_equivalent(candidates)
+        block_sizes = tuple(
+            len(partition_subblocks[partition_id])
+            for partition_id in sorted(partition_subblocks)
+        )
+        selected = (
+            self.internal_entropy(len(block_sizes), representatives, limit)
+            if block_sizes and all(block_size == 1 for block_size in block_sizes)
+            else self.within_block_joint_entropy(block_sizes, representatives, limit)
+        )
+        return [aliases[feature] for feature in selected]
 
 
 class FingerprintBuilder:
@@ -385,6 +511,13 @@ class FingerprintBuilder:
     @property
     def uses_subblock_matrix(self) -> bool:
         return self.config.feature_selection_method == SUBBLOCK_JOINT_ENTROPY_METHOD
+
+    @property
+    def uses_block_local_mapping(self) -> bool:
+        return (
+            self.config.feature_selection_method in SCOPE_CONFIGURABLE_METHODS
+            and self.config.feature_selection_scope == "local"
+        )
 
     def iter_ngrams(self, text: str):
         for gram in self.ngrams.generate(text):
@@ -521,14 +654,69 @@ class FingerprintBuilder:
         self, path: Path, width: int, profiles: dict[tuple[str, str], dict]
     ) -> None:
         hex_digits = max(1, math.ceil(width / 4))
-        diagnostics_enabled = self.config.feature_selection_method != (
-            "fingerprint_internal_entropy_equivalence_classes"
+        diagnostics_enabled = (
+            not self.uses_block_local_mapping
+            and self.config.feature_selection_method != INTERNAL_ENTROPY_METHOD
         )
         representation = (
             "deduplicated_subblock_infix_mask_matrix_per_block"
             if self.uses_subblock_matrix
             else "one_concatenated_infix_mask_per_block"
         )
+        metadata_targets = {}
+        for (table, column), profile in sorted(profiles.items()):
+            blocks = []
+            for partition_id, rows in sorted(profile["block_rows"].items()):
+                block = {
+                    "partition_id": partition_id,
+                    **({
+                        "matrix_rows_hex": [
+                            format(mask, f"0{hex_digits}x") for mask in rows
+                        ],
+                        "matrix_row_count": len(rows),
+                    } if self.uses_subblock_matrix else {
+                        "mask_hex": format(rows[0], f"0{hex_digits}x"),
+                    }),
+                }
+                if self.uses_block_local_mapping:
+                    groups = profile["block_feature_groups"][partition_id]
+                    block["features"] = [aliases[0] for aliases in groups]
+                    block["feature_groups"] = [list(aliases) for aliases in groups]
+                blocks.append(block)
+            target_payload = {
+                "feature_scope": (
+                    "block_local" if self.uses_block_local_mapping else "target_shared"
+                ),
+                "features": list(profile["features"]),
+                "feature_groups": [
+                    list(aliases) for aliases in profile["feature_groups"]
+                ],
+                "blocks": blocks,
+            }
+            if diagnostics_enabled:
+                target_payload["feature_diagnostics"] = [
+                    {
+                        "bit_index": bit_index,
+                        "ngram": feature,
+                        "ngrams": list(profile["feature_groups"][bit_index]),
+                        "alias_count": len(profile["feature_groups"][bit_index]),
+                        "frequency_unit": profile["frequency_unit"],
+                        "presence_count": profile["feature_unit_counts"][bit_index],
+                        "total_unit_count": profile["unit_count"],
+                        "frequency": (
+                            profile["feature_unit_counts"][bit_index] / profile["unit_count"]
+                            if profile["unit_count"] else 0.0
+                        ),
+                        "block_presence_count": profile["feature_unit_counts"][bit_index],
+                        "total_block_count": profile["unit_count"],
+                        "block_frequency": (
+                            profile["feature_unit_counts"][bit_index] / profile["unit_count"]
+                            if profile["unit_count"] else 0.0
+                        ),
+                    }
+                    for bit_index, feature in enumerate(profile["features"])
+                ]
+            metadata_targets[f"{table}.{column}"] = target_payload
         payload = {
             "schema_version": 1,
             "representation": representation,
@@ -549,57 +737,16 @@ class FingerprintBuilder:
             "fingerprint_payload_size_bytes": self.payload_size(width, profiles),
             "ngram_size": self.config.ngram_size,
             "feature_selection_method": self.config.feature_selection_method,
+            "feature_scope": (
+                "block_local" if self.uses_block_local_mapping else "target_shared"
+            ),
             "hamming_cluster_count": self.config.hamming_cluster_count,
             "hamming_cluster_max_iterations": self.config.hamming_cluster_max_iterations,
             "min_block_frequency": self.config.min_block_frequency,
             "max_block_frequency": self.config.max_block_frequency,
             "ascii_only": self.config.ascii_only,
             "normalization": "NFKD-strip-accents-lower",
-            "targets": {
-                f"{table}.{column}": {
-                    "features": list(profile["features"]),
-                    "feature_groups": [list(aliases) for aliases in profile["feature_groups"]],
-                    **({"feature_diagnostics": [
-                        {
-                            "bit_index": bit_index,
-                            "ngram": feature,
-                            "ngrams": list(profile["feature_groups"][bit_index]),
-                            "alias_count": len(profile["feature_groups"][bit_index]),
-                            "frequency_unit": profile["frequency_unit"],
-                            "presence_count": profile["feature_unit_counts"][bit_index],
-                            "total_unit_count": profile["unit_count"],
-                            "frequency": (
-                                profile["feature_unit_counts"][bit_index] / profile["unit_count"]
-                                if profile["unit_count"] else 0.0
-                            ),
-                            # Retained for consumers of schema version 1. For the
-                            # matrix variant these counts refer to sub-blocks.
-                            "block_presence_count": profile["feature_unit_counts"][bit_index],
-                            "total_block_count": profile["unit_count"],
-                            "block_frequency": (
-                                profile["feature_unit_counts"][bit_index] / profile["unit_count"]
-                                if profile["unit_count"] else 0.0
-                            ),
-                        }
-                        for bit_index, feature in enumerate(profile["features"])
-                    ]} if diagnostics_enabled else {}),
-                    "blocks": [(
-                        {
-                            "partition_id": partition_id,
-                            "matrix_rows_hex": [
-                                format(mask, f"0{hex_digits}x") for mask in rows
-                            ],
-                            "matrix_row_count": len(rows),
-                        }
-                        if self.uses_subblock_matrix else
-                        {
-                            "partition_id": partition_id,
-                            "mask_hex": format(rows[0], f"0{hex_digits}x"),
-                        }
-                    ) for partition_id, rows in sorted(profile["block_rows"].items())],
-                }
-                for (table, column), profile in sorted(profiles.items())
-            },
+            "targets": metadata_targets,
         }
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(
@@ -612,8 +759,9 @@ class FingerprintBuilder:
     ) -> list[FingerprintVersion]:
         max_width = max(self.config.widths)
         full_profiles: dict[tuple[str, str], dict] = {}
-        diagnostics_enabled = self.config.feature_selection_method != (
-            "fingerprint_internal_entropy_equivalence_classes"
+        diagnostics_enabled = (
+            not self.uses_block_local_mapping
+            and self.config.feature_selection_method != INTERNAL_ENTROPY_METHOD
         )
         for target_index, (table, column) in enumerate(sorted(targets), 1):
             print(f"Building block n-grams [{target_index}/{len(targets)}]: {table}.{column}")
@@ -629,44 +777,83 @@ class FingerprintBuilder:
                 }
                 selection_units = partition_grams
                 frequency_unit = "block"
-            groups = tuple(self.selector.select(selection_units, max_width))
-            features = tuple(aliases[0] for aliases in groups)
-            feature_to_bit = {
-                feature: bit_index
-                for bit_index, aliases in enumerate(groups)
-                for feature in aliases
-            }
-            feature_unit_counts = [0] * len(groups)
             block_rows: dict[int, tuple[int, ...]] = {}
-            for partition_id, subblocks in partition_subblocks.items():
-                masks = []
-                for grams in subblocks:
-                    mask = self.encode_grams(grams, feature_to_bit)
-                    masks.append(mask)
-                    if diagnostics_enabled:
+            if self.uses_block_local_mapping:
+                block_feature_groups = self.selector.select_block_local_joint_entropy(
+                    partition_subblocks, max_width
+                )
+                for partition_id, subblocks in partition_subblocks.items():
+                    groups = block_feature_groups[partition_id]
+                    feature_to_bit = {
+                        feature: bit_index
+                        for bit_index, aliases in enumerate(groups)
+                        for feature in aliases
+                    }
+                    block_rows[partition_id] = tuple(sorted({
+                        self.encode_grams(grams, feature_to_bit)
+                        for grams in subblocks
+                    }))
+                features: tuple[str, ...] = ()
+                groups: tuple[tuple[str, ...], ...] = ()
+                feature_unit_counts: tuple[int, ...] = ()
+                selected_counts = [
+                    len(groups) for groups in block_feature_groups.values()
+                ]
+            else:
+                groups = tuple(
+                    self.selector.select_global_joint_entropy(
+                        partition_subblocks, max_width
+                    )
+                    if self.uses_subblock_matrix
+                    else self.selector.select(selection_units, max_width)
+                )
+                features = tuple(aliases[0] for aliases in groups)
+                feature_to_bit = {
+                    feature: bit_index
+                    for bit_index, aliases in enumerate(groups)
+                    for feature in aliases
+                }
+                mutable_feature_unit_counts = [0] * len(groups)
+                for partition_id, subblocks in partition_subblocks.items():
+                    masks = []
+                    for grams in subblocks:
+                        mask = self.encode_grams(grams, feature_to_bit)
+                        masks.append(mask)
                         remaining = mask
                         while remaining:
                             lowest_bit = remaining & -remaining
-                            feature_unit_counts[lowest_bit.bit_length() - 1] += 1
+                            mutable_feature_unit_counts[
+                                lowest_bit.bit_length() - 1
+                            ] += 1
                             remaining ^= lowest_bit
-                block_rows[partition_id] = tuple(sorted(set(masks)))
+                    block_rows[partition_id] = tuple(sorted(set(masks)))
+                feature_unit_counts = tuple(mutable_feature_unit_counts)
+                block_feature_groups = {}
+                selected_counts = [len(features)]
             full_profiles[(table, column)] = {
                 "features": features,
                 "feature_groups": groups,
-                "feature_unit_counts": tuple(feature_unit_counts),
+                "block_feature_groups": block_feature_groups,
+                "feature_unit_counts": feature_unit_counts,
                 "unit_count": len(selection_units),
                 "frequency_unit": frequency_unit,
                 "block_rows": block_rows,
+                "selected_count": max(selected_counts, default=0),
             }
             source_row_count = sum(len(rows) for rows in partition_subblocks.values())
             stored_row_count = sum(
                 len(rows)
                 for rows in full_profiles[(table, column)]["block_rows"].values()
             )
+            selection_summary = (
+                f"{min(selected_counts, default=0):,}-"
+                f"{max(selected_counts, default=0):,}/{max_width} features per block"
+                if self.uses_block_local_mapping else
+                f"{max(selected_counts, default=0):,}/{max_width} shared features"
+            )
             print(
-                f"  {len(partition_subblocks):,} blocks; "
-                f"selected {len(features):,}/{max_width} features with "
-                f"{self.config.feature_selection_method}"
+                f"  {len(partition_subblocks):,} blocks; selected {selection_summary} "
+                f"with {self.config.feature_selection_method}"
             )
             if self.uses_subblock_matrix:
                 print(
@@ -675,10 +862,10 @@ class FingerprintBuilder:
                 )
 
         selected_count = max(
-            (len(profile["features"]) for profile in full_profiles.values()), default=0
+            (profile["selected_count"] for profile in full_profiles.values()), default=0
         )
         saturated = all(
-            len(profile["features"]) < max_width for profile in full_profiles.values()
+            profile["selected_count"] < max_width for profile in full_profiles.values()
         )
         version_widths = self.config.widths
         if saturated:
@@ -692,14 +879,14 @@ class FingerprintBuilder:
         diagnostic_rows: list[dict] = []
         for version_id, width in enumerate(version_widths):
             width_mask = (1 << width) - 1
-            profiles = {
-                target: {
+            profiles = {}
+            for target, profile in full_profiles.items():
+                version_profile = {
                     "features": profile["features"][:width],
                     "feature_groups": profile["feature_groups"][:width],
-                    "feature_to_bit": {
-                        feature: bit_index
-                        for bit_index, aliases in enumerate(profile["feature_groups"][:width])
-                        for feature in aliases
+                    "block_feature_groups": {
+                        partition_id: groups[:width]
+                        for partition_id, groups in profile["block_feature_groups"].items()
                     },
                     "feature_unit_counts": profile["feature_unit_counts"][:width],
                     "unit_count": profile["unit_count"],
@@ -711,8 +898,26 @@ class FingerprintBuilder:
                         for partition_id, rows in profile["block_rows"].items()
                     },
                 }
-                for target, profile in full_profiles.items()
-            }
+                if self.uses_block_local_mapping:
+                    version_profile["block_feature_to_bit"] = {
+                        partition_id: {
+                            feature: bit_index
+                            for bit_index, aliases in enumerate(groups)
+                            for feature in aliases
+                        }
+                        for partition_id, groups in version_profile[
+                            "block_feature_groups"
+                        ].items()
+                    }
+                else:
+                    version_profile["feature_to_bit"] = {
+                        feature: bit_index
+                        for bit_index, aliases in enumerate(
+                            version_profile["feature_groups"]
+                        )
+                        for feature in aliases
+                    }
+                profiles[target] = version_profile
             metadata_path = self.fingerprint_dir / f"block_infix_fingerprint_v{version_id:03d}.json"
             self.write_metadata(metadata_path, width, profiles)
             if diagnostics_enabled:
@@ -744,16 +949,27 @@ class FingerprintBuilder:
             def make_probe(version_profiles, fingerprint_width):
                 def probe(table: str, column: str, predicate: str) -> FingerprintProbe:
                     profile = version_profiles[(table, column)]
-                    query_mask = self.encode_query(str(predicate or ""), profile["feature_to_bit"])
-                    candidates = frozenset(
-                        partition_id
-                        for partition_id, matrix_rows in profile["block_rows"].items()
+                    query_text = str(predicate or "")
+                    query_ones = []
+                    candidates = set()
+                    for partition_id, matrix_rows in profile["block_rows"].items():
+                        feature_to_bit = (
+                            profile["block_feature_to_bit"][partition_id]
+                            if self.uses_block_local_mapping
+                            else profile["feature_to_bit"]
+                        )
+                        query_mask = self.encode_query(query_text, feature_to_bit)
+                        query_ones.append(query_mask.bit_count())
                         if any(
                             (block_mask & query_mask) == query_mask
                             for block_mask in matrix_rows
-                        )
+                        ):
+                            candidates.add(partition_id)
+                    return FingerprintProbe(
+                        frozenset(candidates),
+                        fingerprint_width,
+                        max(query_ones, default=0),
                     )
-                    return FingerprintProbe(candidates, fingerprint_width, query_mask.bit_count())
                 return probe
 
             total_matrix_rows = sum(

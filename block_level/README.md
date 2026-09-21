@@ -36,14 +36,34 @@ root contains copied workload files, the resolved configuration, and
 
 `fingerprint_subblock_joint_entropy_equivalence_classes` is the matrix-valued
 variant of the block fingerprint. It splits each physical block into
-consecutive, row-aligned sub-blocks, greedily chooses bits that maximize the
-joint entropy of the sub-block fingerprint distribution, and stores one matrix
-row per distinct sub-block mask. Exact duplicate masks are removed independently
-at every fingerprint width. Duplicate sub-blocks still retain their multiplicity
-during entropy optimization, so they contribute correctly to the empirical
-distribution; deduplication is only a lossless storage and probing optimization.
-A block is a candidate when the query mask is a subset of at least one row in
-its matrix.
+consecutive, row-aligned sub-blocks. Every selected feature contributes a joint
+occurrence vector with one zero/one value per sub-block. The empirical
+distribution of these vectors is taken across selected features, and selection
+greedily maximizes its categorical entropy. With one sub-block per physical
+block, the vectors are scalar zero/one values and the objective is exactly the
+internal-entropy objective.
+
+The sub-block variant supports two feature-selection scopes:
+
+- `local`: every physical block independently selects and stores its own feature
+  groups. Queries are encoded separately with each block's mapping before the
+  containment test.
+- `global`: one feature mapping is shared by every block. For the sub-block
+  variant, candidate scores sum the within-block joint entropies without mixing
+  sub-block vectors across physical blocks.
+
+`fingerprint_internal_entropy_equivalence_classes` remains global-only. A local
+scope is rejected for that method.
+
+Set `sweep.feature_selection_scope` to `local` or `global` in the JSON
+experiment configuration.
+
+The representation stores one matrix row per distinct sub-block mask. During
+feature selection every sub-block remains a coordinate of the joint occurrence
+vectors. Exact duplicate matrix rows are removed independently at every
+fingerprint width afterward; this is a lossless storage and probing
+optimization. A block is a candidate when the query mask is a subset of at
+least one row in its matrix.
 
 Configure the sub-block size in rows with `sweep.subblock_sizes_rows`. Each size
 creates a separate sweep point and must be between 1 and `block_size_rows`,
@@ -66,6 +86,7 @@ block-frequency cutoffs are applied to sub-block occurrence frequency.
       "fingerprint_subblock_joint_entropy_equivalence_classes": [0.0]
     },
     "max_block_frequencies": [1.0],
+    "feature_selection_scope": "local",
     "subblock_sizes_rows": [1, 256, 1024, 16384]
   }
 }
