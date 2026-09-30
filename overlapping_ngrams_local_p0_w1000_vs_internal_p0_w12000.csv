@@ -1,0 +1,881 @@
+ngram,ngram_json,local_width_1000_bit_index,local_partition_0_occurs,internal_width_12000_bit_index,internal_partition_0_occurs
+  b,"""  b""",0,False,1068,False
+" ""o",""" \""o""",2,True,1106,True
+" ""t",""" \""t""",3,True,849,True
+" ""w",""" \""w""",4,True,1048,True
+ #1,""" #1""",5,True,5047,True
+ #2,""" #2""",6,True,1157,True
+ #3,""" #3""",7,True,2396,True
+ #4,""" #4""",8,True,7934,True
+ #5,""" #5""",9,True,9427,True
+ #6,""" #6""",10,True,2590,True
+ #7,""" #7""",11,True,8036,True
+ $1,""" $1""",12,True,1998,True
+ $3,""" $3""",13,True,10188,True
+ $4,""" $4""",14,True,2060,True
+ & ,""" & """,16,True,5047,True
+ &t,""" &t""",17,True,1190,True
+ '0,""" '0""",18,True,2386,True
+ '4,""" '4""",19,True,7647,True
+ '5,""" '5""",20,True,11767,True
+ '7,""" '7""",21,True,8010,True
+ 'a,""" 'a""",22,True,1543,True
+ 'b,""" 'b""",23,True,970,True
+ 'c,""" 'c""",24,True,3394,True
+ 'd,""" 'd""",25,True,1592,True
+ 'e,""" 'e""",26,True,1880,True
+ 'f,""" 'f""",27,True,3594,True
+ 'h,""" 'h""",28,True,3209,True
+ 'l,""" 'l""",29,True,5438,True
+ 'n,""" 'n""",30,True,5337,True
+ 'p,""" 'p""",31,True,6860,True
+ 'r,""" 'r""",32,True,604,True
+ 's,""" 's""",33,True,3983,True
+ 't,""" 't""",34,True,1055,True
+ 'u,""" 'u""",35,True,7949,True
+ (1,""" (1""",37,True,10116,True
+ (a,""" (a""",39,True,6463,True
+ (b,""" (b""",40,True,10155,True
+ (d,""" (d""",41,True,9949,True
+ (f,""" (f""",42,True,10635,True
+ (h,""" (h""",44,True,11591,True
+ (i,""" (i""",45,True,7421,True
+ (k,""" (k""",46,True,9690,True
+ (l,""" (l""",47,True,8075,True
+ (m,""" (m""",48,True,11899,True
+ (o,""" (o""",49,True,6646,True
+ (p,""" (p""",50,True,7006,True
+ (r,""" (r""",51,True,5407,True
+ (s,""" (s""",52,True,9058,True
+ (t,""" (t""",53,True,7703,True
+ (u,""" (u""",54,True,7731,True
+ (v,""" (v""",55,True,10897,True
+ + ,""" + """,57,True,9330,True
+ - ,""" - """,58,True,5047,True
+ ..,""" ..""",60,True,8547,True
+ 00,""" 00""",61,True,9939,True
+ 01,""" 01""",62,True,11447,True
+ 03,""" 03""",63,True,8795,True
+ 1 ,""" 1 """,69,True,5551,True
+ 1-,""" 1-""",71,True,1642,True
+ 1.,""" 1.""",72,True,8278,True
+ 1/,""" 1/""",73,True,10211,True
+ 10,""" 10""",74,True,5047,True
+ 11,""" 11""",75,True,5069,True
+ 12,""" 12""",76,True,5707,True
+ 13,""" 13""",77,True,5047,True
+ 14,""" 14""",78,True,6713,True
+ 15,""" 15""",79,True,6217,True
+ 16,""" 16""",80,True,8350,True
+ 17,""" 17""",81,True,3119,True
+ 18,""" 18""",82,True,4716,True
+ 19,""" 19""",83,True,5047,True
+ 1:,""" 1:""",84,True,86,True
+ 1e,""" 1e""",85,True,10944,True
+ 1s,""" 1s""",86,True,8619,True
+ 2 ,""" 2 """,87,True,5047,True
+ 2),""" 2)""",89,True,10183,True
+ 2.,""" 2.""",90,True,8697,True
+ 20,""" 20""",92,True,5047,True
+ 21,""" 21""",93,True,3497,True
+ 22,""" 22""",94,True,6836,True
+ 23,""" 23""",95,True,8464,True
+ 24,""" 24""",96,True,3100,True
+ 25,""" 25""",97,True,4583,True
+ 26,""" 26""",98,True,4521,True
+ 27,""" 27""",99,True,9071,True
+ 2:,""" 2:""",100,True,4125,True
+ 2e,""" 2e""",102,True,3569,True
+ 3 ,""" 3 """,103,True,1057,True
+ 30,""" 30""",104,True,3610,True
+ 31,""" 31""",105,True,10730,True
+ 32,""" 32""",106,True,7879,True
+ 33,""" 33""",107,True,3148,True
+ 34,""" 34""",108,True,11116,True
+ 36,""" 36""",109,True,11230,True
+ 38,""" 38""",110,True,10039,True
+ 3:,""" 3:""",111,True,1115,True
+ 4 ,""" 4 """,112,True,1208,True
+ 4-,""" 4-""",113,True,4930,True
+ 40,""" 40""",114,True,6256,True
+ 41,""" 41""",115,True,11959,True
+ 42,""" 42""",116,True,8976,True
+ 43,""" 43""",117,True,11995,True
+ 45,""" 45""",118,True,9807,True
+ 47,""" 47""",119,True,3582,True
+ 48,""" 48""",120,True,4513,True
+ 49,""" 49""",121,True,9969,True
+ 4:,""" 4:""",122,True,7595,True
+ 5 ,""" 5 """,123,True,7110,True
+ 50,""" 50""",124,True,4398,True
+ 52,""" 52""",125,True,2025,True
+ 53,""" 53""",126,True,9827,True
+ 56,""" 56""",127,True,10236,True
+ 58,""" 58""",128,True,11026,True
+ 5:,""" 5:""",129,True,8532,True
+ 6 ,""" 6 """,130,True,7835,True
+ 60,""" 60""",132,True,8803,True
+ 61,""" 61""",133,True,7361,True
+ 63,""" 63""",134,True,7971,True
+ 66,""" 66""",135,True,2325,True
+ 6:,""" 6:""",136,True,8828,True
+ 7 ,""" 7 """,137,True,7017,True
+ 70,""" 70""",140,True,7212,True
+ 75,""" 75""",141,True,9139,True
+ 77,""" 77""",142,True,8919,True
+ 78,""" 78""",143,True,6539,True
+ 7:,""" 7:""",144,True,7576,True
+ 8 ,""" 8 """,145,True,7430,True
+ 80,""" 80""",146,True,426,True
+ 83,""" 83""",147,True,11834,True
+ 8:,""" 8:""",149,True,11098,True
+ 9 ,""" 9 """,150,True,8441,True
+ 90,""" 90""",152,True,8667,True
+ 91,""" 91""",153,True,8678,True
+ 97,""" 97""",154,True,11,True
+ 9:,""" 9:""",155,True,9544,True
+ 9t,""" 9t""",156,True,7393,True
+ = ,""" = """,157,True,11545,True
+ a ,""" a """,160,True,5047,True
+ a&,""" a&""",161,True,1905,True
+ a.,""" a.""",162,True,8048,True
+ a:,""" a:""",163,True,3692,True
+ aa,""" aa""",164,True,6208,True
+ ab,""" ab""",165,True,5047,True
+ ac,""" ac""",166,True,5047,True
+ ad,""" ad""",167,True,5047,True
+ af,""" af""",168,True,5047,True
+ ag,""" ag""",169,True,5047,True
+ ah,""" ah""",170,True,4383,True
+ ai,""" ai""",171,True,5047,True
+ ak,""" ak""",172,True,6181,True
+ al,""" al""",173,True,5047,True
+ am,""" am""",174,True,5047,True
+ an,""" an""",175,True,5047,True
+ ao,""" ao""",176,True,7311,True
+ ap,""" ap""",177,True,5047,True
+ aq,""" aq""",178,True,5025,True
+ ar,""" ar""",179,True,5047,True
+ as,""" as""",180,True,5047,True
+ at,""" at""",181,True,5047,True
+ au,""" au""",182,True,5047,True
+ av,""" av""",183,True,5047,True
+ aw,""" aw""",184,True,5047,True
+ ax,""" ax""",185,True,9274,True
+ ay,""" ay""",186,True,7066,True
+ az,""" az""",187,True,1015,True
+ b-,""" b-""",188,True,6758,True
+ b.,""" b.""",189,True,4698,True
+ b:,""" b:""",190,True,9351,True
+ ba,""" ba""",191,True,5047,True
+ bb,""" bb""",192,True,7459,True
+ bc,""" bc""",193,True,568,True
+ be,""" be""",195,True,5047,True
+ bh,""" bh""",196,True,9416,True
+ bi,""" bi""",197,True,5047,True
+ bl,""" bl""",199,True,5047,True
+ bm,""" bm""",200,True,8481,True
+ bo,""" bo""",201,True,5047,True
+ br,""" br""",202,True,5047,True
+ bu,""" bu""",204,True,5047,True
+ by,""" by""",205,True,5047,True
+ c',""" c'""",206,True,9283,True
+ c-,""" c-""",207,True,4459,True
+ c.,""" c.""",208,True,100,True
+ c:,""" c:""",209,True,7825,True
+ ca,""" ca""",210,True,5047,True
+ ce,""" ce""",211,True,5047,True
+ ch,""" ch""",212,True,5047,True
+ ci,""" ci""",213,True,5047,True
+ cl,""" cl""",214,True,5047,True
+ co,""" co""",215,True,5047,True
+ cr,""" cr""",216,True,5047,True
+ cs,""" cs""",217,True,7472,True
+ ct,""" ct""",218,True,8456,True
+ cu,""" cu""",219,True,5047,True
+ cy,""" cy""",220,True,1427,True
+ d',""" d'""",221,True,5680,True
+ d.,""" d.""",222,True,7578,True
+ da,""" da""",224,True,5047,True
+ de,""" de""",225,True,5047,True
+ dh,""" dh""",226,True,10193,True
+ di,""" di""",227,True,5047,True
+ dj,""" dj""",228,True,8739,True
+ dl,""" dl""",229,True,9872,True
+ dm,""" dm""",230,True,11342,True
+ dn,""" dn""",231,True,9157,True
+ do,""" do""",232,True,5047,True
+ dr,""" dr""",233,True,5047,True
+ du,""" du""",234,True,5047,True
+ dv,""" dv""",235,True,3004,True
+ dw,""" dw""",236,True,5008,True
+ dy,""" dy""",237,True,5047,True
+ e ,""" e """,238,True,6628,True
+ e.,""" e.""",240,True,4011,True
+ ea,""" ea""",243,True,5047,True
+ ec,""" ec""",244,True,5047,True
+ ed,""" ed""",245,True,5047,True
+ ee,""" ee""",246,True,5526,True
+ ef,""" ef""",247,True,5090,True
+ eg,""" eg""",248,True,5047,True
+ eh,""" eh""",249,True,2625,True
+ ei,""" ei""",250,True,5047,True
+ ej,""" ej""",251,True,11346,True
+ ek,""" ek""",252,True,10876,True
+ el,""" el""",253,True,5047,True
+ em,""" em""",254,True,5047,True
+ en,""" en""",255,True,5047,True
+ ep,""" ep""",256,True,5047,True
+ eq,""" eq""",257,True,591,True
+ er,""" er""",258,True,5047,True
+ es,""" es""",259,True,5047,True
+ et,""" et""",260,True,5047,True
+ eu,""" eu""",261,True,5047,True
+ ev,""" ev""",262,True,5047,True
+ ew,""" ew""",263,True,10011,True
+ ex,""" ex""",264,True,5047,True
+ ey,""" ey""",265,True,5047,True
+ f ,""" f """,266,True,2395,True
+ f.,""" f.""",267,True,6383,True
+ fa,""" fa""",268,True,5047,True
+ fe,""" fe""",269,True,5047,True
+ ff,""" ff""",270,True,1498,True
+ fi,""" fi""",271,True,5047,True
+ fl,""" fl""",272,True,5047,True
+ fo,""" fo""",273,True,5047,True
+ fr,""" fr""",274,True,5047,True
+ ft,""" ft""",275,True,5624,True
+ fu,""" fu""",276,True,5047,True
+ ga,""" ga""",279,True,5047,True
+ ge,""" ge""",280,True,5047,True
+ gh,""" gh""",281,True,5047,True
+ gi,""" gi""",282,True,5047,True
+ gl,""" gl""",283,True,5047,True
+ go,""" go""",284,True,5047,True
+ gr,""" gr""",285,True,5047,True
+ gu,""" gu""",286,True,5047,True
+ gw,""" gw""",287,True,1732,True
+ gy,""" gy""",288,True,5047,True
+ h.,""" h.""",289,True,2948,True
+ ha,""" ha""",291,True,5047,True
+ hd,""" hd""",292,True,11796,True
+ he,""" he""",293,True,5047,True
+ hi,""" hi""",294,True,5047,True
+ hj,""" hj""",295,True,11153,True
+ ho,""" ho""",297,True,5047,True
+ hr,""" hr""",298,True,9451,True
+ hu,""" hu""",299,True,5047,True
+ hy,""" hy""",301,True,5379,True
+ i ,""" i """,302,True,5047,True
+ i',""" i'""",303,True,5047,True
+ i.,""" i.""",304,True,3236,True
+ i:,""" i:""",305,True,8907,True
+ ib,""" ib""",306,True,9699,True
+ ic,""" ic""",307,True,5047,True
+ id,""" id""",308,True,5047,True
+ if,""" if""",309,True,1085,True
+ ig,""" ig""",310,True,5787,True
+ ih,""" ih""",311,True,10679,True
+ ii,""" ii""",312,True,5047,True
+ ij,""" ij""",313,True,11419,True
+ ik,""" ik""",314,True,7119,True
+ il,""" il""",315,True,5047,True
+ im,""" im""",316,True,5047,True
+ in,""" in""",317,True,5047,True
+ io,""" io""",318,True,4410,True
+ ip,""" ip""",319,True,4088,True
+ ir,""" ir""",320,True,5047,True
+ is,""" is""",321,True,5047,True
+ it,""" it""",322,True,5047,True
+ iv,""" iv""",323,True,6414,True
+ ix,""" ix""",324,True,735,True
+ iz,""" iz""",325,True,2758,True
+ j ,""" j """,326,True,1743,True
+ j.,""" j.""",327,True,4779,True
+ ja,""" ja""",328,True,5047,True
+ je,""" je""",330,True,5047,True
+ ji,""" ji""",331,True,5047,True
+ jo,""" jo""",332,True,5047,True
+ jr,""" jr""",333,True,7619,True
+ ju,""" ju""",334,True,5047,True
+ k.,""" k.""",335,True,6865,True
+ ka,""" ka""",336,True,5047,True
+ ke,""" ke""",338,True,5047,True
+ kh,""" kh""",339,True,2285,True
+ ki,""" ki""",340,True,5047,True
+ kl,""" kl""",341,True,5047,True
+ kn,""" kn""",343,True,5047,True
+ ko,""" ko""",344,True,5047,True
+ kr,""" kr""",345,True,5047,True
+ ku,""" ku""",346,True,5047,True
+ ky,""" ky""",348,True,5962,True
+ l',""" l'""",349,True,6242,True
+ l.,""" l.""",350,True,7724,True
+ la,""" la""",351,True,5047,True
+ le,""" le""",352,True,5047,True
+ li,""" li""",353,True,5047,True
+ ll,""" ll""",354,True,5871,True
+ lo,""" lo""",355,True,5047,True
+ lu,""" lu""",356,True,5047,True
+ ly,""" ly""",357,True,5561,True
+ m ,""" m """,358,True,3246,True
+ m',""" m'""",359,True,3063,True
+ m.,""" m.""",360,True,4414,True
+ ma,""" ma""",361,True,5047,True
+ mc,""" mc""",362,True,5047,True
+ me,""" me""",363,True,5047,True
+ mi,""" mi""",364,True,5047,True
+ ml,""" ml""",365,True,11361,True
+ mn,""" mn""",366,True,7813,True
+ mo,""" mo""",367,True,5047,True
+ mp,""" mp""",368,True,8432,True
+ mr,""" mr""",369,True,5047,True
+ mu,""" mu""",370,True,5047,True
+ my,""" my""",371,True,5047,True
+ n',""" n'""",372,True,3480,True
+ n.,""" n.""",373,True,1245,True
+ na,""" na""",374,True,5047,True
+ nb,""" nb""",375,True,142,True
+ ne,""" ne""",376,True,5047,True
+ ng,""" ng""",377,True,9614,True
+ ni,""" ni""",379,True,5047,True
+ no,""" no""",380,True,5047,True
+ nu,""" nu""",381,True,5047,True
+ ny,""" ny""",382,True,4730,True
+ o ,""" o """,383,True,6628,True
+ o',""" o'""",384,True,5047,True
+ o.,""" o.""",386,True,8205,True
+ oa,""" oa""",387,True,4688,True
+ ob,""" ob""",388,True,5047,True
+ oc,""" oc""",389,True,5047,True
+ od,""" od""",390,True,5047,True
+ oe,""" oe""",391,True,11803,True
+ of,""" of""",392,True,5047,True
+ og,""" og""",393,True,6319,True
+ oh,""" oh""",394,True,5047,True
+ oi,""" oi""",395,True,5104,True
+ oj,""" oj""",396,True,56,True
+ ok,""" ok""",397,True,1437,True
+ ol,""" ol""",398,True,5047,True
+ om,""" om""",399,True,5205,True
+ on,""" on""",400,True,5047,True
+ oo,""" oo""",401,True,7084,True
+ op,""" op""",402,True,5047,True
+ or,""" or""",403,True,5047,True
+ os,""" os""",404,True,5047,True
+ ot,""" ot""",405,True,5047,True
+ ou,""" ou""",406,True,5047,True
+ ov,""" ov""",407,True,5047,True
+ ow,""" ow""",408,True,5047,True
+ oy,""" oy""",409,True,1660,True
+ oz,""" oz""",410,True,3874,True
+ p.,""" p.""",411,True,7494,True
+ pa,""" pa""",412,True,5047,True
+ pc,""" pc""",413,True,11644,True
+ pe,""" pe""",414,True,5047,True
+ pf,""" pf""",415,True,11390,True
+ ph,""" ph""",416,True,5047,True
+ pi,""" pi""",417,True,5047,True
+ pj,""" pj""",418,True,9550,True
+ pl,""" pl""",419,True,5047,True
+ po,""" po""",420,True,5047,True
+ pr,""" pr""",421,True,5047,True
+ ps,""" ps""",422,True,1185,True
+ pt,""" pt""",423,True,2550,True
+ pu,""" pu""",424,True,5047,True
+ py,""" py""",425,True,5718,True
+ qi,""" qi""",427,True,1987,True
+ qu,""" qu""",428,True,5047,True
+ r.,""" r.""",430,True,2120,True
+ ra,""" ra""",431,True,5047,True
+ re,""" re""",432,True,5047,True
+ rh,""" rh""",433,True,5014,True
+ ri,""" ri""",434,True,5047,True
+ ro,""" ro""",435,True,5047,True
+ ru,""" ru""",436,True,5047,True
+ ry,""" ry""",437,True,6624,True
+ s ,""" s """,438,True,10637,True
+ sa,""" sa""",439,True,5047,True
+ sc,""" sc""",440,True,5047,True
+ se,""" se""",441,True,5047,True
+ sh,""" sh""",442,True,5047,True
+ si,""" si""",443,True,5047,True
+ sk,""" sk""",444,True,5047,True
+ sl,""" sl""",445,True,5047,True
+ sm,""" sm""",446,True,5047,True
+ sn,""" sn""",447,True,5047,True
+ so,""" so""",448,True,5047,True
+ sp,""" sp""",449,True,5047,True
+ sq,""" sq""",450,True,5047,True
+ sr,""" sr""",451,True,7986,True
+ st,""" st""",452,True,5047,True
+ su,""" su""",453,True,5047,True
+ sv,""" sv""",454,True,8116,True
+ sw,""" sw""",455,True,5047,True
+ sy,""" sy""",456,True,5047,True
+ sz,""" sz""",457,True,2672,True
+ t',""" t'""",458,True,9215,True
+ t.,""" t.""",460,True,2303,True
+ ta,""" ta""",461,True,5047,True
+ tb,""" tb""",462,True,9366,True
+ tc,""" tc""",463,True,8787,True
+ te,""" te""",464,True,5047,True
+ th,""" th""",465,True,5047,True
+ ti,""" ti""",466,True,5047,True
+ tn,""" tn""",467,True,5794,True
+ to,""" to""",468,True,5047,True
+ tr,""" tr""",469,True,5047,True
+ ts,""" ts""",470,True,3878,True
+ tu,""" tu""",471,True,5047,True
+ tv,""" tv""",472,True,5047,True
+ tw,""" tw""",473,True,5047,True
+ ty,""" ty""",474,True,5662,True
+ tz,""" tz""",475,True,9260,True
+ u ,""" u """,476,True,7678,True
+ u-,""" u-""",477,True,7076,True
+ u.,""" u.""",478,True,4235,True
+ u2,""" u2""",479,True,8388,True
+ ub,""" ub""",480,True,8825,True
+ uc,""" uc""",481,True,524,True
+ ue,""" ue""",483,True,7926,True
+ uf,""" uf""",484,True,2907,True
+ ug,""" ug""",485,True,1939,True
+ uk,""" uk""",488,True,8362,True
+ ul,""" ul""",489,True,5047,True
+ um,""" um""",490,True,6368,True
+ un,""" un""",491,True,5047,True
+ uo,""" uo""",492,True,4798,True
+ up,""" up""",493,True,5047,True
+ ur,""" ur""",494,True,5047,True
+ us,""" us""",495,True,5047,True
+ ut,""" ut""",496,True,6798,True
+ v.,""" v.""",498,True,5936,True
+ va,""" va""",499,True,5047,True
+ vd,""" vd""",500,True,3280,True
+ ve,""" ve""",501,True,5047,True
+ vi,""" vi""",502,True,5047,True
+ vl,""" vl""",503,True,11607,True
+ vo,""" vo""",504,True,5047,True
+ vr,""" vr""",505,True,10113,True
+ vs,""" vs""",506,True,5047,True
+ vu,""" vu""",507,True,5842,True
+ w.,""" w.""",509,True,11318,True
+ w/,""" w/""",510,True,6875,True
+ wa,""" wa""",511,True,5047,True
+ we,""" we""",512,True,5047,True
+ wh,""" wh""",513,True,5047,True
+ wi,""" wi""",514,True,5047,True
+ wo,""" wo""",515,True,5047,True
+ wr,""" wr""",517,True,5047,True
+ wu,""" wu""",519,True,5921,True
+ x ,""" x """,520,True,7263,True
+ xe,""" xe""",522,True,5017,True
+ xi,""" xi""",523,True,8587,True
+ xl,""" xl""",524,True,657,True
+ xt,""" xt""",525,True,4165,True
+ xx,""" xx""",526,True,8878,True
+ y ,""" y """,527,True,6933,True
+ ya,""" ya""",528,True,5047,True
+ ye,""" ye""",529,True,5047,True
+ yi,""" yi""",530,True,10171,True
+ yl,""" yl""",531,True,6187,True
+ yo,""" yo""",532,True,5047,True
+ yu,""" yu""",533,True,5047,True
+ z ,""" z """,534,True,10728,True
+ za,""" za""",535,True,5047,True
+ ze,""" ze""",536,True,5047,True
+ zh,""" zh""",537,True,10262,True
+ zi,""" zi""",538,True,5262,True
+ zo,""" zo""",541,True,5047,True
+ zu,""" zu""",542,True,6892,True
+ zw,""" zw""",543,True,8631,True
+! (,"""! (""",544,True,838,True
+! -,"""! -""",545,True,11247,True
+! a,"""! a""",546,True,8163,True
+! b,"""! b""",547,True,9764,True
+! c,"""! c""",548,True,8521,True
+! d,"""! d""",549,True,7938,True
+! e,"""! e""",550,True,2190,True
+! f,"""! f""",551,True,11975,True
+! g,"""! g""",552,True,147,True
+! h,"""! h""",553,True,8536,True
+! i,"""! i""",554,True,2601,True
+! k,"""! k""",556,True,11655,True
+! l,"""! l""",557,True,8498,True
+! m,"""! m""",558,True,1886,True
+! n,"""! n""",559,True,11722,True
+! r,"""! r""",560,True,11928,True
+! s,"""! s""",561,True,1411,True
+! t,"""! t""",562,True,5256,True
+!! ,"""!! """,564,True,10173,True
+!!!,"""!!!""",565,True,10954,True
+!/s,"""!/s""",569,True,10602,True
+!/t,"""!/t""",570,True,11429,True
+!: ,"""!: """,572,True,2205,True
+#1.,"""#1.""",576,True,7144,True
+#10,"""#10""",577,True,2970,True
+#11,"""#11""",578,True,8659,True
+#12,"""#12""",579,True,1701,True
+#13,"""#13""",580,True,468,True
+#14,"""#14""",581,True,8712,True
+#15,"""#15""",582,True,855,True
+#16,"""#16""",583,True,4724,True
+#17,"""#17""",584,True,7800,True
+#18,"""#18""",585,True,611,True
+#19,"""#19""",586,True,5435,True
+#1:,"""#1:""",587,True,11099,True
+#2.,"""#2.""",588,True,7144,True
+#20,"""#20""",589,True,10482,True
+#21,"""#21""",590,True,8620,True
+#22,"""#22""",591,True,1465,True
+#23,"""#23""",592,True,9607,True
+#24,"""#24""",593,True,8267,True
+#25,"""#25""",594,True,7500,True
+#26,"""#26""",595,True,944,True
+#27,"""#27""",596,True,888,True
+#28,"""#28""",597,True,2670,True
+#29,"""#29""",598,True,9657,True
+#3.,"""#3.""",600,True,7144,True
+#30,"""#30""",602,True,7812,True
+#31,"""#31""",603,True,2880,True
+#33,"""#33""",604,True,2532,True
+#34,"""#34""",605,True,5834,True
+#35,"""#35""",606,True,9014,True
+#37,"""#37""",607,True,4080,True
+#38,"""#38""",608,True,9169,True
+#39,"""#39""",609,True,8735,True
+#4.,"""#4.""",610,True,7144,True
+#40,"""#40""",611,True,603,True
+#43,"""#43""",614,True,11610,True
+#5.,"""#5.""",616,True,7144,True
+#54,"""#54""",617,True,2511,True
+#6.,"""#6.""",619,True,7144,True
+#7.,"""#7.""",621,True,7144,True
+#7:,"""#7:""",623,True,3166,True
+#8.,"""#8.""",624,True,7144,True
+#9.,"""#9.""",625,True,7144,True
+$10,"""$10""",627,True,11692,True
+& a,"""& a""",630,True,5047,True
+& b,"""& b""",631,True,5047,True
+& c,"""& c""",632,True,5047,True
+& d,"""& d""",633,True,6641,True
+& e,"""& e""",634,True,3782,True
+& f,"""& f""",635,True,5813,True
+& g,"""& g""",636,True,764,True
+& h,"""& h""",637,True,1417,True
+& i,"""& i""",638,True,9362,True
+& j,"""& j""",639,True,1083,True
+& k,"""& k""",640,True,8246,True
+& l,"""& l""",641,True,4579,True
+& m,"""& m""",642,True,5047,True
+& n,"""& n""",643,True,1349,True
+& o,"""& o""",644,True,62,True
+& p,"""& p""",645,True,1093,True
+& r,"""& r""",646,True,1025,True
+& s,"""& s""",647,True,5047,True
+& t,"""& t""",648,True,5047,True
+& w,"""& w""",649,True,799,True
+' a,"""' a""",653,True,5826,True
+' b,"""' b""",654,True,1005,True
+' c,"""' c""",655,True,2974,True
+' d,"""' d""",656,True,1419,True
+' f,"""' f""",657,True,372,True
+' g,"""' g""",658,True,1678,True
+' h,"""' h""",659,True,2426,True
+' i,"""' i""",660,True,1403,True
+' l,"""' l""",661,True,1672,True
+' m,"""' m""",662,True,593,True
+' n,"""' n""",663,True,6996,True
+' o,"""' o""",664,True,6277,True
+' p,"""' p""",665,True,899,True
+' r,"""' r""",666,True,2798,True
+' s,"""' s""",667,True,6821,True
+' t,"""' t""",668,True,4786,True
+' u,"""' u""",669,True,1686,True
+' w,"""' w""",670,True,4560,True
+' y,"""' y""",671,True,6616,True
+'07,"""'07""",672,True,5735,True
+'42,"""'42""",675,True,1110,True
+': ,"""': """,677,True,9501,True
+'a',"""'a'""",678,True,11758,True
+'ab,"""'ab""",679,True,4491,True
+'ac,"""'ac""",680,True,8110,True
+'af,"""'af""",681,True,2458,True
+'ag,"""'ag""",682,True,11609,True
+'ai,"""'ai""",683,True,8926,True
+'al,"""'al""",684,True,2786,True
+'am,"""'am""",685,True,7037,True
+'an,"""'an""",686,True,9381,True
+'ap,"""'ap""",687,True,11353,True
+'ar,"""'ar""",688,True,3910,True
+'av,"""'av""",689,True,9168,True
+'be,"""'be""",690,True,10914,True
+'bi,"""'bi""",691,True,8128,True
+'bo,"""'bo""",692,True,7734,True
+'br,"""'br""",693,True,3734,True
+'cl,"""'cl""",694,True,10015,True
+'d ,"""'d """,695,True,2916,True
+'de,"""'de""",696,True,8439,True
+'e ,"""'e """,697,True,1335,True
+'ec,"""'ec""",698,True,9961,True
+'ed,"""'ed""",699,True,7839,True
+'el,"""'el""",700,True,383,True
+'em,"""'em""",701,True,5823,True
+'en,"""'en""",702,True,7522,True
+'er,"""'er""",703,True,9369,True
+'es,"""'es""",704,True,9888,True
+'ex,"""'ex""",705,True,11171,True
+'fa,"""'fa""",706,True,2001,True
+'fr,"""'fr""",707,True,6289,True
+'ha,"""'ha""",708,True,10658,True
+'he,"""'he""",709,True,278,True
+'hi,"""'hi""",710,True,7342,True
+'hu,"""'hu""",711,True,6023,True
+'id,"""'id""",713,True,4457,True
+'il,"""'il""",714,True,6131,True
+'in,"""'in""",715,True,8253,True
+'l ,"""'l """,716,True,9098,True
+'le,"""'le""",717,True,2034,True
+'li,"""'li""",718,True,3980,True
+'ll,"""'ll""",719,True,1322,True
+'lo,"""'lo""",720,True,4169,True
+'m ,"""'m """,721,True,1193,True
+'n ,"""'n """,723,True,5889,True
+'n',"""'n'""",724,True,2496,True
+'ne,"""'ne""",725,True,9021,True
+'no,"""'no""",726,True,8834,True
+'oc,"""'oc""",727,True,8220,True
+'oe,"""'oe""",728,True,3182,True
+'om,"""'om""",729,True,3666,True
+'or,"""'or""",730,True,4239,True
+'ou,"""'ou""",731,True,3287,True
+'po,"""'po""",732,True,9887,True
+'re,"""'re""",733,True,1089,True
+'ro,"""'ro""",734,True,3564,True
+'s ,"""'s """,735,True,5047,True
+'s/,"""'s/""",736,True,1869,True
+'s?,"""'s?""",737,True,1506,True
+'si,"""'si""",738,True,11219,True
+'st,"""'st""",739,True,5516,True
+'t ,"""'t """,740,True,5047,True
+'te,"""'te""",743,True,9311,True
+'th,"""'th""",744,True,2615,True
+'ti,"""'ti""",745,True,1711,True
+'tr,"""'tr""",746,True,2070,True
+'ve,"""'ve""",748,True,766,True
+'we,"""'we""",749,True,11431,True
+'ye,"""'ye""",751,True,3563,True
+(#1,"""(#1""",752,True,7144,True
+(#2,"""(#2""",753,True,7144,True
+(#3,"""(#3""",754,True,6296,True
+(#4,"""(#4""",755,True,7144,True
+(#8,"""(#8""",624,True,7144,True
+(19,"""(19""",756,True,553,True
+(20,"""(20""",757,True,6248,True
+(an,"""(an""",760,True,4270,True
+(ba,"""(ba""",762,True,10600,True
+(be,"""(be""",763,True,10076,True
+(pa,"""(pa""",767,True,459,True
+(th,"""(th""",770,True,8044,True
++ c,"""+ c""",775,True,9391,True
+", &",""", &""",778,True,6979,True
+", 2",""", 2""",779,True,964,True
+", a",""", a""",781,True,5047,True
+", b",""", b""",782,True,5047,True
+", c",""", c""",783,True,5047,True
+", d",""", d""",784,True,5047,True
+", e",""", e""",785,True,5014,True
+", f",""", f""",786,True,5047,True
+", g",""", g""",787,True,5047,True
+", h",""", h""",788,True,5047,True
+", i",""", i""",789,True,5047,True
+", j",""", j""",790,True,5047,True
+", k",""", k""",791,True,1441,True
+", l",""", l""",792,True,5047,True
+", m",""", m""",793,True,5047,True
+", n",""", n""",794,True,5047,True
+", o",""", o""",795,True,5047,True
+", p",""", p""",796,True,5047,True
+", q",""", q""",797,True,4675,True
+", r",""", r""",798,True,5047,True
+", s",""", s""",799,True,5047,True
+", t",""", t""",800,True,5047,True
+", u",""", u""",801,True,1165,True
+", v",""", v""",802,True,4104,True
+", w",""", w""",803,True,5047,True
+", y",""", y""",804,True,4579,True
+", z",""", z""",805,True,4324,True
+",00",""",00""",806,True,76,True
+- 1,"""- 1""",807,True,90,True
+- 2,"""- 2""",808,True,11731,True
+- 3,"""- 3""",809,True,4377,True
+- 5,"""- 5""",810,True,10451,True
+- a,"""- a""",811,True,5047,True
+- b,"""- b""",812,True,2394,True
+- c,"""- c""",813,True,7239,True
+- d,"""- d""",814,True,5973,True
+- e,"""- e""",815,True,7049,True
+- f,"""- f""",816,True,3015,True
+- g,"""- g""",817,True,8352,True
+- h,"""- h""",818,True,5148,True
+- i,"""- i""",819,True,6104,True
+- j,"""- j""",820,True,10013,True
+- k,"""- k""",821,True,8984,True
+- l,"""- l""",822,True,6650,True
+- m,"""- m""",823,True,6200,True
+- n,"""- n""",824,True,7096,True
+- p,"""- p""",825,True,5047,True
+- s,"""- s""",826,True,5871,True
+- t,"""- t""",827,True,5047,True
+- u,"""- u""",828,True,9438,True
+- v,"""- v""",829,True,10198,True
+- w,"""- w""",830,True,6002,True
+- z,"""- z""",831,True,11430,True
+-01,"""-01""",832,True,9855,True
+-02,"""-02""",833,True,9545,True
+-03,"""-03""",834,True,6087,True
+-04,"""-04""",835,True,7794,True
+-05,"""-05""",836,True,6700,True
+-06,"""-06""",837,True,9989,True
+-07,"""-07""",838,True,7144,True
+-08,"""-08""",839,True,5318,True
+-09,"""-09""",840,True,7144,True
+-10,"""-10""",841,True,9405,True
+-11,"""-11""",842,True,1231,True
+-12,"""-12""",843,True,2696,True
+-13,"""-13""",844,True,8360,True
+-14,"""-14""",845,True,9237,True
+-15,"""-15""",846,True,4015,True
+-16,"""-16""",847,True,1267,True
+-17,"""-17""",848,True,461,True
+-18,"""-18""",849,True,3365,True
+-19,"""-19""",850,True,5047,True
+-20,"""-20""",853,True,1161,True
+-21,"""-21""",854,True,9316,True
+-22,"""-22""",855,True,4092,True
+-23,"""-23""",856,True,9209,True
+-24,"""-24""",857,True,27,True
+-25,"""-25""",858,True,4193,True
+-26,"""-26""",859,True,9976,True
+-27,"""-27""",860,True,7276,True
+-28,"""-28""",861,True,7639,True
+-29,"""-29""",862,True,9881,True
+-30,"""-30""",863,True,1733,True
+-31,"""-31""",864,True,9791,True
+-a-,"""-a-""",875,True,3094,True
+-ag,"""-ag""",877,True,6207,True
+-ai,"""-ai""",878,True,4783,True
+-an,"""-an""",879,True,7112,True
+-ar,"""-ar""",880,True,9277,True
+-as,"""-as""",881,True,2115,True
+-at,"""-at""",882,True,6336,True
+-ba,"""-ba""",884,True,1795,True
+-be,"""-be""",885,True,1868,True
+-bi,"""-bi""",886,True,6730,True
+-bl,"""-bl""",887,True,7159,True
+-bo,"""-bo""",888,True,1171,True
+-br,"""-br""",889,True,2544,True
+-by,"""-by""",890,True,2090,True
+-ca,"""-ca""",891,True,494,True
+-ch,"""-ch""",892,True,5533,True
+-cl,"""-cl""",893,True,10816,True
+-co,"""-co""",894,True,6610,True
+-cr,"""-cr""",895,True,1280,True
+-cu,"""-cu""",896,True,4834,True
+-da,"""-da""",898,True,2226,True
+-de,"""-de""",899,True,6817,True
+-di,"""-di""",900,True,3386,True
+-do,"""-do""",901,True,4961,True
+-dr,"""-dr""",902,True,7895,True
+-es,"""-es""",904,True,3787,True
+-ev,"""-ev""",905,True,9637,True
+-ey,"""-ey""",906,True,8420,True
+-fa,"""-fa""",907,True,626,True
+-fe,"""-fe""",908,True,630,True
+-fi,"""-fi""",909,True,1159,True
+-fl,"""-fl""",910,True,10044,True
+-fr,"""-fr""",911,True,8114,True
+-ga,"""-ga""",912,True,8211,True
+-ge,"""-ge""",913,True,9374,True
+-go,"""-go""",914,True,108,True
+-gr,"""-gr""",915,True,6479,True
+-ha,"""-ha""",916,True,5994,True
+-hi,"""-hi""",917,True,8009,True
+-ho,"""-ho""",918,True,6788,True
+-hu,"""-hu""",919,True,10986,True
+-in,"""-in""",920,True,1771,True
+-it,"""-it""",921,True,1354,True
+-ja,"""-ja""",923,True,7804,True
+-ka,"""-ka""",924,True,6972,True
+-ku,"""-ku""",925,True,8509,True
+-la,"""-la""",926,True,1309,True
+-le,"""-le""",927,True,450,True
+-li,"""-li""",928,True,1793,True
+-lo,"""-lo""",929,True,8515,True
+-ma,"""-ma""",930,True,5047,True
+-me,"""-me""",931,True,1670,True
+-mi,"""-mi""",932,True,34,True
+-mo,"""-mo""",933,True,7792,True
+-ne,"""-ne""",934,True,9534,True
+-ni,"""-ni""",935,True,2420,True
+-nu,"""-nu""",936,True,7897,True
+-o ,"""-o """,937,True,2463,True
+-of,"""-of""",939,True,98,True
+-ol,"""-ol""",940,True,5890,True
+-pa,"""-pa""",941,True,5821,True
+-pe,"""-pe""",942,True,2766,True
+-po,"""-po""",944,True,2245,True
+-pu,"""-pu""",945,True,10154,True
+-ra,"""-ra""",946,True,2104,True
+-re,"""-re""",947,True,7121,True
+-ri,"""-ri""",948,True,5479,True
+-ro,"""-ro""",949,True,7446,True
+-sa,"""-sa""",950,True,8870,True
+-sc,"""-sc""",951,True,236,True
+-sh,"""-sh""",952,True,1179,True
+-si,"""-si""",953,True,846,True
+-sp,"""-sp""",954,True,8545,True
+-st,"""-st""",955,True,1001,True
+-ta,"""-ta""",957,True,2194,True
+-te,"""-te""",958,True,4063,True
+-th,"""-th""",959,True,6346,True
+-to,"""-to""",960,True,32,True
+-tr,"""-tr""",961,True,8578,True
+-ts,"""-ts""",962,True,7243,True
+-tu,"""-tu""",963,True,1555,True
+-tv,"""-tv""",964,True,11448,True
+-ul,"""-ul""",965,True,9245,True
+-up,"""-up""",967,True,5047,True
+-ur,"""-ur""",968,True,1623,True
+-wa,"""-wa""",969,True,5835,True
+-yo,"""-yo""",970,True,318,True
+-za,"""-za""",971,True,11331,True
+-zi,"""-zi""",972,True,4197,True
+. ',""". '""",973,True,2876,True
+. -,""". -""",974,True,9886,True
+. 2,""". 2""",975,True,5593,True
+. 6,""". 6""",976,True,815,True
+. 8,""". 8""",977,True,4120,True
+. a,""". a""",978,True,5047,True
+. b,""". b""",979,True,5047,True
+. c,""". c""",980,True,5047,True
+. d,""". d""",981,True,5047,True
+. e,""". e""",982,True,1439,True
+. f,""". f""",983,True,5256,True
+. g,""". g""",984,True,5049,True
+. h,""". h""",985,True,5047,True
+. i,""". i""",986,True,200,True
+. j,""". j""",987,True,5047,True
+. k,""". k""",988,True,5166,True
+. l,""". l""",989,True,5047,True
+. m,""". m""",990,True,6311,True
+. n,""". n""",991,True,3106,True
+. o,""". o""",992,True,988,True
+. p,""". p""",993,True,5047,True
+. r,""". r""",994,True,5069,True
+. s,""". s""",995,True,5106,True
+. t,""". t""",996,True,5047,True
+. u,""". u""",997,True,10259,True
+. v,""". v""",998,True,3639,True
+. w,""". w""",999,True,5047,True
+g  ,"""g  """,0,False,1068,False

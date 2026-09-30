@@ -32,7 +32,7 @@ query-level results, summaries, plots, and an experiment manifest. The sweep
 root contains copied workload files, the resolved configuration, and
 `fingerprint_sweep_summary.csv`.
 
-## Sub-block joint-entropy matrices
+## Sub-block fingerprint matrices
 
 `fingerprint_subblock_joint_entropy_equivalence_classes` is the matrix-valued
 variant of the block fingerprint. It splits each physical block into
@@ -52,15 +52,34 @@ The sub-block variant supports two feature-selection scopes:
   variant, candidate scores sum the within-block joint entropies without mixing
   sub-block vectors across physical blocks.
 
-`fingerprint_internal_entropy_equivalence_classes` remains global-only. A local
-scope is rejected for that method.
+`fingerprint_internal_entropy_equivalence_classes` also accepts an optional
+`subblock_size_rows`. Without it, the method retains its original behavior: it
+builds one fingerprint per physical block and globally maximizes the sum of
+the fingerprints' binary internal entropies. With `subblock_size_rows`, every
+sub-block is treated as an independent block for that same objective, and the
+stored representation is a sub-block matrix. This is distinct from the joint
+entropy method above: internal entropy balances the zero/one bits within each
+sub-block fingerprint rather than maximizing the entropy of complete
+occurrence vectors over sub-block positions.
 
-Set `sweep.feature_selection_scope` to `local` or `global` in the JSON
-experiment configuration.
+The sub-block internal-entropy form supports both scopes. With `global`, all
+sub-blocks across all physical blocks select one shared mapping. With `local`,
+each physical block selects its own mapping using only its own sub-blocks,
+including local candidate-frequency filtering and local equivalence classes.
+The original form without a sub-block division remains global-only.
 
-The representation stores one matrix row per distinct sub-block mask. During
-feature selection every sub-block remains a coordinate of the joint occurrence
-vectors. Exact duplicate matrix rows are removed independently at every
+In a sweep, selecting `fingerprint_internal_entropy_equivalence_classes` and
+providing `subblock_sizes_rows` enables this matrix form for every listed size.
+Omit `subblock_sizes_rows` to run the original physical-block form.
+
+Set `sweep.feature_selection_scope` to `local` or `global` for one scope. To
+include both in one sweep, set `sweep.feature_selection_scopes` to
+`["global", "local"]` instead.
+
+Both matrix forms store one matrix row per distinct sub-block mask. During
+joint-entropy selection every sub-block remains a coordinate of the joint
+occurrence vectors; during internal-entropy selection it is an independent
+entropy unit. Exact duplicate matrix rows are removed independently at every
 fingerprint width afterward; this is a lossless storage and probing
 optimization. A block is a candidate when the query mask is a subset of at
 least one row in its matrix.

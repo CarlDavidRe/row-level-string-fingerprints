@@ -18,6 +18,11 @@ FEATURE_SELECTION_METHODS = frozenset({
     "fingerprint_distribution_entropy_hamming_clusters",
 })
 FEATURE_SELECTION_SCOPE_METHODS = frozenset({
+    "fingerprint_internal_entropy_equivalence_classes",
+    "fingerprint_subblock_joint_entropy_equivalence_classes",
+})
+SUBBLOCK_METHODS = frozenset({
+    "fingerprint_internal_entropy_equivalence_classes",
     "fingerprint_subblock_joint_entropy_equivalence_classes",
 })
 
@@ -62,25 +67,30 @@ class FingerprintConfig:
             raise ValueError("feature_selection_scope must be 'local' or 'global'")
         if (
             self.feature_selection_scope == "local"
-            and self.feature_selection_method not in FEATURE_SELECTION_SCOPE_METHODS
+            and (
+                self.feature_selection_method not in FEATURE_SELECTION_SCOPE_METHODS
+                or self.subblock_size_rows is None
+            )
         ):
             raise ValueError(
-                "local feature selection is supported only by the sub-block "
-                "joint-entropy method"
+                "local feature selection requires an entropy method with "
+                "subblock_size_rows"
             )
-        subblock_method = (
+        subblock_method = self.feature_selection_method in SUBBLOCK_METHODS
+        joint_entropy_method = (
             self.feature_selection_method
             == "fingerprint_subblock_joint_entropy_equivalence_classes"
         )
         if self.subblock_size_rows is not None and self.subblock_size_rows <= 0:
             raise ValueError("subblock_size_rows must be positive")
-        if subblock_method and self.subblock_size_rows is None:
+        if joint_entropy_method and self.subblock_size_rows is None:
             raise ValueError(
                 "subblock_size_rows is required for the sub-block joint-entropy method"
             )
         if not subblock_method and self.subblock_size_rows is not None:
             raise ValueError(
-                "subblock_size_rows is only supported by the sub-block joint-entropy method"
+                "subblock_size_rows is supported only by the internal-entropy "
+                "and sub-block joint-entropy methods"
             )
 
 
@@ -94,8 +104,9 @@ class SweepConfig:
     hamming_cluster_counts: tuple[int, ...] = (154,)
     ascii_only: bool = True
     hamming_cluster_max_iterations: int = 10
-    subblock_sizes_rows: tuple[int, ...] = (1,)
+    subblock_sizes_rows: tuple[int, ...] = ()
     feature_selection_scope: str = "global"
+    feature_selection_scopes: tuple[str, ...] = ()
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any]) -> SweepConfig:
@@ -129,11 +140,23 @@ class SweepConfig:
             )),
             ascii_only=bool(raw.get("ascii_only", True)),
             hamming_cluster_max_iterations=int(raw.get("hamming_cluster_max_iterations", 10)),
-            subblock_sizes_rows=tuple(int(value) for value in _sequence(
-                raw.get("subblock_sizes_rows", [1]), "sweep.subblock_sizes_rows"
-            )),
+            subblock_sizes_rows=(
+                tuple(int(value) for value in _sequence(
+                    raw["subblock_sizes_rows"], "sweep.subblock_sizes_rows"
+                ))
+                if "subblock_sizes_rows" in raw
+                else ()
+            ),
             feature_selection_scope=str(
                 raw.get("feature_selection_scope", "global")
+            ),
+            feature_selection_scopes=(
+                tuple(str(value) for value in _sequence(
+                    raw["feature_selection_scopes"],
+                    "sweep.feature_selection_scopes",
+                ))
+                if "feature_selection_scopes" in raw
+                else ()
             ),
         )
 
@@ -158,9 +181,19 @@ class SweepConfig:
             raise ValueError("Hamming cluster counts must be positive")
         if self.feature_selection_scope not in {"local", "global"}:
             raise ValueError("feature_selection_scope must be 'local' or 'global'")
-        if (
-            tuple(sorted(set(self.subblock_sizes_rows))) != self.subblock_sizes_rows
-            or any(size <= 0 for size in self.subblock_sizes_rows)
+        if any(
+            scope not in {"local", "global"}
+            for scope in self.feature_selection_scopes
+        ):
+            raise ValueError(
+                "feature_selection_scopes must contain only 'local' or 'global'"
+            )
+        if len(set(self.feature_selection_scopes)) != len(
+            self.feature_selection_scopes
+        ):
+            raise ValueError("feature_selection_scopes must be unique")
+        if tuple(sorted(set(self.subblock_sizes_rows))) != self.subblock_sizes_rows or any(
+            size <= 0 for size in self.subblock_sizes_rows
         ):
             raise ValueError(
                 "sub-block sizes must be positive, unique, and increasing"
@@ -178,33 +211,44 @@ class SweepConfig:
             cluster_counts = (
                 self.hamming_cluster_counts if method.endswith("_hamming_clusters") else (154,)
             )
-            subblock_sizes: tuple[int | None, ...] = (
-                self.subblock_sizes_rows
-                if method == "fingerprint_subblock_joint_entropy_equivalence_classes"
-                else (None,)
+            if method in SUBBLOCK_METHODS and self.subblock_sizes_rows:
+                subblock_sizes: tuple[int | None, ...] = self.subblock_sizes_rows
+            elif method == "fingerprint_subblock_joint_entropy_equivalence_classes":
+                subblock_sizes = (1,)
+            else:
+                subblock_sizes = (None,)
+            scopes = (
+                self.feature_selection_scopes
+                if self.feature_selection_scopes
+                else (self.feature_selection_scope,)
             )
             for ngram_size in self.ngram_sizes:
                 for minimum in self.min_block_frequencies_by_method[method]:
                     for maximum in maximums:
                         for cluster_count in cluster_counts:
                             for subblock_size in subblock_sizes:
-                                if minimum <= maximum:
-                                    yield FingerprintConfig(
-                                        widths=tuple(self.widths_by_method[method]),
-                                        ngram_size=ngram_size,
-                                        feature_selection_method=method,
-                                        min_block_frequency=minimum,
-                                        max_block_frequency=maximum,
-                                        ascii_only=self.ascii_only,
-                                        hamming_cluster_count=cluster_count,
-                                        hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
-                                        subblock_size_rows=subblock_size,
-                                        feature_selection_scope=(
-                                            self.feature_selection_scope
-                                            if method in FEATURE_SELECTION_SCOPE_METHODS
-                                            else "global"
-                                        ),
+                                applicable_scopes = (
+                                    scopes
+                                    if (
+                                        method in FEATURE_SELECTION_SCOPE_METHODS
+                                        and subblock_size is not None
                                     )
+                                    else ("global",)
+                                )
+                                for scope in applicable_scopes:
+                                    if minimum <= maximum:
+                                        yield FingerprintConfig(
+                                            widths=tuple(self.widths_by_method[method]),
+                                            ngram_size=ngram_size,
+                                            feature_selection_method=method,
+                                            min_block_frequency=minimum,
+                                            max_block_frequency=maximum,
+                                            ascii_only=self.ascii_only,
+                                            hamming_cluster_count=cluster_count,
+                                            hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
+                                            subblock_size_rows=subblock_size,
+                                            feature_selection_scope=scope,
+                                        )
 
 
 @dataclass(frozen=True)
@@ -285,8 +329,9 @@ class ExperimentConfig:
             size for size in self.sweep.subblock_sizes_rows
             if size > self.block_size_rows
         ]
-        if oversized and "fingerprint_subblock_joint_entropy_equivalence_classes" in (
-            self.sweep.feature_selection_methods
+        if oversized and any(
+            method in SUBBLOCK_METHODS
+            for method in self.sweep.feature_selection_methods
         ):
             raise ValueError(
                 "sub-block sizes must not exceed block_size_rows; "

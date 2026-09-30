@@ -19,6 +19,7 @@ SUBBLOCK_JOINT_ENTROPY_METHOD = (
 )
 INTERNAL_ENTROPY_METHOD = "fingerprint_internal_entropy_equivalence_classes"
 SCOPE_CONFIGURABLE_METHODS = frozenset({
+    INTERNAL_ENTROPY_METHOD,
     SUBBLOCK_JOINT_ENTROPY_METHOD,
 })
 
@@ -450,6 +451,25 @@ class FeatureSelector:
             offset += block_size
         return selected_by_block
 
+    def select_block_local_internal_entropy(
+        self,
+        partition_subblocks: dict[int, tuple[frozenset[str], ...]],
+        limit: int,
+    ) -> dict[int, tuple[tuple[str, ...], ...]]:
+        """Select independently using each physical block's sub-blocks as units."""
+        selected_by_block: dict[int, tuple[tuple[str, ...], ...]] = {}
+        for partition_id in sorted(partition_subblocks):
+            subblocks = partition_subblocks[partition_id]
+            subblock_count, candidates = self.candidates(subblocks)
+            representatives, aliases = self.collapse_equivalent(candidates)
+            selected = self.internal_entropy(
+                subblock_count, representatives, limit
+            )
+            selected_by_block[partition_id] = tuple(
+                aliases[feature] for feature in selected
+            )
+        return selected_by_block
+
     def select_global_joint_entropy(
         self,
         partition_subblocks: dict[int, tuple[frozenset[str], ...]],
@@ -470,6 +490,24 @@ class FeatureSelector:
             self.internal_entropy(len(block_sizes), representatives, limit)
             if block_sizes and all(block_size == 1 for block_size in block_sizes)
             else self.within_block_joint_entropy(block_sizes, representatives, limit)
+        )
+        return [aliases[feature] for feature in selected]
+
+    def select_global_subblock_internal_entropy(
+        self,
+        partition_subblocks: dict[int, tuple[frozenset[str], ...]],
+        limit: int,
+    ) -> list[tuple[str, ...]]:
+        """Treat every sub-block as an independent internal-entropy unit."""
+        units = tuple(
+            grams
+            for partition_id in sorted(partition_subblocks)
+            for grams in partition_subblocks[partition_id]
+        )
+        subblock_count, candidates = self.candidates(units)
+        representatives, aliases = self.collapse_equivalent(candidates)
+        selected = self.internal_entropy(
+            subblock_count, representatives, limit
         )
         return [aliases[feature] for feature in selected]
 
@@ -510,7 +548,7 @@ class FingerprintBuilder:
 
     @property
     def uses_subblock_matrix(self) -> bool:
-        return self.config.feature_selection_method == SUBBLOCK_JOINT_ENTROPY_METHOD
+        return self.config.subblock_size_rows is not None
 
     @property
     def uses_block_local_mapping(self) -> bool:
@@ -779,8 +817,14 @@ class FingerprintBuilder:
                 frequency_unit = "block"
             block_rows: dict[int, tuple[int, ...]] = {}
             if self.uses_block_local_mapping:
-                block_feature_groups = self.selector.select_block_local_joint_entropy(
-                    partition_subblocks, max_width
+                block_feature_groups = (
+                    self.selector.select_block_local_internal_entropy(
+                        partition_subblocks, max_width
+                    )
+                    if self.config.feature_selection_method == INTERNAL_ENTROPY_METHOD
+                    else self.selector.select_block_local_joint_entropy(
+                        partition_subblocks, max_width
+                    )
                 )
                 for partition_id, subblocks in partition_subblocks.items():
                     groups = block_feature_groups[partition_id]
@@ -801,8 +845,14 @@ class FingerprintBuilder:
                 ]
             else:
                 groups = tuple(
-                    self.selector.select_global_joint_entropy(
-                        partition_subblocks, max_width
+                    (
+                        self.selector.select_global_subblock_internal_entropy(
+                            partition_subblocks, max_width
+                        )
+                        if self.config.feature_selection_method == INTERNAL_ENTROPY_METHOD
+                        else self.selector.select_global_joint_entropy(
+                            partition_subblocks, max_width
+                        )
                     )
                     if self.uses_subblock_matrix
                     else self.selector.select(selection_units, max_width)
