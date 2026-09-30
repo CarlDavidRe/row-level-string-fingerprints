@@ -6,11 +6,13 @@ import math
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
+from time import perf_counter
 from typing import Callable
 
 import duckdb
 
 from .config import FingerprintConfig
+from .progress import log_progress
 
 
 BLOCK_VALUE_SEPARATOR = chr(0)
@@ -97,10 +99,20 @@ class FeatureSelector:
             else iter(partition_grams)
         )
         presence: dict[str, int] = {}
+        started_at = perf_counter()
+        next_report = 250_000
         for unit_index, grams in enumerate(units):
             bit = 1 << unit_index
             for gram in grams:
                 presence[gram] = presence.get(gram, 0) | bit
+            processed = unit_index + 1
+            if processed >= next_report:
+                log_progress(
+                    f"Candidate collection: {processed:,}/{len(partition_grams):,} "
+                    f"units; {len(presence):,} distinct n-grams",
+                    started_at,
+                )
+                next_report += 250_000
         block_count = len(partition_grams)
         if not block_count:
             return 0, {}
@@ -113,7 +125,7 @@ class FeatureSelector:
             SUBBLOCK_JOINT_ENTROPY_METHOD,
         }:
             minimum_count = max(1, math.ceil(self.config.min_block_frequency * block_count))
-        return block_count, {
+        filtered = {
             gram: mask
             for gram, mask in sorted(presence.items())
             if mask.bit_count() <= maximum_count
@@ -122,6 +134,13 @@ class FeatureSelector:
                 or minimum_count <= mask.bit_count()
             )
         }
+        if block_count >= 250_000:
+            log_progress(
+                f"Candidate collection complete: {len(filtered):,}/{len(presence):,} "
+                "n-grams passed frequency filters",
+                started_at,
+            )
+        return block_count, filtered
 
     @staticmethod
     def local_split(
@@ -206,6 +225,8 @@ class FeatureSelector:
     ) -> list[str]:
         selected: list[str] = []
         ones_by_block = [0] * block_count
+        progress_step = 1_000 if limit >= 1_000 else 0
+        started_at = perf_counter()
         while candidates and len(selected) < limit:
             next_width = len(selected) + 1
             blocks_by_ones: dict[int, int] = {}
@@ -235,6 +256,14 @@ class FeatureSelector:
             feature_mask = candidates.pop(best_feature)
             for block_index in range(block_count):
                 ones_by_block[block_index] += (feature_mask >> block_index) & 1
+            if progress_step and (
+                len(selected) % progress_step == 0 or len(selected) == limit
+            ):
+                log_progress(
+                    f"Feature selection: {len(selected):,}/{limit:,} selected; "
+                    f"{len(candidates):,} candidates remain",
+                    started_at,
+                )
         return selected
 
     @staticmethod
@@ -250,6 +279,8 @@ class FeatureSelector:
             offset += block_size
         pattern_counts: list[dict[int, int]] = [{} for _ in block_sizes]
         count_log_count_sums = [0.0] * len(block_sizes)
+        progress_step = 1_000 if limit >= 1_000 else 0
+        started_at = perf_counter()
 
         while candidates and len(selected) < limit:
             next_width = len(selected) + 1
@@ -303,6 +334,14 @@ class FeatureSelector:
                 if next_count > 1:
                     count_log_count_sums[block_index] += next_count * math.log2(next_count)
                 pattern_counts[block_index][pattern] = next_count
+            if progress_step and (
+                len(selected) % progress_step == 0 or len(selected) == limit
+            ):
+                log_progress(
+                    f"Feature selection: {len(selected):,}/{limit:,} selected; "
+                    f"{len(candidates):,} candidates remain",
+                    started_at,
+                )
         return selected
 
     @staticmethod
@@ -435,7 +474,9 @@ class FeatureSelector:
         )
         selected_by_block: dict[int, tuple[tuple[str, ...], ...]] = {}
         offset = 0
-        for partition_id in sorted(partition_subblocks):
+        partition_ids = sorted(partition_subblocks)
+        started_at = perf_counter()
+        for block_index, partition_id in enumerate(partition_ids, 1):
             block_size = len(partition_subblocks[partition_id])
             local_mask = (1 << block_size) - 1
             local_candidates = {
@@ -449,6 +490,11 @@ class FeatureSelector:
                 global_aliases[feature] for feature in selected
             )
             offset += block_size
+            log_progress(
+                f"Local feature selection: block {block_index:,}/{len(partition_ids):,} "
+                f"selected {len(selected):,} features",
+                started_at,
+            )
         return selected_by_block
 
     def select_block_local_internal_entropy(
@@ -458,7 +504,9 @@ class FeatureSelector:
     ) -> dict[int, tuple[tuple[str, ...], ...]]:
         """Select independently using each physical block's sub-blocks as units."""
         selected_by_block: dict[int, tuple[tuple[str, ...], ...]] = {}
-        for partition_id in sorted(partition_subblocks):
+        partition_ids = sorted(partition_subblocks)
+        started_at = perf_counter()
+        for block_index, partition_id in enumerate(partition_ids, 1):
             subblocks = partition_subblocks[partition_id]
             subblock_count, candidates = self.candidates(subblocks)
             representatives, aliases = self.collapse_equivalent(candidates)
@@ -467,6 +515,11 @@ class FeatureSelector:
             )
             selected_by_block[partition_id] = tuple(
                 aliases[feature] for feature in selected
+            )
+            log_progress(
+                f"Local feature selection: block {block_index:,}/{len(partition_ids):,} "
+                f"selected {len(selected):,} features",
+                started_at,
             )
         return selected_by_block
 
@@ -572,6 +625,9 @@ class FingerprintBuilder:
         partition_grams: dict[int, frozenset[str]] = {}
         active_partition: int | None = None
         values: list[str] = []
+        rows_read = 0
+        next_report = 500_000
+        started_at = perf_counter()
 
         def finish_partition() -> None:
             if active_partition is not None:
@@ -583,6 +639,7 @@ class FingerprintBuilder:
             batch = cursor.fetchmany(50_000)
             if not batch:
                 break
+            rows_read += len(batch)
             for raw_partition, value in batch:
                 partition_id = int(raw_partition)
                 if active_partition is None:
@@ -593,7 +650,19 @@ class FingerprintBuilder:
                     values = []
                 if value is not None:
                     values.append(str(value))
+            if rows_read >= next_report:
+                log_progress(
+                    f"Database scan: {rows_read:,} rows read; "
+                    f"{len(partition_grams):,} blocks completed",
+                    started_at,
+                )
+                next_report += 500_000
         finish_partition()
+        log_progress(
+            f"Database scan complete: {rows_read:,} rows, "
+            f"{len(partition_grams):,} blocks",
+            started_at,
+        )
         return partition_grams
 
     def partition_subblock_ngrams(
@@ -611,13 +680,18 @@ class FingerprintBuilder:
         rows_in_subblock = 0
         values: list[str] = []
         subblocks: list[frozenset[str]] = []
+        rows_read = 0
+        subblocks_built = 0
+        next_report = 500_000
+        started_at = perf_counter()
 
         def finish_subblock() -> None:
-            nonlocal rows_in_subblock, values
+            nonlocal rows_in_subblock, values, subblocks_built
             if rows_in_subblock:
                 subblocks.append(frozenset(
                     self.iter_ngrams(BLOCK_VALUE_SEPARATOR.join(values))
                 ))
+                subblocks_built += 1
                 rows_in_subblock = 0
                 values = []
 
@@ -632,6 +706,7 @@ class FingerprintBuilder:
             batch = cursor.fetchmany(50_000)
             if not batch:
                 break
+            rows_read += len(batch)
             for raw_partition, value in batch:
                 partition_id = int(raw_partition)
                 if active_partition is None:
@@ -644,7 +719,19 @@ class FingerprintBuilder:
                 rows_in_subblock += 1
                 if rows_in_subblock == self.config.subblock_size_rows:
                     finish_subblock()
+            if rows_read >= next_report:
+                log_progress(
+                    f"Database scan: {rows_read:,} rows read; "
+                    f"{len(result):,} blocks and {subblocks_built:,} sub-blocks completed",
+                    started_at,
+                )
+                next_report += 500_000
         finish_partition()
+        log_progress(
+            f"Database scan complete: {rows_read:,} rows, {len(result):,} blocks, "
+            f"{subblocks_built:,} sub-blocks",
+            started_at,
+        )
         return result
 
     @staticmethod
@@ -795,6 +882,7 @@ class FingerprintBuilder:
     def build(
         self, con: duckdb.DuckDBPyConnection, targets: set[tuple[str, str]]
     ) -> list[FingerprintVersion]:
+        build_started_at = perf_counter()
         max_width = max(self.config.widths)
         full_profiles: dict[tuple[str, str], dict] = {}
         diagnostics_enabled = (
@@ -802,7 +890,10 @@ class FingerprintBuilder:
             and self.config.feature_selection_method != INTERNAL_ENTROPY_METHOD
         )
         for target_index, (table, column) in enumerate(sorted(targets), 1):
-            print(f"Building block n-grams [{target_index}/{len(targets)}]: {table}.{column}")
+            target_started_at = perf_counter()
+            log_progress(
+                f"Building block n-grams [{target_index}/{len(targets)}]: {table}.{column}"
+            )
             if self.uses_subblock_matrix:
                 partition_subblocks = self.partition_subblock_ngrams(con, table, column)
                 selection_units = self.flatten_subblocks(partition_subblocks)
@@ -817,6 +908,11 @@ class FingerprintBuilder:
                 frequency_unit = "block"
             block_rows: dict[int, tuple[int, ...]] = {}
             if self.uses_block_local_mapping:
+                log_progress(
+                    f"Selecting up to {max_width:,} local features for "
+                    f"{len(partition_subblocks):,} blocks",
+                    target_started_at,
+                )
                 block_feature_groups = (
                     self.selector.select_block_local_internal_entropy(
                         partition_subblocks, max_width
@@ -826,7 +922,9 @@ class FingerprintBuilder:
                         partition_subblocks, max_width
                     )
                 )
-                for partition_id, subblocks in partition_subblocks.items():
+                for block_index, (partition_id, subblocks) in enumerate(
+                    partition_subblocks.items(), 1
+                ):
                     groups = block_feature_groups[partition_id]
                     feature_to_bit = {
                         feature: bit_index
@@ -837,6 +935,17 @@ class FingerprintBuilder:
                         self.encode_grams(grams, feature_to_bit)
                         for grams in subblocks
                     }))
+                    if (
+                        block_index == 1
+                        or block_index % 10 == 0
+                        or block_index == len(partition_subblocks)
+                    ):
+                        log_progress(
+                            f"Encoded local block {block_index:,}/{len(partition_subblocks):,} "
+                            f"({len(groups):,} features, "
+                            f"{len(block_rows[partition_id]):,} rows)",
+                            target_started_at,
+                        )
                 features: tuple[str, ...] = ()
                 groups: tuple[tuple[str, ...], ...] = ()
                 feature_unit_counts: tuple[int, ...] = ()
@@ -844,6 +953,12 @@ class FingerprintBuilder:
                     len(groups) for groups in block_feature_groups.values()
                 ]
             else:
+                unit_label = "sub-blocks" if frequency_unit == "subblock" else "blocks"
+                log_progress(
+                    f"Selecting up to {max_width:,} shared features from "
+                    f"{len(selection_units):,} {unit_label}",
+                    target_started_at,
+                )
                 groups = tuple(
                     (
                         self.selector.select_global_subblock_internal_entropy(
@@ -910,6 +1025,7 @@ class FingerprintBuilder:
                     f"  {source_row_count:,} sub-block rows -> {stored_row_count:,} "
                     "distinct full-width matrix rows"
                 )
+            log_progress(f"Finished target {table}.{column}", target_started_at)
 
         selected_count = max(
             (profile["selected_count"] for profile in full_profiles.values()), default=0
@@ -928,6 +1044,11 @@ class FingerprintBuilder:
         versions: list[FingerprintVersion] = []
         diagnostic_rows: list[dict] = []
         for version_id, width in enumerate(version_widths):
+            version_started_at = perf_counter()
+            log_progress(
+                f"Preparing metadata version {version_id + 1}/{len(version_widths)} "
+                f"({width:,} bits)"
+            )
             width_mask = (1 << width) - 1
             profiles = {}
             for target, profile in full_profiles.items():
@@ -970,6 +1091,11 @@ class FingerprintBuilder:
                 profiles[target] = version_profile
             metadata_path = self.fingerprint_dir / f"block_infix_fingerprint_v{version_id:03d}.json"
             self.write_metadata(metadata_path, width, profiles)
+            log_progress(
+                f"Wrote {metadata_path} "
+                f"({self.payload_size(width, profiles) / 2**20:,.2f} MiB payload)",
+                version_started_at,
+            )
             if diagnostics_enabled:
                 for (table, column), profile in sorted(profiles.items()):
                     for bit_index, feature in enumerate(profile["features"]):
@@ -1057,4 +1183,8 @@ class FingerprintBuilder:
                 writer.writerows(diagnostic_rows)
         elif diagnostics_path.exists():
             diagnostics_path.unlink()
+        log_progress(
+            f"Fingerprint build complete: {len(versions)} metadata version(s)",
+            build_started_at,
+        )
         return versions

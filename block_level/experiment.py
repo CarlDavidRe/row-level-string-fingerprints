@@ -7,6 +7,7 @@ import shutil
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from time import perf_counter
 from typing import Iterable
 
 import duckdb
@@ -19,6 +20,7 @@ from .fingerprint import (
     NGramGenerator,
     quote_identifier,
 )
+from .progress import log_progress
 
 
 RESULT_COLUMNS = [
@@ -247,10 +249,15 @@ class FingerprintEvaluator:
             )
 
     def evaluate(self) -> EvaluationResult:
+        evaluation_started_at = perf_counter()
         workload = WorkloadRepository(self.config, self.config.output_dir / "queries")
         with duckdb.connect(str(self.config.database_path), read_only=True) as con:
             queries, skipped = workload.load(con, self.query_files)
             targets = {(query["table_name"], query["column_name"]) for query in queries}
+            log_progress(
+                f"Loaded {len(queries):,} queries across {len(targets):,} target(s); "
+                f"{len(skipped):,} workload file(s) skipped"
+            )
             partition_ids = {
                 target: frozenset(
                     int(row[0])
@@ -261,9 +268,24 @@ class FingerprintEvaluator:
                 )
                 for target in targets
             }
-            ground_truths = {
-                query["query_id"]: self.ground_truth(con, query) for query in queries
-            }
+            log_progress(
+                "Loaded partition IDs: "
+                + ", ".join(
+                    f"{table}.{column}={len(partitions):,}"
+                    for (table, column), partitions in sorted(partition_ids.items())
+                )
+            )
+            ground_truth_started_at = perf_counter()
+            log_progress(f"Computing ground truth for {len(queries):,} queries")
+            ground_truths = {}
+            report_every = max(1, min(25, math.ceil(len(queries) / 10)))
+            for query_index, query in enumerate(queries, 1):
+                ground_truths[query["query_id"]] = self.ground_truth(con, query)
+                if query_index % report_every == 0 or query_index == len(queries):
+                    log_progress(
+                        f"Ground truth: {query_index:,}/{len(queries):,} queries",
+                        ground_truth_started_at,
+                    )
             builder = FingerprintBuilder(
                 self.fingerprint_config,
                 self.config.block_size_rows,
@@ -276,7 +298,13 @@ class FingerprintEvaluator:
 
             matches_by_version: dict[int, dict[int, frozenset[int]]] = {}
             result_rows: list[dict] = []
-            for version in sorted(versions, key=lambda item: item.metadata_version):
+            sorted_versions = sorted(versions, key=lambda item: item.metadata_version)
+            for version_index, version in enumerate(sorted_versions, 1):
+                version_started_at = perf_counter()
+                log_progress(
+                    f"Evaluating metadata version {version_index}/{len(sorted_versions)}: "
+                    f"{version.merge_step}"
+                )
                 matches: dict[int, frozenset[int]] = {}
                 probes = {}
                 for query in queries:
@@ -318,10 +346,18 @@ class FingerprintEvaluator:
                         "false_positive_partition_count": len(candidates - truth),
                         "false_negative_partition_count": len(truth - candidates),
                     })
-                print(f"Evaluated version {version.metadata_version}: {len(queries)} queries")
+                log_progress(
+                    f"Evaluated version {version.metadata_version}: "
+                    f"{len(queries):,} queries",
+                    version_started_at,
+                )
 
         write_csv(self.output_dir / "results.csv", RESULT_COLUMNS, result_rows)
         write_csv(self.output_dir / "skipped_workloads.csv", SKIPPED_COLUMNS, skipped)
+        log_progress(
+            f"Evaluation complete: {len(result_rows):,} result rows",
+            evaluation_started_at,
+        )
         return EvaluationResult(
             queries, skipped, ground_truths, versions, partition_ids,
             matches_by_version, result_rows,
@@ -605,6 +641,7 @@ class SweepRunner:
         )
 
     def run(self) -> Path:
+        sweep_started_at = perf_counter()
         self.config.validate_inputs()
         self.config.output_dir.mkdir(parents=True, exist_ok=True)
         if self.config.partition_database:
@@ -617,7 +654,14 @@ class SweepRunner:
         print(f"Copied {len(query_files)} query files to {self.config.output_dir / 'queries'}")
         sweep_rows: list[dict] = []
         experiments = list(self.config.sweep.experiments())
+        total_versions = sum(len(experiment.widths) for experiment in experiments)
+        log_progress(
+            f"Starting sweep: {len(experiments):,} build configuration(s), "
+            f"up to {total_versions:,} metadata version(s)"
+        )
+        log_progress(f"Output directory: {self.config.output_dir}")
         for index, fingerprint in enumerate(experiments, 1):
+            experiment_started_at = perf_counter()
             run_dir = self.run_directory(fingerprint)
             print(
                 f"\n=== [{index}/{len(experiments)}] {fingerprint.feature_selection_method}; "
@@ -635,6 +679,7 @@ class SweepRunner:
                 self.config, fingerprint, query_files, run_dir
             )
             evaluation = evaluator.evaluate()
+            log_progress("Exporting summaries and plots")
             ResultExporter(self.config, fingerprint, run_dir).export(evaluation)
             for version in evaluation.versions:
                 rows = [
@@ -667,6 +712,10 @@ class SweepRunner:
                     "false_negative_partition_count": sum(row["false_negative_partition_count"] for row in rows),
                     "run_directory": str(run_dir.resolve()),
                 })
+            log_progress(
+                f"Completed build configuration {index}/{len(experiments)}",
+                experiment_started_at,
+            )
         summary_path = self.config.output_dir / "fingerprint_sweep_summary.csv"
         write_csv(summary_path, SWEEP_COLUMNS, sweep_rows)
         snapshot = {
@@ -684,4 +733,5 @@ class SweepRunner:
             json.dumps(snapshot, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
         print(f"Wrote {len(sweep_rows)} sweep points to {summary_path}")
+        log_progress("Sweep complete", sweep_started_at)
         return summary_path
