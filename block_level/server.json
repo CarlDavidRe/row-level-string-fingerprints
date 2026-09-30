@@ -11,7 +11,7 @@
       "fingerprint_internal_entropy_equivalence_classes"
     ],
     "widths_by_method": {
-      "fingerprint_internal_entropy_equivalence_classes": [1000, 2000, 3000, 4000, 5000, 8000]
+      "fingerprint_internal_entropy_equivalence_classes": [100, 200, 500, 1000, 2000, 3000, 4000, 5000]
     },
     "ngram_sizes": [3],
     "min_block_frequencies_by_method": {
