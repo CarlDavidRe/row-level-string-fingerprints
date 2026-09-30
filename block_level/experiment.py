@@ -15,6 +15,7 @@ import duckdb
 from .config import ExperimentConfig, FingerprintConfig
 from .fingerprint import (
     SCOPE_CONFIGURABLE_METHODS,
+    FingerprintDataCache,
     FingerprintBuilder,
     FingerprintVersion,
     NGramGenerator,
@@ -181,6 +182,14 @@ class WorkloadRepository:
 
 
 @dataclass
+class EvaluationInputs:
+    queries: list[dict]
+    skipped: list[dict]
+    ground_truths: dict[int, frozenset[int]]
+    partition_ids: dict[tuple[str, str], frozenset[int]]
+
+
+@dataclass
 class EvaluationResult:
     queries: list[dict]
     skipped: list[dict]
@@ -198,11 +207,15 @@ class FingerprintEvaluator:
         fingerprint_config: FingerprintConfig,
         query_files: list[Path],
         run_dir: Path,
+        cached_inputs: EvaluationInputs | None = None,
+        fingerprint_data_cache: FingerprintDataCache | None = None,
     ):
         self.config = config
         self.fingerprint_config = fingerprint_config
         self.query_files = query_files
         self.run_dir = run_dir
+        self.cached_inputs = cached_inputs
+        self.fingerprint_data_cache = fingerprint_data_cache
         self.output_dir = run_dir / "block_skipping_results"
         self.fingerprint_dir = run_dir / "block_infix_fingerprints"
         self.ngrams = NGramGenerator(
@@ -248,49 +261,65 @@ class FingerprintEvaluator:
                 f"{len(failures)} queries have false negatives. {sample}"
             )
 
+    def prepare_inputs(self, con: duckdb.DuckDBPyConnection) -> EvaluationInputs:
+        workload = WorkloadRepository(self.config, self.config.output_dir / "queries")
+        queries, skipped = workload.load(con, self.query_files)
+        targets = {(query["table_name"], query["column_name"]) for query in queries}
+        log_progress(
+            f"Loaded {len(queries):,} queries across {len(targets):,} target(s); "
+            f"{len(skipped):,} workload file(s) skipped"
+        )
+        partition_ids = {
+            target: frozenset(
+                int(row[0])
+                for row in con.execute(
+                    f"SELECT DISTINCT partition_id FROM {quote_identifier(target[0])} "
+                    "ORDER BY partition_id"
+                ).fetchall()
+            )
+            for target in targets
+        }
+        log_progress(
+            "Loaded partition IDs: "
+            + ", ".join(
+                f"{table}.{column}={len(partitions):,}"
+                for (table, column), partitions in sorted(partition_ids.items())
+            )
+        )
+        ground_truth_started_at = perf_counter()
+        log_progress(f"Computing ground truth for {len(queries):,} queries")
+        ground_truths = {}
+        report_every = max(1, min(25, math.ceil(len(queries) / 10)))
+        for query_index, query in enumerate(queries, 1):
+            ground_truths[query["query_id"]] = self.ground_truth(con, query)
+            if query_index % report_every == 0 or query_index == len(queries):
+                log_progress(
+                    f"Ground truth: {query_index:,}/{len(queries):,} queries",
+                    ground_truth_started_at,
+                )
+        return EvaluationInputs(queries, skipped, ground_truths, partition_ids)
+
     def evaluate(self) -> EvaluationResult:
         evaluation_started_at = perf_counter()
-        workload = WorkloadRepository(self.config, self.config.output_dir / "queries")
         with duckdb.connect(str(self.config.database_path), read_only=True) as con:
-            queries, skipped = workload.load(con, self.query_files)
+            inputs = self.cached_inputs
+            if inputs is None:
+                inputs = self.prepare_inputs(con)
+            else:
+                log_progress(
+                    f"Reusing cached ground truth for {len(inputs.queries):,} queries"
+                )
+            queries = inputs.queries
+            skipped = inputs.skipped
+            ground_truths = inputs.ground_truths
+            partition_ids = inputs.partition_ids
             targets = {(query["table_name"], query["column_name"]) for query in queries}
-            log_progress(
-                f"Loaded {len(queries):,} queries across {len(targets):,} target(s); "
-                f"{len(skipped):,} workload file(s) skipped"
-            )
-            partition_ids = {
-                target: frozenset(
-                    int(row[0])
-                    for row in con.execute(
-                        f"SELECT DISTINCT partition_id FROM {quote_identifier(target[0])} "
-                        "ORDER BY partition_id"
-                    ).fetchall()
-                )
-                for target in targets
-            }
-            log_progress(
-                "Loaded partition IDs: "
-                + ", ".join(
-                    f"{table}.{column}={len(partitions):,}"
-                    for (table, column), partitions in sorted(partition_ids.items())
-                )
-            )
-            ground_truth_started_at = perf_counter()
-            log_progress(f"Computing ground truth for {len(queries):,} queries")
-            ground_truths = {}
-            report_every = max(1, min(25, math.ceil(len(queries) / 10)))
-            for query_index, query in enumerate(queries, 1):
-                ground_truths[query["query_id"]] = self.ground_truth(con, query)
-                if query_index % report_every == 0 or query_index == len(queries):
-                    log_progress(
-                        f"Ground truth: {query_index:,}/{len(queries):,} queries",
-                        ground_truth_started_at,
-                    )
             builder = FingerprintBuilder(
                 self.fingerprint_config,
                 self.config.block_size_rows,
                 self.fingerprint_dir,
                 self.output_dir,
+                self.fingerprint_data_cache,
             )
             versions = builder.build(con, targets)
             if not versions:
@@ -660,6 +689,8 @@ class SweepRunner:
             f"up to {total_versions:,} metadata version(s)"
         )
         log_progress(f"Output directory: {self.config.output_dir}")
+        cached_inputs: EvaluationInputs | None = None
+        fingerprint_data_cache = FingerprintDataCache()
         for index, fingerprint in enumerate(experiments, 1):
             experiment_started_at = perf_counter()
             run_dir = self.run_directory(fingerprint)
@@ -676,9 +707,21 @@ class SweepRunner:
                 + " ==="
             )
             evaluator = FingerprintEvaluator(
-                self.config, fingerprint, query_files, run_dir
+                self.config,
+                fingerprint,
+                query_files,
+                run_dir,
+                cached_inputs,
+                fingerprint_data_cache,
             )
             evaluation = evaluator.evaluate()
+            if cached_inputs is None:
+                cached_inputs = EvaluationInputs(
+                    queries=evaluation.queries,
+                    skipped=evaluation.skipped,
+                    ground_truths=evaluation.ground_truths,
+                    partition_ids=evaluation.partition_ids,
+                )
             log_progress("Exporting summaries and plots")
             ResultExporter(self.config, fingerprint, run_dir).export(evaluation)
             for version in evaluation.versions:
@@ -716,6 +759,7 @@ class SweepRunner:
                 f"Completed build configuration {index}/{len(experiments)}",
                 experiment_started_at,
             )
+            del evaluation
         summary_path = self.config.output_dir / "fingerprint_sweep_summary.csv"
         write_csv(summary_path, SWEEP_COLUMNS, sweep_rows)
         snapshot = {

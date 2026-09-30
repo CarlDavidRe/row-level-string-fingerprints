@@ -4,15 +4,80 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import duckdb
 
 from block_level.config import ExperimentConfig, FingerprintConfig, SweepConfig
-from block_level.experiment import FingerprintEvaluator
-from block_level.fingerprint import FeatureSelector, FingerprintBuilder
+from block_level.experiment import EvaluationInputs, FingerprintEvaluator
+from block_level.fingerprint import (
+    FeatureSelector,
+    FingerprintBuilder,
+    FingerprintDataCache,
+)
 
 
 class SubblockFingerprintTest(unittest.TestCase):
+    def test_candidate_postings_pack_the_same_presence_masks(self) -> None:
+        config = FingerprintConfig(
+            widths=(3,),
+            ngram_size=1,
+            feature_selection_method=(
+                "fingerprint_internal_entropy_equivalence_classes"
+            ),
+        )
+        selector = FeatureSelector(config)
+        units = (
+            frozenset({"a", "b"}),
+            frozenset({"b"}),
+            frozenset({"a", "c"}),
+            frozenset({"c"}),
+        )
+
+        unit_count, candidates = selector.candidates(units)
+
+        self.assertEqual(unit_count, 4)
+        self.assertEqual(candidates, {"a": 0b0101, "b": 0b0011, "c": 0b1100})
+        self.assertEqual(
+            {name: list(postings) for name, postings in selector._candidate_postings.items()},
+            {"a": [0, 2], "b": [0, 1], "c": [2, 3]},
+        )
+
+    def test_native_internal_entropy_matches_exact_bitset_selection(self) -> None:
+        config = FingerprintConfig(
+            widths=(5,),
+            ngram_size=1,
+            feature_selection_method=(
+                "fingerprint_internal_entropy_equivalence_classes"
+            ),
+        )
+        selector = FeatureSelector(config)
+        units = tuple(
+            frozenset(
+                feature
+                for feature, divisor in (
+                    ("a", 2), ("b", 3), ("c", 4), ("d", 5), ("e", 7)
+                )
+                if index % divisor in {0, 1}
+            )
+            for index in range(24)
+        )
+        unit_count, candidates = selector.candidates(units)
+        representatives, _ = selector.collapse_equivalent(candidates)
+        postings = {
+            feature: selector._candidate_postings[feature]
+            for feature in representatives
+        }
+
+        exact = selector.internal_entropy(
+            unit_count, representatives.copy(), 5
+        )
+        native = selector.internal_entropy(
+            unit_count, representatives.copy(), 5, postings
+        )
+
+        self.assertEqual(native, exact)
+
     def test_internal_entropy_without_subblocks_rejects_local_scope(self) -> None:
         with self.assertRaisesRegex(ValueError, "requires.*subblock_size_rows"):
             FingerprintConfig(
@@ -157,6 +222,58 @@ class SubblockFingerprintTest(unittest.TestCase):
             self.assertTrue(all(
                 "feature_groups" not in block for block in target["blocks"]
             ))
+
+    def test_compatible_builders_reuse_extracted_ngrams(self) -> None:
+        method = "fingerprint_internal_entropy_equivalence_classes"
+        cache = FingerprintDataCache()
+        global_config = FingerprintConfig(
+            widths=(2,),
+            ngram_size=1,
+            feature_selection_method=method,
+            subblock_size_rows=1,
+            feature_selection_scope="global",
+        )
+        local_config = FingerprintConfig(
+            widths=(2,),
+            ngram_size=1,
+            feature_selection_method=method,
+            subblock_size_rows=1,
+            feature_selection_scope="local",
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            with duckdb.connect(":memory:") as connection:
+                connection.execute(
+                    "CREATE TABLE items(value VARCHAR, partition_id INTEGER)"
+                )
+                connection.executemany(
+                    "INSERT INTO items VALUES (?, ?)",
+                    [("a", 0), ("b", 0), ("c", 1), ("d", 1)],
+                )
+                global_builder = FingerprintBuilder(
+                    global_config,
+                    2,
+                    root / "global_metadata",
+                    root / "global_results",
+                    cache,
+                )
+                global_builder.build(connection, {("items", "value")})
+
+                local_builder = FingerprintBuilder(
+                    local_config,
+                    2,
+                    root / "local_metadata",
+                    root / "local_results",
+                    cache,
+                )
+                with mock.patch.object(
+                    local_builder,
+                    "partition_subblock_ngrams",
+                    side_effect=AssertionError("database scan should be cached"),
+                ):
+                    versions = local_builder.build(connection, {("items", "value")})
+
+            self.assertEqual(len(versions), 1)
 
     def test_one_subblock_global_scope_matches_global_internal_entropy(self) -> None:
         subblock_config = FingerprintConfig(
@@ -353,6 +470,30 @@ class SubblockFingerprintTest(unittest.TestCase):
             )
             self.assertEqual(
                 evaluation.matches_by_version[0][ab_query["query_id"]], {1}
+            )
+
+            cached_inputs = EvaluationInputs(
+                evaluation.queries,
+                evaluation.skipped,
+                evaluation.ground_truths,
+                evaluation.partition_ids,
+            )
+            cached_evaluator = FingerprintEvaluator(
+                experiment,
+                fingerprint,
+                [query_path],
+                root / "cached_run",
+                cached_inputs,
+            )
+            with mock.patch.object(
+                cached_evaluator,
+                "prepare_inputs",
+                side_effect=AssertionError("ground truth should be cached"),
+            ):
+                cached_evaluation = cached_evaluator.evaluate()
+            self.assertEqual(
+                cached_evaluation.ground_truths,
+                evaluation.ground_truths,
             )
 
     def test_rows_are_deduplicated_again_after_width_truncation(self) -> None:

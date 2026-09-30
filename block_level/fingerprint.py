@@ -4,12 +4,14 @@ import csv
 import json
 import math
 import unicodedata
+from array import array
 from dataclasses import dataclass
 from pathlib import Path
 from time import perf_counter
 from typing import Callable
 
 import duckdb
+import numpy as np
 
 from .config import FingerprintConfig
 from .progress import log_progress
@@ -46,6 +48,43 @@ class FingerprintVersion:
     mean_matrix_rows: float
     ngram_size: int | None
     probe: Callable[[str, str, str], FingerprintProbe]
+
+
+@dataclass(frozen=True)
+class ExtractedNGrams:
+    partition_subblocks: dict[int, tuple[frozenset[str], ...]]
+    selection_units: dict[int, frozenset[str]] | tuple[frozenset[str], ...]
+    frequency_unit: str
+
+
+class FingerprintDataCache:
+    """Bounded cache for extraction work shared by compatible sweep points."""
+
+    def __init__(self) -> None:
+        self.signature: tuple[int, bool, int | None] | None = None
+        self.targets: dict[tuple[str, str], ExtractedNGrams] = {}
+
+    def get(
+        self,
+        signature: tuple[int, bool, int | None],
+        target: tuple[str, str],
+    ) -> ExtractedNGrams | None:
+        if signature != self.signature:
+            self.signature = signature
+            self.targets.clear()
+            return None
+        return self.targets.get(target)
+
+    def put(
+        self,
+        signature: tuple[int, bool, int | None],
+        target: tuple[str, str],
+        extracted: ExtractedNGrams,
+    ) -> None:
+        if signature != self.signature:
+            self.signature = signature
+            self.targets.clear()
+        self.targets[target] = extracted
 
 
 class NGramGenerator:
@@ -88,6 +127,7 @@ class FeatureSelector:
 
     def __init__(self, config: FingerprintConfig):
         self.config = config
+        self._candidate_postings: dict[str, array[int]] = {}
 
     def candidates(
         self,
@@ -98,23 +138,23 @@ class FeatureSelector:
             if isinstance(partition_grams, dict)
             else iter(partition_grams)
         )
-        presence: dict[str, int] = {}
+        postings: dict[str, list[int]] = {}
         started_at = perf_counter()
         next_report = 250_000
         for unit_index, grams in enumerate(units):
-            bit = 1 << unit_index
             for gram in grams:
-                presence[gram] = presence.get(gram, 0) | bit
+                postings.setdefault(gram, []).append(unit_index)
             processed = unit_index + 1
             if processed >= next_report:
                 log_progress(
                     f"Candidate collection: {processed:,}/{len(partition_grams):,} "
-                    f"units; {len(presence):,} distinct n-grams",
+                    f"units; {len(postings):,} distinct n-grams",
                     started_at,
                 )
                 next_report += 250_000
         block_count = len(partition_grams)
         if not block_count:
+            self._candidate_postings = {}
             return 0, {}
         maximum_count = max(1, math.floor(self.config.max_block_frequency * block_count))
         minimum_count = 1
@@ -125,21 +165,40 @@ class FeatureSelector:
             SUBBLOCK_JOINT_ENTROPY_METHOD,
         }:
             minimum_count = max(1, math.ceil(self.config.min_block_frequency * block_count))
-        filtered = {
-            gram: mask
-            for gram, mask in sorted(presence.items())
-            if mask.bit_count() <= maximum_count
-            and (
+        filtered: dict[str, int] = {}
+        retained_postings: dict[str, array[int]] = {}
+        byte_count = math.ceil(block_count / 8)
+        postings_typecode = "I" if block_count <= 0xFFFFFFFF else "Q"
+        candidate_names = sorted(postings)
+        pack_report_every = max(1, math.ceil(len(candidate_names) / 10))
+        for candidate_index, gram in enumerate(candidate_names, 1):
+            unit_indexes = postings.pop(gram)
+            occurrence_count = len(unit_indexes)
+            if occurrence_count <= maximum_count and (
                 self.config.feature_selection_method.endswith("_hamming_clusters")
-                or minimum_count <= mask.bit_count()
-            )
-        }
+                or minimum_count <= occurrence_count
+            ):
+                packed = bytearray(byte_count)
+                for unit_index in unit_indexes:
+                    packed[unit_index >> 3] |= 1 << (unit_index & 7)
+                filtered[gram] = int.from_bytes(packed, "little")
+                retained_postings[gram] = array(postings_typecode, unit_indexes)
+            if block_count >= 250_000 and (
+                candidate_index % pack_report_every == 0
+                or candidate_index == len(candidate_names)
+            ):
+                log_progress(
+                    f"Bitset packing: {candidate_index:,}/{len(candidate_names):,} "
+                    f"n-grams; {len(filtered):,} retained",
+                    started_at,
+                )
         if block_count >= 250_000:
             log_progress(
-                f"Candidate collection complete: {len(filtered):,}/{len(presence):,} "
+                f"Candidate collection complete: {len(filtered):,}/{len(candidate_names):,} "
                 "n-grams passed frequency filters",
                 started_at,
             )
+        self._candidate_postings = retained_postings
         return block_count, filtered
 
     @staticmethod
@@ -221,30 +280,38 @@ class FeatureSelector:
 
     @staticmethod
     def internal_entropy(
-        block_count: int, candidates: dict[str, int], limit: int
+        block_count: int,
+        candidates: dict[str, int],
+        limit: int,
+        postings: dict[str, array[int]] | None = None,
     ) -> list[str]:
+        if postings:
+            return FeatureSelector.native_internal_entropy(
+                block_count, candidates, limit, postings
+            )
         selected: list[str] = []
-        ones_by_block = [0] * block_count
+        blocks_by_ones = {0: (1 << block_count) - 1}
         progress_step = 1_000 if limit >= 1_000 else 0
         started_at = perf_counter()
         while candidates and len(selected) < limit:
             next_width = len(selected) + 1
-            blocks_by_ones: dict[int, int] = {}
-            for block_index, ones in enumerate(ones_by_block):
-                blocks_by_ones[ones] = blocks_by_ones.get(ones, 0) | (1 << block_index)
             best_feature = None
             best_score = -1.0
             for gram, gram_mask in candidates.items():
                 if not selected:
                     score = block_count * binary_entropy(gram_mask.bit_count(), block_count)
                 else:
-                    score = math.fsum(
-                        (group_mask.bit_count() - (gram_mask & group_mask).bit_count())
-                        * binary_entropy(ones, next_width)
-                        + (gram_mask & group_mask).bit_count()
-                        * binary_entropy(ones + 1, next_width)
-                        for ones, group_mask in blocks_by_ones.items()
-                    )
+                    score_terms = []
+                    for ones, group_mask in blocks_by_ones.items():
+                        group_count = group_mask.bit_count()
+                        present_count = (gram_mask & group_mask).bit_count()
+                        score_terms.append(
+                            (group_count - present_count)
+                            * binary_entropy(ones, next_width)
+                            + present_count
+                            * binary_entropy(ones + 1, next_width)
+                        )
+                    score = math.fsum(score_terms)
                 if score > best_score or (
                     score == best_score and (best_feature is None or gram < best_feature)
                 ):
@@ -254,14 +321,147 @@ class FeatureSelector:
                 break
             selected.append(best_feature)
             feature_mask = candidates.pop(best_feature)
-            for block_index in range(block_count):
-                ones_by_block[block_index] += (feature_mask >> block_index) & 1
+            next_blocks_by_ones: dict[int, int] = {}
+            for ones, group_mask in blocks_by_ones.items():
+                present = group_mask & feature_mask
+                absent = group_mask & ~feature_mask
+                if absent:
+                    next_blocks_by_ones[ones] = (
+                        next_blocks_by_ones.get(ones, 0) | absent
+                    )
+                if present:
+                    next_blocks_by_ones[ones + 1] = (
+                        next_blocks_by_ones.get(ones + 1, 0) | present
+                    )
+            blocks_by_ones = next_blocks_by_ones
             if progress_step and (
                 len(selected) % progress_step == 0 or len(selected) == limit
             ):
                 log_progress(
                     f"Feature selection: {len(selected):,}/{limit:,} selected; "
                     f"{len(candidates):,} candidates remain",
+                    started_at,
+                )
+        return selected
+
+    @staticmethod
+    def native_internal_entropy(
+        block_count: int,
+        candidates: dict[str, int],
+        limit: int,
+        postings: dict[str, array[int]],
+    ) -> list[str]:
+        """Score sparse candidate postings in NumPy while preserving exact ties."""
+        names = tuple(candidates)
+        masks = tuple(candidates.values())
+        lengths = np.fromiter(
+            (len(postings[name]) for name in names),
+            dtype=np.int64,
+            count=len(names),
+        )
+        offsets = np.empty(len(names) + 1, dtype=np.int64)
+        offsets[0] = 0
+        np.cumsum(lengths, out=offsets[1:])
+        index_dtype = np.uint32 if block_count <= 0xFFFFFFFF else np.uint64
+        unit_indexes = np.empty(int(offsets[-1]), dtype=index_dtype)
+        for candidate_index, name in enumerate(names):
+            start, stop = int(offsets[candidate_index]), int(offsets[candidate_index + 1])
+            unit_indexes[start:stop] = np.frombuffer(
+                postings[name], dtype=index_dtype
+            )
+
+        count_dtype = np.uint16 if limit <= np.iinfo(np.uint16).max else np.uint32
+        ones_by_unit = np.zeros(block_count, dtype=count_dtype)
+        active = np.ones(len(names), dtype=np.bool_)
+        blocks_by_ones = {0: (1 << block_count) - 1}
+        selected: list[str] = []
+        progress_step = 100 if limit >= 100 else 0
+        started_at = perf_counter()
+
+        while active.any() and len(selected) < limit:
+            next_width = len(selected) + 1
+            if not selected:
+                scores = np.fromiter(
+                    (
+                        block_count * binary_entropy(int(count), block_count)
+                        for count in lengths
+                    ),
+                    dtype=np.float64,
+                    count=len(names),
+                )
+            else:
+                entropies = np.fromiter(
+                    (
+                        binary_entropy(ones, next_width)
+                        for ones in range(next_width + 1)
+                    ),
+                    dtype=np.float64,
+                    count=next_width + 1,
+                )
+                deltas = entropies[1:] - entropies[:-1]
+                occurrence_weights = deltas[ones_by_unit[unit_indexes]]
+                scores = np.add.reduceat(occurrence_weights, offsets[:-1])
+            scores[~active] = -np.inf
+            approximate_best = float(scores.max())
+            tolerance = np.finfo(np.float64).eps * max(1, block_count) * 32
+            contender_indexes = np.flatnonzero(
+                active & (scores >= approximate_best - tolerance)
+            )
+
+            best_index = -1
+            best_score = -1.0
+            for raw_index in contender_indexes:
+                candidate_index = int(raw_index)
+                gram_mask = masks[candidate_index]
+                if not selected:
+                    exact_score = block_count * binary_entropy(
+                        gram_mask.bit_count(), block_count
+                    )
+                else:
+                    exact_score = math.fsum(
+                        (
+                            group_mask.bit_count()
+                            - (gram_mask & group_mask).bit_count()
+                        )
+                        * binary_entropy(ones, next_width)
+                        + (gram_mask & group_mask).bit_count()
+                        * binary_entropy(ones + 1, next_width)
+                        for ones, group_mask in blocks_by_ones.items()
+                    )
+                if exact_score > best_score or (
+                    exact_score == best_score
+                    and (best_index < 0 or names[candidate_index] < names[best_index])
+                ):
+                    best_index = candidate_index
+                    best_score = exact_score
+            if best_index < 0:
+                break
+
+            active[best_index] = False
+            selected.append(names[best_index])
+            feature_mask = masks[best_index]
+            next_blocks_by_ones: dict[int, int] = {}
+            for ones, group_mask in blocks_by_ones.items():
+                present = group_mask & feature_mask
+                absent = group_mask & ~feature_mask
+                if absent:
+                    next_blocks_by_ones[ones] = (
+                        next_blocks_by_ones.get(ones, 0) | absent
+                    )
+                if present:
+                    next_blocks_by_ones[ones + 1] = (
+                        next_blocks_by_ones.get(ones + 1, 0) | present
+                    )
+            blocks_by_ones = next_blocks_by_ones
+            start, stop = int(offsets[best_index]), int(offsets[best_index + 1])
+            ones_by_unit[unit_indexes[start:stop]] += 1
+
+            if progress_step and (
+                len(selected) % progress_step == 0 or len(selected) == limit
+            ):
+                log_progress(
+                    f"Native feature selection: {len(selected):,}/{limit:,} "
+                    f"selected; {int(active.sum()):,} candidates remain",
                     started_at,
                 )
         return selected
@@ -439,10 +639,23 @@ class FeatureSelector:
                 raise ValueError(
                     f"{method} requires physical block boundaries"
                 )
-            selector = self.internal_entropy if method.startswith("fingerprint_internal") else (
-                self.local_split if method.startswith("local_split") else self.distribution_entropy
-            )
-            selected = selector(block_count, representatives, limit)
+            if method.startswith("fingerprint_internal"):
+                selected = self.internal_entropy(
+                    block_count,
+                    representatives,
+                    limit,
+                    {
+                        feature: self._candidate_postings[feature]
+                        for feature in representatives
+                    },
+                )
+            else:
+                selector = (
+                    self.local_split
+                    if method.startswith("local_split")
+                    else self.distribution_entropy
+                )
+                selected = selector(block_count, representatives, limit)
             return [aliases[feature] for feature in selected]
         if method.endswith("_hamming_clusters"):
             representatives, aliases = self.hamming_clusters(
@@ -511,7 +724,13 @@ class FeatureSelector:
             subblock_count, candidates = self.candidates(subblocks)
             representatives, aliases = self.collapse_equivalent(candidates)
             selected = self.internal_entropy(
-                subblock_count, representatives, limit
+                subblock_count,
+                representatives,
+                limit,
+                {
+                    feature: self._candidate_postings[feature]
+                    for feature in representatives
+                },
             )
             selected_by_block[partition_id] = tuple(
                 aliases[feature] for feature in selected
@@ -540,7 +759,15 @@ class FeatureSelector:
             for partition_id in sorted(partition_subblocks)
         )
         selected = (
-            self.internal_entropy(len(block_sizes), representatives, limit)
+            self.internal_entropy(
+                len(block_sizes),
+                representatives,
+                limit,
+                {
+                    feature: self._candidate_postings[feature]
+                    for feature in representatives
+                },
+            )
             if block_sizes and all(block_size == 1 for block_size in block_sizes)
             else self.within_block_joint_entropy(block_sizes, representatives, limit)
         )
@@ -560,7 +787,13 @@ class FeatureSelector:
         subblock_count, candidates = self.candidates(units)
         representatives, aliases = self.collapse_equivalent(candidates)
         selected = self.internal_entropy(
-            subblock_count, representatives, limit
+            subblock_count,
+            representatives,
+            limit,
+            {
+                feature: self._candidate_postings[feature]
+                for feature in representatives
+            },
         )
         return [aliases[feature] for feature in selected]
 
@@ -583,11 +816,13 @@ class FingerprintBuilder:
         block_size_rows: int,
         fingerprint_dir: Path,
         output_dir: Path,
+        data_cache: FingerprintDataCache | None = None,
     ):
         self.config = config
         self.block_size_rows = block_size_rows
         self.fingerprint_dir = fingerprint_dir
         self.output_dir = output_dir
+        self.data_cache = data_cache
         self.ngrams = NGramGenerator(config.ngram_size, config.ascii_only)
         self.selector = FeatureSelector(config)
         if (
@@ -744,6 +979,54 @@ class FingerprintBuilder:
             for grams in partition_subblocks[partition_id]
         )
 
+    def extract_ngrams(
+        self,
+        con: duckdb.DuckDBPyConnection,
+        table: str,
+        column: str,
+    ) -> ExtractedNGrams:
+        signature = (
+            self.config.ngram_size,
+            self.config.ascii_only,
+            self.config.subblock_size_rows,
+        )
+        target = (table, column)
+        cached = (
+            self.data_cache.get(signature, target)
+            if self.data_cache is not None
+            else None
+        )
+        if cached is not None:
+            unit_label = (
+                "sub-blocks" if cached.frequency_unit == "subblock" else "blocks"
+            )
+            log_progress(
+                f"Reusing cached n-grams for {table}.{column}: "
+                f"{len(cached.selection_units):,} {unit_label}"
+            )
+            return cached
+
+        if self.uses_subblock_matrix:
+            partition_subblocks = self.partition_subblock_ngrams(con, table, column)
+            selection_units = self.flatten_subblocks(partition_subblocks)
+            frequency_unit = "subblock"
+        else:
+            partition_grams = self.concatenate_partition_ngrams(con, table, column)
+            partition_subblocks = {
+                partition_id: (grams,)
+                for partition_id, grams in partition_grams.items()
+            }
+            selection_units = partition_grams
+            frequency_unit = "block"
+        extracted = ExtractedNGrams(
+            partition_subblocks=partition_subblocks,
+            selection_units=selection_units,
+            frequency_unit=frequency_unit,
+        )
+        if self.data_cache is not None:
+            self.data_cache.put(signature, target, extracted)
+        return extracted
+
     @staticmethod
     def encode_block(grams: frozenset[str], groups: tuple[tuple[str, ...], ...]) -> int:
         return sum(
@@ -894,18 +1177,10 @@ class FingerprintBuilder:
             log_progress(
                 f"Building block n-grams [{target_index}/{len(targets)}]: {table}.{column}"
             )
-            if self.uses_subblock_matrix:
-                partition_subblocks = self.partition_subblock_ngrams(con, table, column)
-                selection_units = self.flatten_subblocks(partition_subblocks)
-                frequency_unit = "subblock"
-            else:
-                partition_grams = self.concatenate_partition_ngrams(con, table, column)
-                partition_subblocks = {
-                    partition_id: (grams,)
-                    for partition_id, grams in partition_grams.items()
-                }
-                selection_units = partition_grams
-                frequency_unit = "block"
+            extracted = self.extract_ngrams(con, table, column)
+            partition_subblocks = extracted.partition_subblocks
+            selection_units = extracted.selection_units
+            frequency_unit = extracted.frequency_unit
             block_rows: dict[int, tuple[int, ...]] = {}
             if self.uses_block_local_mapping:
                 log_progress(
