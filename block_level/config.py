@@ -14,8 +14,6 @@ FEATURE_SELECTION_METHODS = frozenset({
     "fingerprint_distribution_entropy_equivalence_classes",
     "fingerprint_internal_entropy_equivalence_classes",
     "fingerprint_subblock_joint_entropy_equivalence_classes",
-    "local_split_entropy_hamming_clusters",
-    "fingerprint_distribution_entropy_hamming_clusters",
 })
 FEATURE_SELECTION_SCOPE_METHODS = frozenset({
     "fingerprint_internal_entropy_equivalence_classes",
@@ -41,8 +39,6 @@ class FingerprintConfig:
     min_block_frequency: float = 0.0
     max_block_frequency: float = 1.0
     ascii_only: bool = True
-    hamming_cluster_count: int = 154
-    hamming_cluster_max_iterations: int = 10
     subblock_size_rows: int | None = None
     feature_selection_scope: str = "global"
 
@@ -59,10 +55,6 @@ class FingerprintConfig:
             )
         if not 0 <= self.min_block_frequency <= self.max_block_frequency <= 1:
             raise ValueError("block frequencies must satisfy 0 <= min <= max <= 1")
-        if self.hamming_cluster_count <= 0:
-            raise ValueError("hamming_cluster_count must be positive")
-        if self.hamming_cluster_max_iterations <= 0:
-            raise ValueError("hamming_cluster_max_iterations must be positive")
         if self.feature_selection_scope not in {"local", "global"}:
             raise ValueError("feature_selection_scope must be 'local' or 'global'")
         if (
@@ -101,9 +93,7 @@ class SweepConfig:
     ngram_sizes: tuple[int, ...]
     min_block_frequencies_by_method: Mapping[str, tuple[float, ...]]
     max_block_frequencies: tuple[float, ...] = (1.0,)
-    hamming_cluster_counts: tuple[int, ...] = (154,)
     ascii_only: bool = True
-    hamming_cluster_max_iterations: int = 10
     subblock_sizes_rows: tuple[int, ...] = ()
     feature_selection_scope: str = "global"
     feature_selection_scopes: tuple[str, ...] = ()
@@ -135,11 +125,7 @@ class SweepConfig:
             max_block_frequencies=tuple(float(value) for value in _sequence(
                 raw.get("max_block_frequencies", [1.0]), "sweep.max_block_frequencies"
             )),
-            hamming_cluster_counts=tuple(int(value) for value in _sequence(
-                raw.get("hamming_cluster_counts", [154]), "sweep.hamming_cluster_counts"
-            )),
             ascii_only=bool(raw.get("ascii_only", True)),
-            hamming_cluster_max_iterations=int(raw.get("hamming_cluster_max_iterations", 10)),
             subblock_sizes_rows=(
                 tuple(int(value) for value in _sequence(
                     raw["subblock_sizes_rows"], "sweep.subblock_sizes_rows"
@@ -177,8 +163,6 @@ class SweepConfig:
             raise ValueError("ngram sizes must be positive")
         if any(not 0 < value <= 1 for value in self.max_block_frequencies):
             raise ValueError("maximum block frequencies must be in (0, 1]")
-        if any(count <= 0 for count in self.hamming_cluster_counts):
-            raise ValueError("Hamming cluster counts must be positive")
         if self.feature_selection_scope not in {"local", "global"}:
             raise ValueError("feature_selection_scope must be 'local' or 'global'")
         if any(
@@ -207,10 +191,6 @@ class SweepConfig:
 
     def experiments(self) -> Iterator[FingerprintConfig]:
         for method in self.feature_selection_methods:
-            maximums = (1.0,) if method.endswith("_hamming_clusters") else self.max_block_frequencies
-            cluster_counts = (
-                self.hamming_cluster_counts if method.endswith("_hamming_clusters") else (154,)
-            )
             if method in SUBBLOCK_METHODS and self.subblock_sizes_rows:
                 subblock_sizes: tuple[int | None, ...] = self.subblock_sizes_rows
             elif method == "fingerprint_subblock_joint_entropy_equivalence_classes":
@@ -224,31 +204,28 @@ class SweepConfig:
             )
             for ngram_size in self.ngram_sizes:
                 for minimum in self.min_block_frequencies_by_method[method]:
-                    for maximum in maximums:
-                        for cluster_count in cluster_counts:
-                            for subblock_size in subblock_sizes:
-                                applicable_scopes = (
-                                    scopes
-                                    if (
-                                        method in FEATURE_SELECTION_SCOPE_METHODS
-                                        and subblock_size is not None
-                                    )
-                                    else ("global",)
+                    for maximum in self.max_block_frequencies:
+                        for subblock_size in subblock_sizes:
+                            applicable_scopes = (
+                                scopes
+                                if (
+                                    method in FEATURE_SELECTION_SCOPE_METHODS
+                                    and subblock_size is not None
                                 )
-                                for scope in applicable_scopes:
-                                    if minimum <= maximum:
-                                        yield FingerprintConfig(
-                                            widths=tuple(self.widths_by_method[method]),
-                                            ngram_size=ngram_size,
-                                            feature_selection_method=method,
-                                            min_block_frequency=minimum,
-                                            max_block_frequency=maximum,
-                                            ascii_only=self.ascii_only,
-                                            hamming_cluster_count=cluster_count,
-                                            hamming_cluster_max_iterations=self.hamming_cluster_max_iterations,
-                                            subblock_size_rows=subblock_size,
-                                            feature_selection_scope=scope,
-                                        )
+                                else ("global",)
+                            )
+                            for scope in applicable_scopes:
+                                if minimum <= maximum:
+                                    yield FingerprintConfig(
+                                        widths=tuple(self.widths_by_method[method]),
+                                        ngram_size=ngram_size,
+                                        feature_selection_method=method,
+                                        min_block_frequency=minimum,
+                                        max_block_frequency=maximum,
+                                        ascii_only=self.ascii_only,
+                                        subblock_size_rows=subblock_size,
+                                        feature_selection_scope=scope,
+                                    )
 
 
 @dataclass(frozen=True)

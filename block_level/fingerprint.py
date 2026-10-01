@@ -187,10 +187,7 @@ class FeatureSelector:
         for candidate_index, gram in enumerate(candidate_names, 1):
             unit_indexes = postings.pop(gram)
             occurrence_count = len(unit_indexes)
-            if occurrence_count <= maximum_count and (
-                self.config.feature_selection_method.endswith("_hamming_clusters")
-                or minimum_count <= occurrence_count
-            ):
+            if minimum_count <= occurrence_count <= maximum_count:
                 packed = bytearray(byte_count)
                 for unit_index in unit_indexes:
                     packed[unit_index >> 3] |= 1 << (unit_index & 7)
@@ -219,7 +216,6 @@ class FeatureSelector:
         block_count: int,
         candidates: dict[str, int],
         limit: int,
-        include_zero_score_features: bool = False,
     ) -> list[str]:
         selected: list[str] = []
         groups = [(1 << block_count) - 1]
@@ -245,12 +241,7 @@ class FeatureSelector:
                         best_score = score
                         best_frequency = frequency
             if best_feature is None:
-                if not include_zero_score_features:
-                    break
-                best_feature = min(
-                    candidates, key=lambda gram: (-candidates[gram].bit_count(), gram)
-                )
-                best_group_index = 0
+                break
             selected.append(best_feature)
             feature_mask = candidates.pop(best_feature)
             parent = groups.pop(best_group_index)
@@ -263,7 +254,6 @@ class FeatureSelector:
         block_count: int,
         candidates: dict[str, int],
         limit: int,
-        include_zero_score_features: bool = False,
     ) -> list[str]:
         selected: list[str] = []
         groups = [(1 << block_count) - 1]
@@ -291,11 +281,7 @@ class FeatureSelector:
                     best_score = score
                     best_frequency = frequency
             if best_feature is None:
-                if not include_zero_score_features:
-                    break
-                best_feature = min(
-                    candidates, key=lambda gram: (-candidates[gram].bit_count(), gram)
-                )
+                break
             selected.append(best_feature)
             feature_mask = candidates.pop(best_feature)
             next_groups = []
@@ -601,66 +587,6 @@ class FeatureSelector:
         aliases = {values[0]: tuple(values) for values in aliases_by_mask.values()}
         return representatives, aliases
 
-    @staticmethod
-    def hamming_clusters(
-        block_count: int,
-        candidates: dict[str, int],
-        cluster_count: int,
-        max_iterations: int,
-    ) -> tuple[dict[str, int], dict[str, tuple[str, ...]]]:
-        items = sorted(candidates.items())
-        cluster_count = min(cluster_count, len(items))
-        if not cluster_count:
-            return {}, {}
-        centers = [items[index * len(items) // cluster_count][1] for index in range(cluster_count)]
-        assignments: list[int] = []
-        for _ in range(max_iterations):
-            next_assignments = [
-                min(
-                    range(cluster_count),
-                    key=lambda index: ((mask ^ centers[index]).bit_count(), index),
-                )
-                for _, mask in items
-            ]
-            members: list[list[tuple[str, int]]] = [[] for _ in range(cluster_count)]
-            for item, cluster_index in zip(items, next_assignments):
-                members[cluster_index].append(item)
-            next_centers = []
-            for cluster_index, cluster_members in enumerate(members):
-                if not cluster_members:
-                    next_centers.append(centers[cluster_index])
-                    continue
-                one_counts = [0] * block_count
-                for _, mask in cluster_members:
-                    for bit_index in range(block_count):
-                        one_counts[bit_index] += (mask >> bit_index) & 1
-                center = 0
-                previous = centers[cluster_index]
-                for bit_index, count in enumerate(one_counts):
-                    if 2 * count > len(cluster_members) or (
-                        2 * count == len(cluster_members) and (previous >> bit_index) & 1
-                    ):
-                        center |= 1 << bit_index
-                next_centers.append(center)
-            if next_assignments == assignments and next_centers == centers:
-                break
-            assignments, centers = next_assignments, next_centers
-        members = [[] for _ in range(cluster_count)]
-        for item, cluster_index in zip(items, assignments):
-            members[cluster_index].append(item)
-        representatives: dict[str, int] = {}
-        aliases_by_representative: dict[str, tuple[str, ...]] = {}
-        for cluster_members in members:
-            if not cluster_members:
-                continue
-            aliases = tuple(gram for gram, _ in cluster_members)
-            cluster_mask = 0
-            for _, mask in cluster_members:
-                cluster_mask |= mask
-            representatives[aliases[0]] = cluster_mask
-            aliases_by_representative[aliases[0]] = aliases
-        return representatives, aliases_by_representative
-
     def select(
         self,
         partition_grams: dict[int, frozenset[str]] | tuple[frozenset[str], ...],
@@ -700,18 +626,6 @@ class FeatureSelector:
                     else self.distribution_entropy
                 )
                 selected = selector(block_count, representatives, limit)
-            return [aliases[feature] for feature in selected]
-        if method.endswith("_hamming_clusters"):
-            representatives, aliases = self.hamming_clusters(
-                block_count,
-                candidates,
-                self.config.hamming_cluster_count,
-                self.config.hamming_cluster_max_iterations,
-            )
-            selector = self.local_split if method.startswith("local_split") else self.distribution_entropy
-            selected = selector(
-                block_count, representatives, limit, include_zero_score_features=True
-            )
             return [aliases[feature] for feature in selected]
         raise ValueError(f"unknown feature-selection method: {method!r}")
 
@@ -847,7 +761,7 @@ class FingerprintBuilder:
 
     DIAGNOSTIC_COLUMNS = [
         "metadata_version", "metadata_file", "fingerprint_width",
-        "feature_selection_method", "hamming_cluster_count", "ngram_size",
+        "feature_selection_method", "ngram_size",
         "min_block_frequency", "max_block_frequency", "subblock_size_rows",
         "frequency_unit", "table_name", "column_name",
         "bit_index", "ngram", "ngrams", "alias_count", "block_presence_count",
@@ -1196,8 +1110,6 @@ class FingerprintBuilder:
             "feature_scope": (
                 "block_local" if self.uses_block_local_mapping else "target_shared"
             ),
-            "hamming_cluster_count": self.config.hamming_cluster_count,
-            "hamming_cluster_max_iterations": self.config.hamming_cluster_max_iterations,
             "min_block_frequency": self.config.min_block_frequency,
             "max_block_frequency": self.config.max_block_frequency,
             "ascii_only": self.config.ascii_only,
@@ -1433,7 +1345,6 @@ class FingerprintBuilder:
                             "metadata_file": metadata_path.name,
                             "fingerprint_width": width,
                             "feature_selection_method": self.config.feature_selection_method,
-                            "hamming_cluster_count": self.config.hamming_cluster_count,
                             "ngram_size": self.config.ngram_size,
                             "min_block_frequency": self.config.min_block_frequency,
                             "max_block_frequency": self.config.max_block_frequency,

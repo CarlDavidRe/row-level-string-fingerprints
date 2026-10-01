@@ -45,7 +45,7 @@ METRICS_COLUMNS = [
 ]
 SWEEP_COLUMNS = [
     "feature_selection_method", "feature_selection_scope", "ngram_size", "min_block_frequency",
-    "max_block_frequency", "hamming_cluster_count", "subblock_size_rows",
+    "max_block_frequency", "subblock_size_rows",
     "fingerprint_width",
     "metadata_size_bytes", "mean_unnecessary_block_read_ratio", "zero_bit_query_count",
     "query_count", "total_candidate_partitions", "total_pruned_partitions",
@@ -667,8 +667,6 @@ class SweepRunner:
         if fingerprint.feature_selection_method in SCOPE_CONFIGURABLE_METHODS:
             path /= f"feature_scope_{fingerprint.feature_selection_scope}"
         path /= f"ngram_{fingerprint.ngram_size}"
-        if fingerprint.feature_selection_method.endswith("_hamming_clusters"):
-            path /= f"hamming_cluster_count_{fingerprint.hamming_cluster_count}"
         if fingerprint.subblock_size_rows is not None:
             path /= f"subblock_size_rows_{fingerprint.subblock_size_rows}"
         return (
@@ -749,7 +747,6 @@ class SweepRunner:
                     "ngram_size": fingerprint.ngram_size,
                     "min_block_frequency": fingerprint.min_block_frequency,
                     "max_block_frequency": fingerprint.max_block_frequency,
-                    "hamming_cluster_count": fingerprint.hamming_cluster_count,
                     "subblock_size_rows": fingerprint.subblock_size_rows or "",
                     "fingerprint_width": rows[0]["query_fingerprint_width"],
                     "metadata_size_bytes": version.metadata_size_bytes,
