@@ -48,7 +48,7 @@ class FingerprintVersion:
     metadata_size_bytes: int
     mean_matrix_rows: float
     ngram_size: int | None
-    probe: Callable[[str, str, str], FingerprintProbe]
+    probe: Callable[[str, str, str | tuple[str, ...]], FingerprintProbe]
     feature_mapping_file: str | None = None
 
 
@@ -1451,9 +1451,11 @@ class FingerprintBuilder:
                         })
 
             def make_probe(version_profiles, fingerprint_width):
-                def probe(table: str, column: str, predicate: str) -> FingerprintProbe:
+                def probe(
+                    table: str, column: str, predicate: str | tuple[str, ...]
+                ) -> FingerprintProbe:
                     profile = version_profiles[(table, column)]
-                    query_text = str(predicate or "")
+                    needles = (predicate,) if isinstance(predicate, str) else predicate
                     query_ones = []
                     candidates = set()
                     for partition_id, matrix_rows in profile["block_rows"].items():
@@ -1462,7 +1464,9 @@ class FingerprintBuilder:
                             if self.uses_block_local_mapping
                             else profile["feature_to_bit"]
                         )
-                        query_mask = self.encode_query(query_text, feature_to_bit)
+                        query_mask = 0
+                        for needle in needles:
+                            query_mask |= self.encode_query(needle, feature_to_bit)
                         query_ones.append(query_mask.bit_count())
                         if any(
                             (block_mask & query_mask) == query_mask

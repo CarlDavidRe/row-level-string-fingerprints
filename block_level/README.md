@@ -32,6 +32,14 @@ query-level results, summaries, plots, and an experiment manifest. The sweep
 root contains copied workload files, the resolved configuration, and
 `fingerprint_sweep_summary.csv`.
 
+Query files named `<table>.<column>_queries.txt` may contain either legacy
+comma-separated needle rows or `block-skipping-query-v1` JSON lines. For JSON
+lines, ground truth runs the supplied SQL `predicate` exactly. Fingerprint
+probes use the `lookup_needles` required by `individual_needle` and
+`all_needles` predicates; when there are no safe required needles (including
+`actual_predicate`), all partitions remain candidates. Multi-needle probes
+require all needle fingerprints to occur in the same stored matrix row.
+
 ## Sub-block fingerprint matrices
 
 `fingerprint_subblock_joint_entropy_equivalence_classes` is the matrix-valued

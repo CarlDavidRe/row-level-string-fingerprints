@@ -22,11 +22,13 @@ from .fingerprint import (
     quote_identifier,
 )
 from .progress import log_progress
+from .query import parse_query_file
 
 
 RESULT_COLUMNS = [
     "query_id", "workload_file", "workload_row_number", "table_name", "column_name",
-    "predicate_value", "expected_matching_rows", "expected_matching_percent",
+    "predicate_value", "predicate_mode", "predicate_sql", "lookup_needles",
+    "expected_matching_rows", "expected_matching_percent",
     "query_ngram_count", "query_fingerprint_width", "query_fingerprint_ones",
     "metadata_version", "merge_step", "metadata_file", "partition_file_count",
     "metadata_total_size_bytes", "ground_truth_partition_count",
@@ -148,12 +150,7 @@ class WorkloadRepository:
         skipped: list[dict] = []
         for path in query_files:
             table, column = query_target(path)
-            with path.open(newline="", encoding="utf-8") as handle:
-                source_rows = [
-                    (number, row)
-                    for number, row in enumerate(csv.reader(handle), 1)
-                    if row
-                ]
+            source_rows = parse_query_file(path)
             if not self.target_exists(con, table, column):
                 skipped.append({
                     "workload_file": path.name,
@@ -163,7 +160,7 @@ class WorkloadRepository:
                     "query_count": len(source_rows),
                 })
                 continue
-            for row_number, row in source_rows:
+            for row_number, parsed in source_rows:
                 if self.config.query_limit is not None and len(queries) >= self.config.query_limit:
                     return queries, skipped
                 queries.append({
@@ -172,9 +169,7 @@ class WorkloadRepository:
                     "workload_row_number": row_number,
                     "table_name": table,
                     "column_name": column,
-                    "predicate_value": row[0],
-                    "expected_matching_rows": row[1] if len(row) > 1 else "",
-                    "expected_matching_percent": row[2] if len(row) > 2 else "",
+                    **parsed,
                 })
         if not queries:
             raise ValueError("no evaluable workload queries")
@@ -230,12 +225,19 @@ class FingerprintEvaluator:
         ).replace("_", escape + "_") + "%"
 
     def ground_truth(self, con, query: dict) -> frozenset[int]:
-        rows = con.execute(
-            f"SELECT DISTINCT partition_id FROM {quote_identifier(query['table_name'])} "
-            f"WHERE CAST({quote_identifier(query['column_name'])} AS VARCHAR) "
-            "ILIKE ? ESCAPE '\\' ORDER BY partition_id",
-            [self.escaped_like(query["predicate_value"])],
-        ).fetchall()
+        predicate_sql = query["predicate_sql"]
+        if predicate_sql is not None:
+            rows = con.execute(
+                f"SELECT DISTINCT partition_id FROM {quote_identifier(query['table_name'])} "
+                f"WHERE ({predicate_sql}) ORDER BY partition_id"
+            ).fetchall()
+        else:
+            rows = con.execute(
+                f"SELECT DISTINCT partition_id FROM {quote_identifier(query['table_name'])} "
+                f"WHERE CAST({quote_identifier(query['column_name'])} AS VARCHAR) "
+                "ILIKE ? ESCAPE '\\' ORDER BY partition_id",
+                [self.escaped_like(query["predicate_value"])],
+            ).fetchall()
         return frozenset(int(row[0]) for row in rows)
 
     @staticmethod
@@ -339,7 +341,7 @@ class FingerprintEvaluator:
                 for query in queries:
                     query_id = query["query_id"]
                     target = (query["table_name"], query["column_name"])
-                    probe = version.probe(*target, query["predicate_value"])
+                    probe = version.probe(*target, query["lookup_needles"])
                     candidates = frozenset(int(value) for value in probe.candidate_partition_ids)
                     if not candidates <= partition_ids[target]:
                         invalid = sorted(candidates - partition_ids[target])
@@ -361,7 +363,12 @@ class FingerprintEvaluator:
                     probe = probes[query_id]
                     result_rows.append({
                         **query,
-                        "query_ngram_count": len(frozenset(self.ngrams.generate(query["predicate_value"]))),
+                        "lookup_needles": json.dumps(query["lookup_needles"], ensure_ascii=False),
+                        "query_ngram_count": len({
+                            gram
+                            for needle in query["lookup_needles"]
+                            for gram in self.ngrams.generate(needle)
+                        }),
                         "query_fingerprint_width": probe.width,
                         "query_fingerprint_ones": probe.ones,
                         "metadata_version": version.metadata_version,
