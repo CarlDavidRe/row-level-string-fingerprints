@@ -81,7 +81,7 @@ def write_partition_matrices(
 ) -> int:
     """Write aligned one-record-per-partition matrices and feature mappings.
 
-    Returns the combined on-disk size of both files, including Parquet overhead.
+    Returns the on-disk size of the matrix file, including Parquet overhead.
     The matrix file is published last, after its mapping sidecar is complete.
     """
     mapping_path = feature_mapping_path(matrix_path)
@@ -121,4 +121,4 @@ def write_partition_matrices(
     finally:
         temporary_matrix.unlink(missing_ok=True)
         temporary_mapping.unlink(missing_ok=True)
-    return matrix_path.stat().st_size + mapping_path.stat().st_size
+    return matrix_path.stat().st_size

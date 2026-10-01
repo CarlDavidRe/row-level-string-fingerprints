@@ -87,7 +87,8 @@ mapping file has the same keys in the same order and stores
 inner strings are equivalent n-grams that set that bit. Local scope stores
 the selected mapping for each partition; global scope repeats its shared
 mapping in every partition record. Unused columns are empty groups. Reported
-metadata size includes both Parquet files. The original single-mask
+matrix metadata size includes only `partition_metadata_vNNN.parquet`; the
+feature mapping file is excluded. The original single-mask
 (non-matrix) configurations still write JSON.
 
 When entropy scores tie, selection prefers the n-gram present in more

@@ -35,7 +35,7 @@ class PartitionMatrixStorageTest(unittest.TestCase):
             )
             mapping_path = feature_mapping_path(matrix_path)
             self.assertEqual(
-                size, matrix_path.stat().st_size + mapping_path.stat().st_size
+                size, matrix_path.stat().st_size
             )
             self.assertEqual(pq.read_schema(matrix_path), matrix_schema())
             self.assertEqual(pq.read_schema(mapping_path), feature_mapping_schema())

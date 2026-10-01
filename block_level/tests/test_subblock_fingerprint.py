@@ -562,9 +562,10 @@ class SubblockFingerprintTest(unittest.TestCase):
             self.assertEqual(versions[0].mean_matrix_rows, 2.5)
             matrix_path = root / "metadata" / versions[0].metadata_file
             mapping_path = feature_mapping_path(matrix_path)
+            self.assertTrue(mapping_path.is_file())
             self.assertEqual(
                 versions[0].metadata_size_bytes,
-                matrix_path.stat().st_size + mapping_path.stat().st_size,
+                matrix_path.stat().st_size,
             )
             matrices = pq.read_table(matrix_path).to_pylist()
             self.assertEqual(
