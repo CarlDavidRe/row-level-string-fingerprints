@@ -48,6 +48,8 @@ class FingerprintVersion:
     metadata_size_bytes: int
     mean_matrix_rows: float
     ngram_size: int | None
+    fingerprint_build_seconds: float
+    matrix_build_seconds: float
     probe: Callable[[str, str, str | tuple[str, ...]], FingerprintProbe]
     feature_mapping_file: str | None = None
 
@@ -1266,6 +1268,7 @@ class FingerprintBuilder:
         selected_count = max(
             (profile["selected_count"] for profile in full_profiles.values()), default=0
         )
+        fingerprint_build_seconds = perf_counter() - build_started_at
         saturated = all(
             profile["selected_count"] < max_width for profile in full_profiles.values()
         )
@@ -1281,6 +1284,7 @@ class FingerprintBuilder:
         diagnostic_rows: list[dict] = []
         for version_id, width in enumerate(version_widths):
             version_started_at = perf_counter()
+            matrix_started_at = perf_counter()
             log_progress(
                 f"Preparing metadata version {version_id + 1}/{len(version_widths)} "
                 f"({width:,} bits)"
@@ -1331,6 +1335,7 @@ class FingerprintBuilder:
                 f"block_infix_fingerprint_v{version_id:03d}.json"
             )
             metadata_size_bytes = self.write_metadata(metadata_path, width, profiles)
+            matrix_build_seconds = perf_counter() - matrix_started_at
             log_progress(
                 f"Wrote {metadata_path} "
                 f"({metadata_size_bytes / 2**20:,.2f} MiB on disk)",
@@ -1413,6 +1418,8 @@ class FingerprintBuilder:
                 mean_matrix_rows=(
                     total_matrix_rows / total_blocks if total_blocks else 0.0
                 ),
+                fingerprint_build_seconds=fingerprint_build_seconds,
+                matrix_build_seconds=matrix_build_seconds,
                 ngram_size=self.config.ngram_size,
                 probe=make_probe(profiles, width),
                 feature_mapping_file=(

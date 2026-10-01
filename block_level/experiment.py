@@ -42,12 +42,14 @@ METRICS_COLUMNS = [
     "average_metadata_size_in_bytes", "mean_unneccesary_block_read_ratio",
     "mean_false_block_reads_factor", "mean_absolute_values", "included_query_count",
     "skipped_query_count", "total_query_count", "total_num_skipped_blocks",
+    "fingerprint_build_seconds", "matrix_build_seconds",
 ]
 SWEEP_COLUMNS = [
     "feature_selection_method", "feature_selection_scope", "ngram_size", "min_block_frequency",
     "max_block_frequency", "subblock_size_rows",
     "fingerprint_width",
-    "metadata_size_bytes", "mean_unnecessary_block_read_ratio", "zero_bit_query_count",
+    "metadata_size_bytes", "fingerprint_build_seconds", "matrix_build_seconds",
+    "mean_unnecessary_block_read_ratio", "zero_bit_query_count",
     "query_count", "total_candidate_partitions", "total_pruned_partitions",
     "total_ground_truth_partitions", "false_positive_partition_count",
     "false_negative_partition_count", "run_directory",
@@ -450,6 +452,8 @@ class ResultExporter:
                 "query_count": len(rows),
                 "total_skipped_partitions": total_skipped,
                 "false_positive_partition_count": sum(row["false_positive_partition_count"] for row in rows),
+                "fingerprint_build_seconds": version.fingerprint_build_seconds,
+                "matrix_build_seconds": version.matrix_build_seconds,
                 "false_negative_partition_count": sum(row["false_negative_partition_count"] for row in rows),
                 "zero_bit_query_count": sum(row["query_fingerprint_ones"] == 0 for row in rows),
             }
@@ -470,6 +474,8 @@ class ResultExporter:
                 "skipped_query_count": skipped_queries,
                 "total_query_count": len(rows),
                 "total_num_skipped_blocks": total_skipped,
+                "fingerprint_build_seconds": version.fingerprint_build_seconds,
+                "matrix_build_seconds": version.matrix_build_seconds,
             })
             size_rows.append({
                 "metadata_version": version_id,
@@ -477,6 +483,8 @@ class ResultExporter:
                 "metadata_file": version.metadata_file,
                 "metadata_file_size_bytes": version.metadata_size_bytes,
                 "metadata_file_size_mib": f"{version.metadata_size_bytes / 2**20:.6f}",
+                "fingerprint_build_seconds": f"{version.fingerprint_build_seconds:.6f}",
+                "matrix_build_seconds": f"{version.matrix_build_seconds:.6f}",
                 "total_skipped_partitions": total_skipped,
                 "total_scanned_partitions": total_scanned,
                 "total_ground_truth_partitions": total_truth,
@@ -495,6 +503,8 @@ class ResultExporter:
                 "partition_count": matrix_count,
                 "mean_unnecessary_block_read_ratio": "" if not ratios else f"{mean(ratios):.8f}",
                 "ratio_query_count": len(ratios),
+                "fingerprint_build_seconds": f"{version.fingerprint_build_seconds:.6f}",
+                "matrix_build_seconds": f"{version.matrix_build_seconds:.6f}",
                 "query_count": len(rows),
                 "zero_bit_query_count": metrics["zero_bit_query_count"],
             })
@@ -542,14 +552,16 @@ class ResultExporter:
         write_csv(self.output_dir / "size_pruning_tradeoff_summary.csv", [
             "metadata_version", "merge_step", "metadata_file", "metadata_file_size_bytes",
             "metadata_file_size_mib", "total_skipped_partitions", "total_scanned_partitions",
-            "total_ground_truth_partitions", "query_count",
+            "total_ground_truth_partitions", "query_count", "fingerprint_build_seconds",
+            "matrix_build_seconds",
         ], size_rows)
         write_csv(self.output_dir / "mean_rows_unnecessary_block_read_ratio_summary.csv", [
             "metadata_version", "merge_step", "metadata_file", "metadata_file_size_bytes",
             "metadata_file_size_kb", "mean_metadata_file_size_kb_per_partition",
             "mean_matrix_rows", "partition_count", "mean_unnecessary_block_read_ratio",
             "unnecessary_block_read_ratio_increase_from_v000", "ratio_query_count",
-            "query_count", "zero_bit_query_count",
+            "query_count", "zero_bit_query_count", "fingerprint_build_seconds",
+            "matrix_build_seconds",
         ], ratio_rows)
         (self.run_dir / "experiment_manifest.json").write_text(
             json.dumps({"format_version": 1, "points": manifest_points}, indent=2, sort_keys=True) + "\n",
@@ -751,6 +763,8 @@ class SweepRunner:
                     "fingerprint_width": rows[0]["query_fingerprint_width"],
                     "metadata_size_bytes": version.metadata_size_bytes,
                     "mean_unnecessary_block_read_ratio": mean(ratios),
+                    "fingerprint_build_seconds": version.fingerprint_build_seconds,
+                    "matrix_build_seconds": version.matrix_build_seconds,
                     "zero_bit_query_count": sum(row["query_fingerprint_ones"] == 0 for row in rows),
                     "query_count": len(rows),
                     "total_candidate_partitions": sum(row["metadata_partition_count"] for row in rows),
