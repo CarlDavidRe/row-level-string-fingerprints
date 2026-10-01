@@ -124,6 +124,17 @@ def binary_entropy(successes: int, population: int) -> float:
     )
 
 
+def prefer_feature_on_tie(
+    gram: str, frequency: int, best_feature: str | None, best_frequency: int
+) -> bool:
+    """Prefer the more common n-gram, then the lexicographically smaller one."""
+    return (
+        best_feature is None
+        or frequency > best_frequency
+        or (frequency == best_frequency and gram < best_feature)
+    )
+
+
 class FeatureSelector:
     """Select block n-gram groups for one fingerprint configuration."""
 
@@ -216,22 +227,29 @@ class FeatureSelector:
             best_feature = None
             best_group_index = -1
             best_score = 0.0
+            best_frequency = -1
             for gram, gram_mask in candidates.items():
+                frequency = gram_mask.bit_count()
                 for group_index, group_mask in enumerate(groups):
                     size = group_mask.bit_count()
                     score = binary_entropy((gram_mask & group_mask).bit_count(), size) * size
                     if score > best_score or (
                         score == best_score
                         and score > 0
-                        and (best_feature is None or gram < best_feature)
+                        and prefer_feature_on_tie(
+                            gram, frequency, best_feature, best_frequency
+                        )
                     ):
                         best_feature = gram
                         best_group_index = group_index
                         best_score = score
+                        best_frequency = frequency
             if best_feature is None:
                 if not include_zero_score_features:
                     break
-                best_feature = min(candidates)
+                best_feature = min(
+                    candidates, key=lambda gram: (-candidates[gram].bit_count(), gram)
+                )
                 best_group_index = 0
             selected.append(best_feature)
             feature_mask = candidates.pop(best_feature)
@@ -252,7 +270,9 @@ class FeatureSelector:
         while candidates and len(selected) < limit:
             best_feature = None
             best_score = 0.0
+            best_frequency = -1
             for gram, gram_mask in candidates.items():
+                frequency = gram_mask.bit_count()
                 score = math.fsum(
                     group_mask.bit_count()
                     * binary_entropy(
@@ -263,14 +283,19 @@ class FeatureSelector:
                 if score > best_score or (
                     score == best_score
                     and score > 0
-                    and (best_feature is None or gram < best_feature)
+                    and prefer_feature_on_tie(
+                        gram, frequency, best_feature, best_frequency
+                    )
                 ):
                     best_feature = gram
                     best_score = score
+                    best_frequency = frequency
             if best_feature is None:
                 if not include_zero_score_features:
                     break
-                best_feature = min(candidates)
+                best_feature = min(
+                    candidates, key=lambda gram: (-candidates[gram].bit_count(), gram)
+                )
             selected.append(best_feature)
             feature_mask = candidates.pop(best_feature)
             next_groups = []
@@ -299,9 +324,11 @@ class FeatureSelector:
             next_width = len(selected) + 1
             best_feature = None
             best_score = -1.0
+            best_frequency = -1
             for gram, gram_mask in candidates.items():
+                frequency = gram_mask.bit_count()
                 if not selected:
-                    score = block_count * binary_entropy(gram_mask.bit_count(), block_count)
+                    score = block_count * binary_entropy(frequency, block_count)
                 else:
                     score_terms = []
                     for ones, group_mask in blocks_by_ones.items():
@@ -315,10 +342,14 @@ class FeatureSelector:
                         )
                     score = math.fsum(score_terms)
                 if score > best_score or (
-                    score == best_score and (best_feature is None or gram < best_feature)
+                    score == best_score
+                    and prefer_feature_on_tie(
+                        gram, frequency, best_feature, best_frequency
+                    )
                 ):
                     best_feature = gram
                     best_score = score
+                    best_frequency = frequency
             if best_feature is None:
                 break
             selected.append(best_feature)
@@ -412,12 +443,14 @@ class FeatureSelector:
 
             best_index = -1
             best_score = -1.0
+            best_frequency = -1
             for raw_index in contender_indexes:
                 candidate_index = int(raw_index)
+                candidate_frequency = int(lengths[candidate_index])
                 gram_mask = masks[candidate_index]
                 if not selected:
                     exact_score = block_count * binary_entropy(
-                        gram_mask.bit_count(), block_count
+                        candidate_frequency, block_count
                     )
                 else:
                     exact_score = math.fsum(
@@ -432,10 +465,14 @@ class FeatureSelector:
                     )
                 if exact_score > best_score or (
                     exact_score == best_score
-                    and (best_index < 0 or names[candidate_index] < names[best_index])
+                    and prefer_feature_on_tie(
+                        names[candidate_index], candidate_frequency,
+                        names[best_index] if best_index >= 0 else None, best_frequency,
+                    )
                 ):
                     best_index = candidate_index
                     best_score = exact_score
+                    best_frequency = candidate_frequency
             if best_index < 0:
                 break
 
@@ -488,7 +525,9 @@ class FeatureSelector:
             next_width = len(selected) + 1
             best_feature = None
             best_score = -1.0
+            best_frequency = -1
             for gram, gram_mask in candidates.items():
+                frequency = gram_mask.bit_count()
                 if not selected:
                     present_blocks = sum(
                         bool((gram_mask >> block_offset) & local_mask)
@@ -517,10 +556,13 @@ class FeatureSelector:
                     score = math.fsum(entropies)
                 if score > best_score or (
                     score == best_score
-                    and (best_feature is None or gram < best_feature)
+                    and prefer_feature_on_tie(
+                        gram, frequency, best_feature, best_frequency
+                    )
                 ):
                     best_feature = gram
                     best_score = score
+                    best_frequency = frequency
             if best_feature is None:
                 break
             selected.append(best_feature)
@@ -551,8 +593,8 @@ class FeatureSelector:
         candidates: dict[str, int],
     ) -> tuple[dict[str, int], dict[str, tuple[str, ...]]]:
         aliases_by_mask: dict[int, list[str]] = {}
-        for feature, presence_mask in candidates.items():
-            aliases_by_mask.setdefault(presence_mask, []).append(feature)
+        for feature in sorted(candidates):
+            aliases_by_mask.setdefault(candidates[feature], []).append(feature)
         representatives = {
             aliases[0]: presence_mask for presence_mask, aliases in aliases_by_mask.items()
         }

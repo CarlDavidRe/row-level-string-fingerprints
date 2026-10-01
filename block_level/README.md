@@ -90,6 +90,13 @@ mapping in every partition record. Unused columns are empty groups. Reported
 metadata size includes both Parquet files. The original single-mask
 (non-matrix) configurations still write JSON.
 
+When entropy scores tie, selection prefers the n-gram present in more
+selection units, then the lexicographically smaller n-gram. For local
+sub-block selection, commonality is counted within the current physical
+block; for global selection, it is counted across all sub-blocks. N-grams
+with identical occurrence vectors share one feature group, whose
+lexicographically smallest member is its representative.
+
 Both matrix forms store one matrix row per distinct sub-block mask. During
 joint-entropy selection every sub-block remains a coordinate of the joint
 occurrence vectors; during internal-entropy selection it is an independent
