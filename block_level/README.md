@@ -76,6 +76,20 @@ Set `sweep.feature_selection_scope` to `local` or `global` for one scope. To
 include both in one sweep, set `sweep.feature_selection_scopes` to
 `["global", "local"]` instead.
 
+Matrix sweep versions are written as two aligned Parquet files under
+`block_infix_fingerprints/`: `partition_metadata_vNNN.parquet` and
+`feature_mappings_vNNN.parquet`. The first has the same
+`table_name, column_name, partition_id, metadata: list<list<bool>>` schema as
+the matrix-compression project's frozen partition metadata. Each record is one
+physical partition, and each nested row is one distinct sub-block mask. The
+mapping file has the same keys in the same order and stores
+`feature_groups: list<list<string>>`: outer position is the matrix column;
+inner strings are equivalent n-grams that set that bit. Local scope stores
+the selected mapping for each partition; global scope repeats its shared
+mapping in every partition record. Unused columns are empty groups. Reported
+metadata size includes both Parquet files. The original single-mask
+(non-matrix) configurations still write JSON.
+
 Both matrix forms store one matrix row per distinct sub-block mask. During
 joint-entropy selection every sub-block remains a coordinate of the joint
 occurrence vectors; during internal-entropy selection it is an independent

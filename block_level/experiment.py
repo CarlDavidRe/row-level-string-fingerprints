@@ -516,6 +516,7 @@ class ResultExporter:
                     ),
                 },
                 "metadata_dir": str(self.fingerprint_dir.resolve()),
+                "feature_mapping_file": version.feature_mapping_file,
                 "results_path": str((self.output_dir / "results.csv").resolve()),
                 "metrics": metrics,
             })

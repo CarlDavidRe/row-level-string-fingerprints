@@ -15,6 +15,7 @@ import numpy as np
 
 from .config import FingerprintConfig
 from .progress import log_progress
+from .storage import feature_mapping_path, write_partition_matrices
 
 
 BLOCK_VALUE_SEPARATOR = chr(0)
@@ -48,6 +49,7 @@ class FingerprintVersion:
     mean_matrix_rows: float
     ngram_size: int | None
     probe: Callable[[str, str, str], FingerprintProbe]
+    feature_mapping_file: str | None = None
 
 
 @dataclass(frozen=True)
@@ -1060,7 +1062,11 @@ class FingerprintBuilder:
 
     def write_metadata(
         self, path: Path, width: int, profiles: dict[tuple[str, str], dict]
-    ) -> None:
+    ) -> int:
+        if self.uses_subblock_matrix:
+            return write_partition_matrices(
+                path, width, profiles, local_mapping=self.uses_block_local_mapping
+            )
         hex_digits = max(1, math.ceil(width / 4))
         diagnostics_enabled = (
             not self.uses_block_local_mapping
@@ -1161,6 +1167,7 @@ class FingerprintBuilder:
             json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + "\n",
             encoding="utf-8",
         )
+        return path.stat().st_size
 
     def build(
         self, con: duckdb.DuckDBPyConnection, targets: set[tuple[str, str]]
@@ -1364,11 +1371,15 @@ class FingerprintBuilder:
                         for feature in aliases
                     }
                 profiles[target] = version_profile
-            metadata_path = self.fingerprint_dir / f"block_infix_fingerprint_v{version_id:03d}.json"
-            self.write_metadata(metadata_path, width, profiles)
+            metadata_path = self.fingerprint_dir / (
+                f"partition_metadata_v{version_id:03d}.parquet"
+                if self.uses_subblock_matrix else
+                f"block_infix_fingerprint_v{version_id:03d}.json"
+            )
+            metadata_size_bytes = self.write_metadata(metadata_path, width, profiles)
             log_progress(
                 f"Wrote {metadata_path} "
-                f"({self.payload_size(width, profiles) / 2**20:,.2f} MiB payload)",
+                f"({metadata_size_bytes / 2**20:,.2f} MiB on disk)",
                 version_started_at,
             )
             if diagnostics_enabled:
@@ -1441,12 +1452,16 @@ class FingerprintBuilder:
                     + f"{self.config.feature_selection_method}_{width}bit"
                 ),
                 metadata_file=metadata_path.name,
-                metadata_size_bytes=self.payload_size(width, profiles),
+                metadata_size_bytes=metadata_size_bytes,
                 mean_matrix_rows=(
                     total_matrix_rows / total_blocks if total_blocks else 0.0
                 ),
                 ngram_size=self.config.ngram_size,
                 probe=make_probe(profiles, width),
+                feature_mapping_file=(
+                    feature_mapping_path(metadata_path).name
+                    if self.uses_subblock_matrix else None
+                ),
             ))
 
         diagnostics_path = self.output_dir / "selected_ngram_diagnostics.csv"

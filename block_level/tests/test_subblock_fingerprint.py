@@ -7,9 +7,11 @@ from pathlib import Path
 from unittest import mock
 
 import duckdb
+import pyarrow.parquet as pq
 
 from block_level.config import ExperimentConfig, FingerprintConfig, SweepConfig
 from block_level.experiment import EvaluationInputs, FingerprintEvaluator
+from block_level.storage import feature_mapping_path, matrix_schema, feature_mapping_schema
 from block_level.fingerprint import (
     FeatureSelector,
     FingerprintBuilder,
@@ -213,15 +215,20 @@ class SubblockFingerprintTest(unittest.TestCase):
                 )
                 version = builder.build(connection, {("items", "value")})[0]
 
-            metadata = json.loads(
-                (root / "metadata" / version.metadata_file).read_text()
+            matrix_path = root / "metadata" / version.metadata_file
+            mapping_path = feature_mapping_path(matrix_path)
+            self.assertEqual(version.feature_mapping_file, mapping_path.name)
+            self.assertEqual(pq.read_schema(matrix_path), matrix_schema())
+            self.assertEqual(pq.read_schema(mapping_path), feature_mapping_schema())
+            matrices = pq.read_table(matrix_path).to_pylist()
+            mappings = pq.read_table(mapping_path).to_pylist()
+            self.assertEqual(len(matrices), 2)
+            self.assertEqual(
+                [(row["table_name"], row["column_name"], row["partition_id"]) for row in matrices],
+                [(row["table_name"], row["column_name"], row["partition_id"]) for row in mappings],
             )
-            target = metadata["targets"]["items.value"]
-            self.assertEqual(target["feature_scope"], "target_shared")
-            self.assertTrue(target["feature_groups"])
-            self.assertTrue(all(
-                "feature_groups" not in block for block in target["blocks"]
-            ))
+            self.assertEqual(mappings[0]["feature_groups"], mappings[1]["feature_groups"])
+            self.assertTrue(mappings[0]["feature_groups"])
 
     def test_compatible_builders_reuse_extracted_ngrams(self) -> None:
         method = "fingerprint_internal_entropy_equivalence_classes"
@@ -388,24 +395,13 @@ class SubblockFingerprintTest(unittest.TestCase):
                 )
                 version = builder.build(connection, {("items", "value")})[0]
 
-            metadata = json.loads(
-                (root / "metadata" / version.metadata_file).read_text()
-            )
+            matrix_path = root / "metadata" / version.metadata_file
+            matrices = pq.read_table(matrix_path).to_pylist()
+            mappings = pq.read_table(feature_mapping_path(matrix_path)).to_pylist()
+            self.assertEqual(matrix_path.suffix, ".parquet")
+            self.assertTrue(all(len(row["metadata"]) == 2 for row in matrices))
             self.assertEqual(
-                metadata["representation"],
-                "deduplicated_subblock_infix_mask_matrix_per_block",
-            )
-            self.assertEqual(metadata["subblock_size_rows"], 1)
-            self.assertTrue(all(
-                "matrix_rows_hex" in block
-                for block in metadata["targets"]["items.value"]["blocks"]
-            ))
-            blocks = metadata["targets"]["items.value"]["blocks"]
-            self.assertEqual(
-                {
-                    block["partition_id"]: block["feature_groups"]
-                    for block in blocks
-                },
+                {row["partition_id"]: row["feature_groups"] for row in mappings},
                 {0: [["a"], ["b"]], 1: [["c"], ["d"]]},
             )
             self.assertEqual(
@@ -522,19 +518,13 @@ class SubblockFingerprintTest(unittest.TestCase):
                 )
                 versions = builder.build(connection, {("items", "value")})
 
-            one_bit = json.loads(
-                (root / "metadata" / versions[0].metadata_file).read_text()
-            )
-            two_bit = json.loads(
-                (root / "metadata" / versions[1].metadata_file).read_text()
-            )
+            one_bit = pq.read_table(root / "metadata" / versions[0].metadata_file).to_pylist()
+            two_bit = pq.read_table(root / "metadata" / versions[1].metadata_file).to_pylist()
             one_bit_counts = {
-                block["partition_id"]: block["matrix_row_count"]
-                for block in one_bit["targets"]["items.value"]["blocks"]
+                row["partition_id"]: len(row["metadata"]) for row in one_bit
             }
             two_bit_counts = {
-                block["partition_id"]: block["matrix_row_count"]
-                for block in two_bit["targets"]["items.value"]["blocks"]
+                row["partition_id"]: len(row["metadata"]) for row in two_bit
             }
             self.assertEqual(one_bit_counts, {0: 2, 1: 1})
             self.assertEqual(two_bit_counts, {0: 3, 1: 1})
@@ -570,20 +560,18 @@ class SubblockFingerprintTest(unittest.TestCase):
             self.assertEqual(probe("items", "value", "a").candidate_partition_ids, {0, 1})
             self.assertEqual(probe("items", "value", "ab").candidate_partition_ids, {1})
             self.assertEqual(versions[0].mean_matrix_rows, 2.5)
-            self.assertEqual(versions[0].metadata_size_bytes, 5)
-
-            metadata = json.loads(
-                (root / "metadata" / versions[0].metadata_file).read_text()
-            )
+            matrix_path = root / "metadata" / versions[0].metadata_file
+            mapping_path = feature_mapping_path(matrix_path)
             self.assertEqual(
-                metadata["representation"],
-                "deduplicated_subblock_infix_mask_matrix_per_block",
+                versions[0].metadata_size_bytes,
+                matrix_path.stat().st_size + mapping_path.stat().st_size,
             )
-            blocks = metadata["targets"]["items.value"]["blocks"]
+            matrices = pq.read_table(matrix_path).to_pylist()
             self.assertEqual(
-                {block["partition_id"]: block["matrix_row_count"] for block in blocks},
+                {row["partition_id"]: len(row["metadata"]) for row in matrices},
                 {0: 3, 1: 2},
             )
+            self.assertTrue(all(len(bits) == 2 for row in matrices for bits in row["metadata"]))
 
     def test_subblocks_are_consecutive_and_count_null_rows(self) -> None:
         config = FingerprintConfig(
