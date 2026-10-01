@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import unittest
 from array import array
+from pathlib import Path
 
 from block_level.config import FingerprintConfig
-from block_level.fingerprint import FeatureSelector
+from block_level.fingerprint import FeatureSelector, FingerprintBuilder
 
 
 def postings_for(candidates: dict[str, int]) -> dict[str, array[int]]:
@@ -78,6 +79,24 @@ class FeatureTieTest(unittest.TestCase):
         )
         self.assertEqual(representatives, {"a": 0b0011})
         self.assertEqual(aliases, {"a": ("a", "z")})
+    def test_feature_and_query_ngrams_share_reference_canonicalization(self) -> None:
+        config = FingerprintConfig(
+            widths=(3,),
+            ngram_size=2,
+            feature_selection_method="fingerprint_internal_entropy_equivalence_classes",
+        )
+        builder = FingerprintBuilder(config, 1, Path("metadata"), Path("results"))
+
+        self.assertEqual(
+            list(builder.iter_ngrams("CAFÉ")), ["ca", "af", "fe"]
+        )
+        self.assertEqual(
+            builder.encode_query(
+                "CAFÉ", {"ca": 0, "af": 1, "fe": 2}
+            ),
+            0b111,
+
+        )
 
 
 if __name__ == "__main__":
