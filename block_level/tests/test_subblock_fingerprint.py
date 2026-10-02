@@ -13,6 +13,7 @@ from block_level.config import ExperimentConfig, FingerprintConfig, SweepConfig
 from block_level.experiment import EvaluationInputs, FingerprintEvaluator
 from block_level.storage import feature_mapping_path, matrix_schema, feature_mapping_schema
 from block_level.fingerprint import (
+    ExtractedNGrams,
     FeatureSelector,
     FingerprintBuilder,
     FingerprintDataCache,
@@ -281,6 +282,103 @@ class SubblockFingerprintTest(unittest.TestCase):
                     versions = local_builder.build(connection, {("items", "value")})
 
             self.assertEqual(len(versions), 1)
+
+
+    def test_cache_evicts_old_targets_and_rejects_large_extractions(self) -> None:
+        cache = FingerprintDataCache()
+        signature = (1, True, 1)
+
+        def extracted(count: int) -> ExtractedNGrams:
+            units = tuple(frozenset({"a"}) for _ in range(count))
+            return ExtractedNGrams({0: units}, units, "subblock")
+
+        with mock.patch.object(FingerprintDataCache, "MAX_CACHED_UNITS", 3):
+            cache.put(signature, ("a", "value"), extracted(2))
+            cache.put(signature, ("b", "value"), extracted(2))
+            self.assertIsNone(cache.get(signature, ("a", "value")))
+            self.assertEqual(cache.cached_units, 2)
+            cache.put(signature, ("large", "value"), extracted(4))
+            self.assertIsNone(cache.get(signature, ("large", "value")))
+            self.assertEqual(cache.cached_units, 2)
+            self.assertIsNone(cache.get((2, True, 1), ("b", "value")))
+            self.assertEqual(cache.cached_units, 0)
+
+    def test_sparse_global_selection_matches_dense_selection(self) -> None:
+        config = FingerprintConfig(
+            widths=(4,),
+            ngram_size=1,
+            feature_selection_method="fingerprint_internal_entropy_equivalence_classes",
+            subblock_size_rows=1,
+            feature_selection_scope="global",
+        )
+        units = (
+            frozenset({"a", "z", "p"}),
+            frozenset({"a", "z", "q"}),
+            frozenset({"b", "q"}),
+            frozenset({"b", "p"}),
+            frozenset({"a", "z", "b"}),
+            frozenset({"q"}),
+            frozenset({"p", "r"}),
+            frozenset(),
+        )
+        expected = FeatureSelector(config).select_global_subblock_internal_entropy(
+            {0: units[:4], 1: units[4:]}, 4
+        )
+        actual = FeatureSelector(config).select_global_internal_entropy_sparse(
+            iter(units), 4
+        )
+        self.assertEqual(actual, expected)
+
+    def test_streamed_global_build_matches_dense_build(self) -> None:
+        config = FingerprintConfig(
+            widths=(1, 2, 3),
+            ngram_size=1,
+            feature_selection_method="fingerprint_internal_entropy_equivalence_classes",
+            subblock_size_rows=1,
+            feature_selection_scope="global",
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            with duckdb.connect(":memory:") as connection:
+                connection.execute(
+                    "CREATE TABLE items(value VARCHAR, partition_id INTEGER)"
+                )
+                connection.executemany(
+                    "INSERT INTO items VALUES (?, ?)",
+                    [
+                        ("ab", 0), ("bc", 0), ("cd", 0), (None, 0),
+                        ("ad", 1), ("ac", 1), ("bb", 1), ("d", 1),
+                    ],
+                )
+                dense_dir = root / "dense"
+                streamed_dir = root / "streamed"
+                dense = FingerprintBuilder(
+                    config, 4, dense_dir / "metadata", dense_dir / "results"
+                ).build(connection, {("items", "value")})
+                with mock.patch.object(FingerprintDataCache, "MAX_CACHED_UNITS", 1):
+                    streamed = FingerprintBuilder(
+                        config, 4, streamed_dir / "metadata", streamed_dir / "results"
+                    ).build(connection, {("items", "value")})
+
+            self.assertEqual(len(streamed), len(dense))
+            for dense_version, streamed_version in zip(dense, streamed):
+                dense_path = dense_dir / "metadata" / dense_version.metadata_file
+                streamed_path = (
+                    streamed_dir / "metadata" / streamed_version.metadata_file
+                )
+                self.assertEqual(
+                    pq.read_table(streamed_path).to_pylist(),
+                    pq.read_table(dense_path).to_pylist(),
+                )
+                self.assertEqual(
+                    pq.read_table(feature_mapping_path(streamed_path)).to_pylist(),
+                    pq.read_table(feature_mapping_path(dense_path)).to_pylist(),
+                )
+                for predicate in ("a", "b", "c", "d", "ab", "zz"):
+                    self.assertEqual(
+                        streamed_version.probe("items", "value", predicate),
+                        dense_version.probe("items", "value", predicate),
+                    )
 
     def test_one_subblock_global_scope_matches_global_internal_entropy(self) -> None:
         subblock_config = FingerprintConfig(
@@ -598,7 +696,11 @@ class SubblockFingerprintTest(unittest.TestCase):
                 subblocks = builder.partition_subblock_ngrams(
                     connection, "items", "value"
                 )
+                streamed = dict(builder.iter_partition_subblock_ngrams(
+                    connection, "items", "value"
+                ))
 
+            self.assertEqual(streamed, subblocks)
             self.assertEqual(subblocks[0], (frozenset({"a"}), frozenset({"b", "c"})))
             self.assertEqual(subblocks[1], (frozenset({"d"}),))
 

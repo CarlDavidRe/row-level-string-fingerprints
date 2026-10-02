@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 import unicodedata
@@ -8,7 +9,7 @@ from array import array
 from dataclasses import dataclass
 from pathlib import Path
 from time import perf_counter
-from typing import Callable
+from typing import Callable, Iterable, Iterator
 
 import duckdb
 import numpy as np
@@ -62,11 +63,19 @@ class ExtractedNGrams:
 
 
 class FingerprintDataCache:
-    """Bounded cache for extraction work shared by compatible sweep points."""
+    """Cache only small extractions shared by compatible sweep points."""
+
+    MAX_CACHED_UNITS = 16_384
 
     def __init__(self) -> None:
         self.signature: tuple[int, bool, int | None] | None = None
         self.targets: dict[tuple[str, str], ExtractedNGrams] = {}
+        self.cached_units = 0
+
+    def _reset(self, signature: tuple[int, bool, int | None]) -> None:
+        self.signature = signature
+        self.targets.clear()
+        self.cached_units = 0
 
     def get(
         self,
@@ -74,8 +83,7 @@ class FingerprintDataCache:
         target: tuple[str, str],
     ) -> ExtractedNGrams | None:
         if signature != self.signature:
-            self.signature = signature
-            self.targets.clear()
+            self._reset(signature)
             return None
         return self.targets.get(target)
 
@@ -86,9 +94,19 @@ class FingerprintDataCache:
         extracted: ExtractedNGrams,
     ) -> None:
         if signature != self.signature:
-            self.signature = signature
-            self.targets.clear()
+            self._reset(signature)
+        unit_count = len(extracted.selection_units)
+        if unit_count > self.MAX_CACHED_UNITS:
+            return
+        previous = self.targets.pop(target, None)
+        if previous is not None:
+            self.cached_units -= len(previous.selection_units)
+        while self.targets and self.cached_units + unit_count > self.MAX_CACHED_UNITS:
+            oldest = next(iter(self.targets))
+            evicted = self.targets.pop(oldest)
+            self.cached_units -= len(evicted.selection_units)
         self.targets[target] = extracted
+        self.cached_units += unit_count
 
 
 class NGramGenerator:
@@ -758,6 +776,200 @@ class FeatureSelector:
         return [aliases[feature] for feature in selected]
 
 
+    def select_global_internal_entropy_sparse(
+        self, units: Iterable[frozenset[str]], limit: int
+    ) -> list[tuple[str, ...]]:
+        """Select global features without materializing all sub-blocks or bitsets."""
+        postings: dict[str, array] = {}
+        unit_count = 0
+        started_at = perf_counter()
+        for unit_count, grams in enumerate(units, 1):
+            unit_index = unit_count - 1
+            for gram in grams:
+                posting = postings.get(gram)
+                if posting is None:
+                    posting = array("I")
+                    postings[gram] = posting
+                posting.append(unit_index)
+            if unit_count % 250_000 == 0:
+                log_progress(
+                    f"Candidate collection: {unit_count:,} units; "
+                    f"{len(postings):,} distinct n-grams",
+                    started_at,
+                )
+        if not unit_count:
+            return []
+        minimum_count = max(
+            1, math.ceil(self.config.min_block_frequency * unit_count)
+        )
+        maximum_count = max(
+            1, math.floor(self.config.max_block_frequency * unit_count)
+        )
+        representatives: dict[str, array] = {}
+        aliases: dict[str, list[str]] = {}
+        by_digest: dict[bytes, list[str]] = {}
+        for gram in sorted(postings):
+            posting = postings.pop(gram)
+            if not minimum_count <= len(posting) <= maximum_count:
+                continue
+            digest = hashlib.blake2b(posting.tobytes(), digest_size=16).digest()
+            equivalent = next(
+                (
+                    representative
+                    for representative in by_digest.get(digest, ())
+                    if representatives[representative] == posting
+                ),
+                None,
+            )
+            if equivalent is None:
+                representatives[gram] = posting
+                aliases[gram] = [gram]
+                by_digest.setdefault(digest, []).append(gram)
+            else:
+                aliases[equivalent].append(gram)
+        log_progress(
+            f"Candidate collection complete: {len(representatives):,} "
+            f"distinct occurrence patterns across {unit_count:,} units",
+            started_at,
+        )
+        selected = self.native_internal_entropy_sparse(
+            unit_count, representatives, limit
+        )
+        return [tuple(aliases[feature]) for feature in selected]
+
+    @staticmethod
+    def native_internal_entropy_sparse(
+        unit_count: int, postings: dict[str, array], limit: int
+    ) -> list[str]:
+        """Score compact postings in bounded batches; preserve exact tie breaks."""
+        if not postings:
+            return []
+        names = tuple(postings)
+        lengths = np.fromiter(
+            (len(postings[name]) for name in names),
+            dtype=np.int64,
+            count=len(names),
+        )
+        offsets = np.empty(len(names) + 1, dtype=np.int64)
+        offsets[0] = 0
+        np.cumsum(lengths, out=offsets[1:])
+        index_dtype = np.uint32 if unit_count <= 0xFFFFFFFF else np.uint64
+        unit_indexes = np.empty(int(offsets[-1]), dtype=index_dtype)
+        for candidate_index, name in enumerate(names):
+            start, stop = int(offsets[candidate_index]), int(offsets[candidate_index + 1])
+            unit_indexes[start:stop] = np.frombuffer(
+                postings[name], dtype=index_dtype
+            )
+        postings.clear()
+        count_dtype = np.uint16 if limit <= np.iinfo(np.uint16).max else np.uint32
+        ones_by_unit = np.zeros(unit_count, dtype=count_dtype)
+        group_counts = np.zeros(limit + 1, dtype=np.int64)
+        group_counts[0] = unit_count
+        active = np.ones(len(names), dtype=np.bool_)
+        selected: list[str] = []
+        started_at = perf_counter()
+        batch_postings = 1_000_000
+
+        while active.any() and len(selected) < limit:
+            next_width = len(selected) + 1
+            if not selected:
+                scores = np.fromiter(
+                    (
+                        unit_count * binary_entropy(int(count), unit_count)
+                        for count in lengths
+                    ),
+                    dtype=np.float64,
+                    count=len(names),
+                )
+            else:
+                entropies = np.fromiter(
+                    (binary_entropy(ones, next_width) for ones in range(next_width + 1)),
+                    dtype=np.float64,
+                    count=next_width + 1,
+                )
+                deltas = entropies[1:] - entropies[:-1]
+                scores = np.empty(len(names), dtype=np.float64)
+                first_candidate = 0
+                while first_candidate < len(names):
+                    last_candidate = int(np.searchsorted(
+                        offsets,
+                        offsets[first_candidate] + batch_postings,
+                        side="right",
+                    )) - 1
+                    last_candidate = max(first_candidate + 1, last_candidate)
+                    flat_start = int(offsets[first_candidate])
+                    flat_stop = int(offsets[last_candidate])
+                    weights = deltas[
+                        ones_by_unit[unit_indexes[flat_start:flat_stop]]
+                    ]
+                    scores[first_candidate:last_candidate] = np.add.reduceat(
+                        weights,
+                        offsets[first_candidate:last_candidate] - flat_start,
+                    )
+                    first_candidate = last_candidate
+            scores[~active] = -np.inf
+            approximate_best = float(scores.max())
+            tolerance = np.finfo(np.float64).eps * max(1, unit_count) * 32
+            contender_indexes = np.flatnonzero(
+                active & (scores >= approximate_best - tolerance)
+            )
+            best_index = -1
+            best_score = -1.0
+            best_frequency = -1
+            for raw_index in contender_indexes:
+                candidate_index = int(raw_index)
+                frequency = int(lengths[candidate_index])
+                start = int(offsets[candidate_index])
+                stop = int(offsets[candidate_index + 1])
+                if not selected:
+                    exact_score = unit_count * binary_entropy(frequency, unit_count)
+                else:
+                    present_counts = np.bincount(
+                        ones_by_unit[unit_indexes[start:stop]],
+                        minlength=next_width,
+                    )
+                    exact_score = math.fsum(
+                        (
+                            (int(group_count) - int(present_counts[ones]))
+                            * binary_entropy(ones, next_width)
+                            + int(present_counts[ones])
+                            * binary_entropy(ones + 1, next_width)
+                        )
+                        for ones, group_count in enumerate(group_counts)
+                        if group_count
+                    )
+                if exact_score > best_score or (
+                    exact_score == best_score
+                    and prefer_feature_on_tie(
+                        names[candidate_index], frequency,
+                        names[best_index] if best_index >= 0 else None,
+                        best_frequency,
+                    )
+                ):
+                    best_index = candidate_index
+                    best_score = exact_score
+                    best_frequency = frequency
+            if best_index < 0:
+                break
+            active[best_index] = False
+            selected.append(names[best_index])
+            start = int(offsets[best_index])
+            stop = int(offsets[best_index + 1])
+            present_counts = np.bincount(
+                ones_by_unit[unit_indexes[start:stop]], minlength=next_width
+            )
+            group_counts[:next_width] -= present_counts
+            group_counts[1:next_width + 1] += present_counts
+            ones_by_unit[unit_indexes[start:stop]] += 1
+            if len(selected) % 100 == 0 or len(selected) == limit:
+                log_progress(
+                    f"Native feature selection: {len(selected):,}/{limit:,} "
+                    f"selected; {int(active.sum()):,} candidates remain",
+                    started_at,
+                )
+        return selected
+
+
 class FingerprintBuilder:
     """Build all nested fingerprint widths for one sweep point."""
 
@@ -928,6 +1140,73 @@ class FingerprintBuilder:
             started_at,
         )
         return result
+
+    def iter_partition_subblock_ngrams(
+        self, con: duckdb.DuckDBPyConnection, table: str, column: str
+    ) -> Iterator[tuple[int, tuple[frozenset[str], ...]]]:
+        """Yield one physical block at a time, releasing its source rows afterward."""
+        if self.config.subblock_size_rows is None:
+            raise ValueError("subblock_size_rows is required for sub-block fingerprints")
+        cursor = con.execute(
+            f"SELECT partition_id, CAST({quote_identifier(column)} AS VARCHAR) "
+            f"FROM {quote_identifier(table)} ORDER BY partition_id, rowid"
+        )
+        active_partition: int | None = None
+        rows_in_subblock = 0
+        values: list[str] = []
+        subblocks: list[frozenset[str]] = []
+        rows_read = 0
+        subblocks_built = 0
+        blocks_built = 0
+        next_report = 500_000
+        started_at = perf_counter()
+
+        def finish_subblock() -> None:
+            nonlocal rows_in_subblock, values, subblocks_built
+            if rows_in_subblock:
+                subblocks.append(frozenset(
+                    self.iter_ngrams(BLOCK_VALUE_SEPARATOR.join(values))
+                ))
+                subblocks_built += 1
+                rows_in_subblock = 0
+                values = []
+
+        while True:
+            batch = cursor.fetchmany(50_000)
+            if not batch:
+                break
+            rows_read += len(batch)
+            for raw_partition, value in batch:
+                partition_id = int(raw_partition)
+                if active_partition is None:
+                    active_partition = partition_id
+                elif partition_id != active_partition:
+                    finish_subblock()
+                    blocks_built += 1
+                    yield active_partition, tuple(subblocks)
+                    active_partition = partition_id
+                    subblocks = []
+                if value is not None:
+                    values.append(str(value))
+                rows_in_subblock += 1
+                if rows_in_subblock == self.config.subblock_size_rows:
+                    finish_subblock()
+            if rows_read >= next_report:
+                log_progress(
+                    f"Database scan: {rows_read:,} rows read; "
+                    f"{blocks_built:,} blocks and {subblocks_built:,} sub-blocks completed",
+                    started_at,
+                )
+                next_report += 500_000
+        if active_partition is not None:
+            finish_subblock()
+            blocks_built += 1
+            yield active_partition, tuple(subblocks)
+        log_progress(
+            f"Database scan complete: {rows_read:,} rows, {blocks_built:,} blocks, "
+            f"{subblocks_built:,} sub-blocks",
+            started_at,
+        )
 
     @staticmethod
     def flatten_subblocks(
@@ -1125,6 +1404,147 @@ class FingerprintBuilder:
         )
         return path.stat().st_size
 
+    def _stream_local_internal_profile(
+        self,
+        con: duckdb.DuckDBPyConnection,
+        table: str,
+        column: str,
+        max_width: int,
+        target_started_at: float,
+    ) -> tuple[dict, int, int, int]:
+        """Select and encode one block before fetching the next block."""
+        block_count = int(con.execute(
+            f"SELECT count(DISTINCT partition_id) FROM {quote_identifier(table)}"
+        ).fetchone()[0])
+        log_progress(
+            f"Selecting up to {max_width:,} local features for {block_count:,} blocks",
+            target_started_at,
+        )
+        block_feature_groups: dict[int, tuple[tuple[str, ...], ...]] = {}
+        block_rows: dict[int, tuple[int, ...]] = {}
+        source_row_count = 0
+        stored_row_count = 0
+        selection_started_at = perf_counter()
+        for block_index, (partition_id, subblocks) in enumerate(
+            self.iter_partition_subblock_ngrams(con, table, column), 1
+        ):
+            source_row_count += len(subblocks)
+            subblock_count, candidates = self.selector.candidates(subblocks)
+            representatives, aliases = self.selector.collapse_equivalent(candidates)
+            selected = self.selector.internal_entropy(
+                subblock_count,
+                representatives,
+                max_width,
+                {
+                    feature: self.selector._candidate_postings[feature]
+                    for feature in representatives
+                },
+            )
+            groups = tuple(aliases[feature] for feature in selected)
+            block_feature_groups[partition_id] = groups
+            log_progress(
+                f"Local feature selection: block {block_index:,}/{block_count:,} "
+                f"selected {len(groups):,} features",
+                selection_started_at,
+            )
+            feature_to_bit = {
+                feature: bit_index
+                for bit_index, group in enumerate(groups)
+                for feature in group
+            }
+            rows = tuple(sorted({
+                self.encode_grams(grams, feature_to_bit) for grams in subblocks
+            }))
+            block_rows[partition_id] = rows
+            stored_row_count += len(rows)
+            self.selector._candidate_postings = {}
+            if block_index == 1 or block_index % 10 == 0 or block_index == block_count:
+                log_progress(
+                    f"Encoded local block {block_index:,}/{block_count:,} "
+                    f"({len(groups):,} features, {len(rows):,} rows)",
+                    target_started_at,
+                )
+        selected_counts = [len(groups) for groups in block_feature_groups.values()]
+        return {
+            "features": (),
+            "feature_groups": (),
+            "block_feature_groups": block_feature_groups,
+            "feature_unit_counts": (),
+            "unit_count": source_row_count,
+            "frequency_unit": "subblock",
+            "block_rows": block_rows,
+            "selected_count": max(selected_counts, default=0),
+        }, source_row_count, stored_row_count, block_count
+
+    def _stream_global_internal_profile(
+        self,
+        con: duckdb.DuckDBPyConnection,
+        table: str,
+        column: str,
+        max_width: int,
+        target_started_at: float,
+    ) -> tuple[dict, int, int, int]:
+        """Select from sparse postings, then rescan to encode the chosen grams."""
+        block_count = int(con.execute(
+            f"SELECT count(DISTINCT partition_id) FROM {quote_identifier(table)}"
+        ).fetchone()[0])
+        log_progress(
+            f"Selecting up to {max_width:,} shared features from streamed sub-blocks",
+            target_started_at,
+        )
+
+        def units():
+            for _, subblocks in self.iter_partition_subblock_ngrams(
+                con, table, column
+            ):
+                yield from subblocks
+
+        groups = tuple(
+            self.selector.select_global_internal_entropy_sparse(units(), max_width)
+        )
+        features = tuple(group[0] for group in groups)
+        feature_to_bit = {
+            feature: bit_index
+            for bit_index, group in enumerate(groups)
+            for feature in group
+        }
+        feature_unit_counts = [0] * len(groups)
+        block_rows: dict[int, tuple[int, ...]] = {}
+        source_row_count = 0
+        stored_row_count = 0
+        for block_index, (partition_id, subblocks) in enumerate(
+            self.iter_partition_subblock_ngrams(con, table, column), 1
+        ):
+            masks = []
+            for grams in subblocks:
+                mask = self.encode_grams(grams, feature_to_bit)
+                masks.append(mask)
+                remaining = mask
+                while remaining:
+                    lowest_bit = remaining & -remaining
+                    feature_unit_counts[lowest_bit.bit_length() - 1] += 1
+                    remaining ^= lowest_bit
+            rows = tuple(sorted(set(masks)))
+            block_rows[partition_id] = rows
+            source_row_count += len(subblocks)
+            stored_row_count += len(rows)
+            if block_index == 1 or block_index % 10 == 0 or block_index == block_count:
+                log_progress(
+                    f"Encoded shared block {block_index:,}/{block_count:,} "
+                    f"({len(rows):,} rows)",
+                    target_started_at,
+                )
+        return {
+            "features": features,
+            "feature_groups": groups,
+            "block_feature_groups": {},
+            "feature_unit_counts": tuple(feature_unit_counts),
+            "unit_count": source_row_count,
+            "frequency_unit": "subblock",
+            "block_rows": block_rows,
+            "selected_count": len(features),
+        }, source_row_count, stored_row_count, block_count
+
     def build(
         self, con: duckdb.DuckDBPyConnection, targets: set[tuple[str, str]]
     ) -> list[FingerprintVersion]:
@@ -1140,6 +1560,74 @@ class FingerprintBuilder:
             log_progress(
                 f"Building block n-grams [{target_index}/{len(targets)}]: {table}.{column}"
             )
+
+            cached = (
+                self.data_cache.get(
+                    (
+                        self.config.ngram_size,
+                        self.config.ascii_only,
+                        self.config.subblock_size_rows,
+                    ),
+                    (table, column),
+                )
+                if self.data_cache is not None else None
+            )
+            if (
+                self.uses_block_local_mapping
+                and self.config.feature_selection_method == INTERNAL_ENTROPY_METHOD
+                and cached is None
+            ):
+                profile, source_row_count, stored_row_count, block_count = (
+                    self._stream_local_internal_profile(
+                        con, table, column, max_width, target_started_at
+                    )
+                )
+                full_profiles[(table, column)] = profile
+                selected_counts = [
+                    len(groups) for groups in profile["block_feature_groups"].values()
+                ]
+                print(
+                    f"  {block_count:,} blocks; selected "
+                    f"{min(selected_counts, default=0):,}-"
+                    f"{max(selected_counts, default=0):,}/{max_width} features per block "
+                    f"with {self.config.feature_selection_method}"
+                )
+                print(
+                    f"  {source_row_count:,} sub-block rows -> "
+                    f"{stored_row_count:,} distinct full-width matrix rows"
+                )
+                log_progress(f"Finished target {table}.{column}", target_started_at)
+                continue
+
+            if (
+                self.uses_subblock_matrix
+                and not self.uses_block_local_mapping
+                and self.config.feature_selection_method == INTERNAL_ENTROPY_METHOD
+                and cached is None
+                and int(con.execute(
+                    f"SELECT count(*) FROM {quote_identifier(table)}"
+                ).fetchone()[0]) > (
+                    FingerprintDataCache.MAX_CACHED_UNITS
+                    * self.config.subblock_size_rows
+                )
+            ):
+                profile, source_row_count, stored_row_count, block_count = (
+                    self._stream_global_internal_profile(
+                        con, table, column, max_width, target_started_at
+                    )
+                )
+                full_profiles[(table, column)] = profile
+                print(
+                    f"  {block_count:,} blocks; selected "
+                    f"{profile['selected_count']:,}/{max_width} shared features "
+                    f"with {self.config.feature_selection_method}"
+                )
+                print(
+                    f"  {source_row_count:,} sub-block rows -> "
+                    f"{stored_row_count:,} distinct full-width matrix rows"
+                )
+                log_progress(f"Finished target {table}.{column}", target_started_at)
+                continue
             extracted = self.extract_ngrams(con, table, column)
             partition_subblocks = extracted.partition_subblocks
             selection_units = extracted.selection_units
@@ -1264,6 +1752,8 @@ class FingerprintBuilder:
                     "distinct full-width matrix rows"
                 )
             log_progress(f"Finished target {table}.{column}", target_started_at)
+            self.selector._candidate_postings.clear()
+            del extracted, partition_subblocks, selection_units
 
         selected_count = max(
             (profile["selected_count"] for profile in full_profiles.values()), default=0
@@ -1366,19 +1856,29 @@ class FingerprintBuilder:
                             "block_frequency": presence_count / profile["unit_count"] if profile["unit_count"] else 0.0,
                         })
 
-            def make_probe(version_profiles, fingerprint_width):
+            probe_mappings = {
+                target: {
+                    key: profile[key]
+                    for key in ("block_feature_to_bit", "feature_to_bit")
+                    if key in profile
+                }
+                for target, profile in profiles.items()
+            }
+
+            def make_probe(source_profiles, mappings, fingerprint_width):
                 def probe(
                     table: str, column: str, predicate: str | tuple[str, ...]
                 ) -> FingerprintProbe:
-                    profile = version_profiles[(table, column)]
+                    profile = source_profiles[(table, column)]
+                    mapping = mappings[(table, column)]
                     needles = (predicate,) if isinstance(predicate, str) else predicate
                     query_ones = []
                     candidates = set()
                     for partition_id, matrix_rows in profile["block_rows"].items():
                         feature_to_bit = (
-                            profile["block_feature_to_bit"][partition_id]
+                            mapping["block_feature_to_bit"][partition_id]
                             if self.uses_block_local_mapping
-                            else profile["feature_to_bit"]
+                            else mapping["feature_to_bit"]
                         )
                         query_mask = 0
                         for needle in needles:
@@ -1421,7 +1921,7 @@ class FingerprintBuilder:
                 fingerprint_build_seconds=fingerprint_build_seconds,
                 matrix_build_seconds=matrix_build_seconds,
                 ngram_size=self.config.ngram_size,
-                probe=make_probe(profiles, width),
+                probe=make_probe(full_profiles, probe_mappings, width),
                 feature_mapping_file=(
                     feature_mapping_path(metadata_path).name
                     if self.uses_subblock_matrix else None
