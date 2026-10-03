@@ -1,0 +1,3 @@
+metadata_version,merge_step,metadata_file,metadata_file_size_bytes,metadata_file_size_mib,total_skipped_partitions,total_scanned_partitions,total_ground_truth_partitions,query_count,fingerprint_build_seconds,matrix_build_seconds
+0,subblock_matrix_2row_fingerprint_internal_entropy_equivalence_classes_2bit,partition_metadata_v000.parquet,2096,0.001999,0,4,4,2,0.004928,0.008643
+1,subblock_matrix_2row_fingerprint_internal_entropy_equivalence_classes_4bit,partition_metadata_v001.parquet,2096,0.001999,0,4,4,2,0.004928,0.003651

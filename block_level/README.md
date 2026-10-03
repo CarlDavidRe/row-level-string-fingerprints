@@ -41,9 +41,10 @@ configuration and input paths without executing the experiment:
 DuckDB database does not already have the notebook's consecutive `partition_id`
 columns; this option rewrites every base table in the database.
 
-Every parameter combination gets its own directory with fingerprint metadata,
-query-level results, summaries, plots, and an experiment manifest. The sweep
-root contains copied workload files, the resolved configuration, and
+Every parameter combination gets one flat `config_NNNN/` directory containing
+its fingerprint metadata, query-level results, summaries, plots, experiment
+manifest, and a `parameters.json` snapshot of its settings. The sweep root
+contains copied workload files, the resolved configuration, and
 `fingerprint_sweep_summary.csv`.
 
 Query files named `<table>.<column>_queries.txt` may contain either legacy
@@ -98,8 +99,8 @@ Set `sweep.feature_selection_scope` to `local` or `global` for one scope. To
 include both in one sweep, set `sweep.feature_selection_scopes` to
 `["global", "local"]` instead.
 
-Matrix sweep versions are written as two aligned Parquet files under
-`block_infix_fingerprints/`: `partition_metadata_vNNN.parquet` and
+Matrix sweep versions are written as two aligned Parquet files in the applicable
+`config_NNNN/` directory: `partition_metadata_vNNN.parquet` and
 `feature_mappings_vNNN.parquet`. The first has the same
 `table_name, column_name, partition_id, metadata: list<list<bool>>` schema as
 the matrix-compression project's frozen partition metadata. Each record is one

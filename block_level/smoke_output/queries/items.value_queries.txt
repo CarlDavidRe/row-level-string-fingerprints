@@ -1,0 +1,2 @@
+{"format": "block-skipping-query-v1", "predicate_mode": "individual_needle", "predicate": "contains(value, 'alpha')", "needles": ["alpha"], "lookup_needles": ["alpha"], "row_count": 2, "selectivity": 0.25}
+{"format": "block-skipping-query-v1", "predicate_mode": "individual_needle", "predicate": "contains(value, 'beta')", "needles": ["beta"], "lookup_needles": ["beta"], "row_count": 2, "selectivity": 0.25}

@@ -1,0 +1,38 @@
+{
+  "block_size_rows": 4,
+  "database_path": "/tmp/block_level_layout_smoke.83sCAr/smoke.duckdb",
+  "output_dir": "/home/reese/row-level-string-fingerprints/block_level/smoke_output",
+  "partition_database": false,
+  "query_limit": null,
+  "query_source_dir": "/tmp/block_level_layout_smoke.83sCAr",
+  "sweep": {
+    "ascii_only": true,
+    "feature_selection_methods": [
+      "fingerprint_internal_entropy_equivalence_classes"
+    ],
+    "feature_selection_scope": "local",
+    "feature_selection_scopes": [],
+    "max_block_frequencies": [
+      1.0
+    ],
+    "min_block_frequencies_by_method": {
+      "fingerprint_internal_entropy_equivalence_classes": [
+        0.0
+      ]
+    },
+    "ngram_sizes": [
+      2
+    ],
+    "subblock_sizes_rows": [
+      2
+    ],
+    "widths_by_method": {
+      "fingerprint_internal_entropy_equivalence_classes": [
+        2,
+        4
+      ]
+    }
+  },
+  "targets": null,
+  "workload_name": "layout_smoke"
+}

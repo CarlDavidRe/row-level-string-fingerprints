@@ -6,6 +6,11 @@ import unittest
 from pathlib import Path
 
 from block_level.config import ExperimentConfig
+from block_level.experiment import (
+    FingerprintEvaluator,
+    ResultExporter,
+    SweepRunner,
+)
 
 
 SWEEP = {
@@ -45,6 +50,35 @@ class MultiWorkloadConfigTests(unittest.TestCase):
                 "sweep": SWEEP,
             }))
             self.assertEqual(ExperimentConfig.load(path).workload_name, "job")
+
+    def test_sweep_points_use_flat_numbered_directories_with_parameters(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "config.json"
+            path.write_text(json.dumps({
+                "database_path": "job.duckdb",
+                "workload_name": "job",
+                "output_dir": "results",
+                "sweep": SWEEP,
+            }))
+            config = ExperimentConfig.load(path)
+            fingerprint = next(config.sweep.experiments())
+            runner = SweepRunner(config)
+            run_dir = runner.run_directory(1)
+
+            self.assertEqual(run_dir, Path(directory) / "results/config_0001")
+            parameters_path = runner.write_parameters(run_dir, fingerprint)
+            parameters = json.loads(parameters_path.read_text(encoding="utf-8"))
+            self.assertEqual(parameters_path, run_dir / "parameters.json")
+            self.assertEqual(
+                parameters["feature_selection_method"],
+                "local_split_entropy",
+            )
+            self.assertEqual(parameters["widths"], [8])
+            evaluator = FingerprintEvaluator(config, fingerprint, [], run_dir)
+            exporter = ResultExporter(config, fingerprint, run_dir)
+            for component in (evaluator, exporter):
+                self.assertEqual(component.output_dir, run_dir)
+                self.assertEqual(component.fingerprint_dir, run_dir)
 
 
 if __name__ == "__main__":

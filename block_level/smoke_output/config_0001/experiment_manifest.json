@@ -1,0 +1,69 @@
+{
+  "format_version": 1,
+  "points": [
+    {
+      "feature_mapping_file": "feature_mappings_v000.parquet",
+      "id": "block-infix-v000",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/block_level/smoke_output/config_0001",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 0,
+        "fingerprint_build_seconds": 0.004927829999360256,
+        "matrix_build_seconds": 0.008642889995826408,
+        "metadata_size_bytes": 2096,
+        "metadata_size_mib": 0.0019989013671875,
+        "partition_count": 2,
+        "query_count": 2,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 0
+      },
+      "parameters": {
+        "block_size_rows": 4,
+        "feature_candidates": "frequency_filtered_observed_subblock_ngrams",
+        "feature_selection_method": "fingerprint_internal_entropy_equivalence_classes",
+        "feature_selection_scope": "local",
+        "fingerprint_width": 2,
+        "max_block_frequency": 1.0,
+        "min_block_frequency": 0.0,
+        "ngram_size": 2,
+        "subblock_size_rows": 2
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/block_level/smoke_output/config_0001/results.csv",
+      "technique": "subblock_infix_fingerprint_matrix",
+      "title": "subblock_matrix_2row_fingerprint_internal_entropy_equivalence_classes_2bit"
+    },
+    {
+      "feature_mapping_file": "feature_mappings_v001.parquet",
+      "id": "block-infix-v001",
+      "metadata_dir": "/home/reese/row-level-string-fingerprints/block_level/smoke_output/config_0001",
+      "metrics": {
+        "false_negative_partition_count": 0,
+        "false_positive_partition_count": 0,
+        "fingerprint_build_seconds": 0.004927829999360256,
+        "matrix_build_seconds": 0.0036505250027403235,
+        "metadata_size_bytes": 2096,
+        "metadata_size_mib": 0.0019989013671875,
+        "partition_count": 2,
+        "query_count": 2,
+        "total_skipped_partitions": 0,
+        "zero_bit_query_count": 0
+      },
+      "parameters": {
+        "block_size_rows": 4,
+        "feature_candidates": "frequency_filtered_observed_subblock_ngrams",
+        "feature_selection_method": "fingerprint_internal_entropy_equivalence_classes",
+        "feature_selection_scope": "local",
+        "fingerprint_width": 4,
+        "max_block_frequency": 1.0,
+        "min_block_frequency": 0.0,
+        "ngram_size": 2,
+        "subblock_size_rows": 2
+      },
+      "parent_id": null,
+      "results_path": "/home/reese/row-level-string-fingerprints/block_level/smoke_output/config_0001/results.csv",
+      "technique": "subblock_infix_fingerprint_matrix",
+      "title": "subblock_matrix_2row_fingerprint_internal_entropy_equivalence_classes_4bit"
+    }
+  ]
+}

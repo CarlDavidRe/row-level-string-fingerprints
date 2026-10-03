@@ -14,7 +14,6 @@ import duckdb
 
 from .config import ExperimentConfig, FingerprintConfig
 from .fingerprint import (
-    SCOPE_CONFIGURABLE_METHODS,
     FingerprintDataCache,
     FingerprintBuilder,
     FingerprintVersion,
@@ -213,8 +212,8 @@ class FingerprintEvaluator:
         self.run_dir = run_dir
         self.cached_inputs = cached_inputs
         self.fingerprint_data_cache = fingerprint_data_cache
-        self.output_dir = run_dir / "block_skipping_results"
-        self.fingerprint_dir = run_dir / "block_infix_fingerprints"
+        self.output_dir = run_dir
+        self.fingerprint_dir = run_dir
         self.ngrams = NGramGenerator(
             fingerprint_config.ngram_size, fingerprint_config.ascii_only
         )
@@ -412,8 +411,8 @@ class ResultExporter:
         self.config = config
         self.fingerprint_config = fingerprint_config
         self.run_dir = run_dir
-        self.output_dir = run_dir / "block_skipping_results"
-        self.fingerprint_dir = run_dir / "block_infix_fingerprints"
+        self.output_dir = run_dir
+        self.fingerprint_dir = run_dir
 
     def export(self, evaluation: EvaluationResult) -> None:
         versions_by_id = {
@@ -667,25 +666,26 @@ class SweepRunner:
     def __init__(self, config: ExperimentConfig):
         self.config = config
 
-    @staticmethod
-    def _frequency_label(value: float) -> str:
-        return format(value, "g").replace(".", "p")
+    def run_directory(self, index: int) -> Path:
+        if index <= 0:
+            raise ValueError("configuration index must be positive")
+        return self.config.output_dir / f"config_{index:04d}"
 
-    def run_directory(self, fingerprint: FingerprintConfig) -> Path:
-        path = (
-            self.config.output_dir
-            / fingerprint.feature_selection_method
+    def write_parameters(
+        self, run_dir: Path, fingerprint: FingerprintConfig
+    ) -> Path:
+        parameters = {
+            "workload_name": self.config.workload_name,
+            "block_size_rows": self.config.block_size_rows,
+            **asdict(fingerprint),
+        }
+        path = run_dir / "parameters.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps(parameters, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
         )
-        if fingerprint.feature_selection_method in SCOPE_CONFIGURABLE_METHODS:
-            path /= f"feature_scope_{fingerprint.feature_selection_scope}"
-        path /= f"ngram_{fingerprint.ngram_size}"
-        if fingerprint.subblock_size_rows is not None:
-            path /= f"subblock_size_rows_{fingerprint.subblock_size_rows}"
-        return (
-            path
-            / f"min_block_frequency_{self._frequency_label(fingerprint.min_block_frequency)}"
-            / f"max_block_frequency_{self._frequency_label(fingerprint.max_block_frequency)}"
-        )
+        return path
 
     def run(self) -> Path:
         sweep_started_at = perf_counter()
@@ -711,7 +711,8 @@ class SweepRunner:
         fingerprint_data_cache = FingerprintDataCache()
         for index, fingerprint in enumerate(experiments, 1):
             experiment_started_at = perf_counter()
-            run_dir = self.run_directory(fingerprint)
+            run_dir = self.run_directory(index)
+            self.write_parameters(run_dir, fingerprint)
             print(
                 f"\n=== [{index}/{len(experiments)}] {fingerprint.feature_selection_method}; "
                 f"scope={fingerprint.feature_selection_scope}; "

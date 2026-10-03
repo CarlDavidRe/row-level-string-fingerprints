@@ -1,0 +1,15 @@
+{
+  "ascii_only": true,
+  "block_size_rows": 4,
+  "feature_selection_method": "fingerprint_internal_entropy_equivalence_classes",
+  "feature_selection_scope": "local",
+  "max_block_frequency": 1.0,
+  "min_block_frequency": 0.0,
+  "ngram_size": 2,
+  "subblock_size_rows": 2,
+  "widths": [
+    2,
+    4
+  ],
+  "workload_name": "layout_smoke"
+}
