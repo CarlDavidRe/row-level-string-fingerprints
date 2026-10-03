@@ -30,8 +30,7 @@
       1.0
     ],
     "feature_selection_scopes": [
-      "local",
-      "global"
+      "local"
     ],
     "subblock_sizes_rows": [
       1,
