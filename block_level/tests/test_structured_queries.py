@@ -47,7 +47,10 @@ class StructuredQueryTest(unittest.TestCase):
             root = Path(directory)
             query_path = root / "items.value_queries.txt"
             query_path.write_text(
-                structured_query("contains(value, 'A')", ["A"]) + "\n",
+                structured_query("contains(value, 'A')", ["A"])
+                + "\n"
+                + structured_query("contains(value, 'a')", ["a"])
+                + "\n",
                 encoding="utf-8",
             )
             fingerprint = FingerprintConfig(
@@ -77,6 +80,46 @@ class StructuredQueryTest(unittest.TestCase):
                 evaluator = FingerprintEvaluator(experiment, fingerprint, [query_path], root / "run")
                 self.assertEqual(evaluator.ground_truth(connection, queries[0]), {0})
             self.assertEqual(skipped, [])
+
+    def test_single_query_file_is_skipped_while_eligible_targets_are_loaded(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            single_path = root / "items.single_queries.txt"
+            single_path.write_text("one\n", encoding="utf-8")
+            eligible_path = root / "items.value_queries.txt"
+            eligible_path.write_text("first\nsecond\n", encoding="utf-8")
+            method = "fingerprint_internal_entropy_equivalence_classes"
+            experiment = ExperimentConfig(
+                database_path=root / "unused.duckdb",
+                query_source_dir=root,
+                output_dir=root / "output",
+                sweep=SweepConfig(
+                    widths_by_method={method: (1,)},
+                    feature_selection_methods=(method,),
+                    ngram_sizes=(1,),
+                    min_block_frequencies_by_method={method: (0.0,)},
+                    subblock_sizes_rows=(1,),
+                    feature_selection_scope="local",
+                ),
+            )
+            with duckdb.connect(":memory:") as connection:
+                connection.execute(
+                    "CREATE TABLE items(single VARCHAR, value VARCHAR, partition_id INTEGER)"
+                )
+                queries, skipped = WorkloadRepository(experiment, root / "copies").load(
+                    connection, [single_path, eligible_path]
+                )
+            self.assertEqual(
+                {(row["table_name"], row["column_name"]) for row in queries},
+                {("items", "value")},
+            )
+            self.assertEqual(skipped, [{
+                "workload_file": "items.single_queries.txt",
+                "table_name": "items",
+                "column_name": "single",
+                "reason": "fewer_than_two_valid_queries",
+                "query_count": 1,
+            }])
 
     def test_all_needles_probe_requires_one_matrix_row(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

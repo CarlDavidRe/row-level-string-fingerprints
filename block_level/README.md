@@ -54,6 +54,9 @@ probes use the `lookup_needles` required by `individual_needle` and
 `all_needles` predicates; when there are no safe required needles (including
 `actual_predicate`), all partitions remain candidates. Multi-needle probes
 require all needle fingerprints to occur in the same stored matrix row.
+Only files with at least two valid query rows select a table column for
+fingerprint and matrix construction; other files are reported in
+`skipped_workloads.csv`.
 
 ## Sub-block fingerprint matrices
 

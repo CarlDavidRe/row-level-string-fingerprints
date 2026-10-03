@@ -152,6 +152,15 @@ class WorkloadRepository:
         for path in query_files:
             table, column = query_target(path)
             source_rows = parse_query_file(path)
+            if len(source_rows) <= 1:
+                skipped.append({
+                    "workload_file": path.name,
+                    "table_name": table,
+                    "column_name": column,
+                    "reason": "fewer_than_two_valid_queries",
+                    "query_count": len(source_rows),
+                })
+                continue
             if not self.target_exists(con, table, column):
                 skipped.append({
                     "workload_file": path.name,
