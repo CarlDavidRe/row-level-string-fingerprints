@@ -243,6 +243,13 @@ class ExperimentConfig:
 
     @classmethod
     def load(cls, path: str | Path) -> ExperimentConfig:
+        configs = cls.load_many(path)
+        if len(configs) != 1:
+            raise ValueError("config contains multiple workloads; use load_many")
+        return configs[0]
+
+    @classmethod
+    def load_many(cls, path: str | Path) -> tuple[ExperimentConfig, ...]:
         source_path = Path(path).expanduser().resolve()
         try:
             raw = json.loads(source_path.read_text(encoding="utf-8"))
@@ -250,6 +257,34 @@ class ExperimentConfig:
             raise ValueError(f"invalid JSON in {source_path}: {error}") from error
         if not isinstance(raw, Mapping):
             raise ValueError("experiment config must contain a JSON object")
+        workloads = raw.get("workloads")
+        if workloads is None:
+            return (cls._from_mapping(raw, source_path),)
+        if not isinstance(workloads, list) or not workloads:
+            raise ValueError("workloads must be a non-empty array")
+        configs = []
+        names = set()
+        for workload in workloads:
+            if not isinstance(workload, Mapping):
+                raise ValueError("each workload must be an object")
+            merged = {key: value for key, value in raw.items() if key != "workloads"}
+            merged.update(workload)
+            name = merged.get("workload_name")
+            if not isinstance(name, str) or not name:
+                raise ValueError("each workload needs a non-empty workload_name")
+            if name in names:
+                raise ValueError(f"duplicate workload_name: {name}")
+            names.add(name)
+            if "output_dir" in raw and "output_dir" not in workload:
+                merged["output_dir"] = str(Path(raw["output_dir"]) / name)
+            configs.append(cls._from_mapping(merged, source_path))
+        output_dirs = [config.output_dir for config in configs]
+        if len(set(output_dirs)) != len(output_dirs):
+            raise ValueError("workloads must use distinct output directories")
+        return tuple(configs)
+
+    @classmethod
+    def _from_mapping(cls, raw: Mapping[str, Any], source_path: Path) -> ExperimentConfig:
         base_dir = source_path.parent
 
         def resolve(value: str | Path) -> Path:
@@ -262,7 +297,7 @@ class ExperimentConfig:
         output_value = raw.get("output_dir")
         if output_value is None:
             run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S_%fZ")
-            output_dir = base_dir / f"ceb_imdb_block_skipping_sweep_{run_id}"
+            output_dir = base_dir / f"{raw.get('workload_name', 'ceb_imdb')}_block_skipping_sweep_{run_id}"
         else:
             output_dir = resolve(str(output_value))
         query_source = resolve(str(raw.get("query_source_dir", database_path.parent)))

@@ -30,12 +30,17 @@ def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(line_buffering=True)
     args = build_parser().parse_args(argv)
-    config = ExperimentConfig.load(args.config)
-    if args.validate_only:
+    configs = ExperimentConfig.load_many(args.config)
+    for config in configs:
         config.validate_inputs()
-        points = sum(1 for _ in config.sweep.experiments())
-        print(f"Valid configuration: {points} sweep configuration(s)")
+    if args.validate_only:
+        for config in configs:
+            points = sum(1 for _ in config.sweep.experiments())
+            print(f"{config.workload_name}: {points} sweep configuration(s)")
+        print(f"Valid configuration: {len(configs)} workload(s)")
         return 0
-    summary_path = SweepRunner(config).run()
-    print(f"Sweep complete: {summary_path}")
+    for index, config in enumerate(configs, 1):
+        print(f"\n=== Workload {index}/{len(configs)}: {config.workload_name} ===")
+        summary_path = SweepRunner(config).run()
+        print(f"Sweep complete: {summary_path}")
     return 0

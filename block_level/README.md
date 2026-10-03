@@ -5,22 +5,36 @@ It separates configuration, feature selection/fingerprint construction, workload
 evaluation, result export, and sweep orchestration. The original notebook is kept
 in this directory as a reference.
 
-Run the current notebook-equivalent sweep with:
+Run the configured `job` and `tpch_sf10` sweep with:
 
 ```bash
-.rowToBlock/bin/python -m block_level block_level/example_config.json
+.rowToBlock/bin/python -m block_level block_level/server.json
 ```
+
+The CEB sweep uses the same parameters for `ceb_imdb` and `ceb_stack`:
+
+```bash
+.rowToBlock/bin/python -m block_level block_level/ceb.json
+```
+
+Prepare the CEB Stack DuckDB database, partition IDs, and generated query files
+using the commands in the source project's README before running `ceb.json`.
 
 For a fresh environment, install `block_level/requirements.txt` first.
 
 The sole positional argument is a JSON experiment config. Relative database,
 query, and output paths are resolved relative to that config file. When
-`output_dir` is omitted, a timestamped `ceb_imdb_block_skipping_sweep_*`
-directory is created next to the config. Use `--validate-only` to validate the
+`output_dir` is omitted, a timestamped `<workload_name>_block_skipping_sweep_*`
+directory is created next to the config. A config may list multiple workloads
+under `workloads`; shared sweep settings apply to each workload in order, and
+each gets its own output directory and summary. Each workload entry needs
+`workload_name` and `database_path`; `query_source_dir` defaults to the database
+directory. A top-level `output_dir` places each workload in a named subdirectory.
+Single-workload configs remain supported. Use `--validate-only` to validate the
 configuration and input paths without executing the experiment:
 
 ```bash
-.rowToBlock/bin/python -m block_level block_level/example_config.json --validate-only
+.rowToBlock/bin/python -m block_level block_level/server.json --validate-only
 ```
 
 `partition_database` defaults to `false`. Set it to `true` only when the source

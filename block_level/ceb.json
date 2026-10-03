@@ -47,14 +47,14 @@
   },
   "workloads": [
     {
-      "workload_name": "job",
-      "database_path": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/job/job.duckdb",
-      "query_source_dir": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/job"
+      "workload_name": "ceb_imdb",
+      "database_path": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_imdb/ceb_imdb.duckdb",
+      "query_source_dir": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_imdb"
     },
     {
-      "workload_name": "tpch_sf10",
-      "database_path": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/tpch_sf10/tpch_sf10.duckdb",
-      "query_source_dir": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/tpch_sf10"
+      "workload_name": "ceb_stack",
+      "database_path": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_stack/ceb_stack.duckdb",
+      "query_source_dir": "/home/reese/block-fingerprints-project/block-skipping/data/workloads/ceb_stack"
     }
   ]
 }
